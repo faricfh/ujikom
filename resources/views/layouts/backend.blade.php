@@ -6,6 +6,8 @@
   <title>AdminLTE 3 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
@@ -43,7 +45,7 @@
   <!-- Content Wrapper. Contains page content -->
     @yield('content')
   <!-- /.content-wrapper -->
-    @include('layouts.backend.footer')
+    {{-- @include('layouts.backend.footer') --}}
 
   <!-- Control Sidebar -->
   {{-- <aside class="control-sidebar control-sidebar-dark">

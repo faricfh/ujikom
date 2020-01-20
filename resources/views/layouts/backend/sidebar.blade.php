@@ -26,31 +26,31 @@
           <li class="nav-item has-treeview menu-open">
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('user') }}" class="nav-link">
+                    <a href="{{ url('admin/user') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>User</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                <a href="{{ url('kategori') }}" class="nav-link">
+                <a href="{{ url('admin/kategori') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Kategori</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('produk') }}" class="nav-link">
+                    <a href="{{ url('admin/produk') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('order') }}" class="nav-link">
+                    <a href="{{ url('admin/order') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Order</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('transaksi') }}" class="nav-link">
+                    <a href="{{ url('admin/transaksi') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Transaksi</p>
                     </a>

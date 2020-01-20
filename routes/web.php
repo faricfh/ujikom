@@ -31,14 +31,17 @@ Route::get('/checkout', function () {
     return view('frontend.checkout');
 });
 
-Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
-    Route::get('/admin', function () {
+Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
+    Route::get('/', function () {
         return view('admin.dashboard');
     });
 
     Route::get('/user', 'UserController@index');
 
     Route::get('/kategori', 'KategoriController@index');
+    Route::post('/kategori-store', 'KategoriController@store');
+    Route::get('/kategori/{id}/edit', 'KategoriController@edit');
+    Route::delete('/kategori-destroy/{id}', 'KategoriController@destroy');
 
     Route::get('/produk', 'ProdukController@index');
 
@@ -50,10 +53,3 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-
-
-

@@ -17,6 +17,7 @@ class CreateProduksTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('slug');
+            $table->string('foto');
             $table->unsignedBigInteger('id_kategori');
             $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
             $table->double('harga');

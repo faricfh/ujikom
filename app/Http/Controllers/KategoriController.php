@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DataTables;
+use App\Kategori;
+use Auth;
 
 class KategoriController extends Controller
 {
@@ -11,8 +14,21 @@ class KategoriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Kategori::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit">EDIT</i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus">HAPUS</i></a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('admin.kategori');
     }
 
@@ -34,7 +50,16 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        Kategori::updateOrCreate(
+            ['id' => $request->kategori_id],
+            [
+                'nama' => $request->nama,
+                'slug' => $request->nama
+            ]
+        );
+
+        return response()->json(['success' => ' Berhasil di Simpan']);
     }
 
     /**
@@ -56,7 +81,8 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kategori = Kategori::find($id);
+        return response()->json($kategori);
     }
 
     /**
@@ -79,6 +105,7 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Kategori::find($id)->delete();
+        return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }
