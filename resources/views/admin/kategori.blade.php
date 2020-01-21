@@ -50,7 +50,7 @@
     <!-- /.content -->
 </div>
 
-{{-- modal mulai --}}
+<!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

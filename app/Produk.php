@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    protected $fillable = ['nama', 'slug', 'id_kategori', 'harga', 'jmlh', 'stok'];
+    protected $fillable = ['nama', 'slug', 'id_kategori', 'harga', 'stok','foto','konten'];
     public $timestamps = true;
 
     public function kategori()

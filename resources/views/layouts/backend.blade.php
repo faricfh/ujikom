@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/summernote/summernote-bs4.css') }}">
   <!-- Google Font: Source Sans Pro -->
@@ -89,9 +92,20 @@
 <script src="{{ asset('assets/backend/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/backend/dist/js/demo.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('assets/backend/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- DataTables -->
 <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<!-- ckeditor -->
+<script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script>
+<script>
+  $('.select2').select2()
+</script>
+<script>
+    CKEDITOR.replace( 'editor1' );
+</script>
 @yield('js')
 </body>
 </html>

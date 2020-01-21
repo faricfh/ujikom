@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use DataTables;
 use App\Produk;
 use Auth;
@@ -50,7 +51,35 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $slug = Str::slug($request->nama, '-');
+        if ($files = $request->file('foto')) {
+           
+            $image = $files->store('public/poto');
+             
+            // return Response()->json([
+            //     "success" => true,
+            //     "image" => $image
+            // ]);
+ 
+        }
+
+        $photo = $request->file('foto')->getClientOriginalName();
+        
+        Produk::updateOrCreate(
+            ['id' => $request->produk_id],
+            [
+                'nama' => $request->nama,
+                'slug' => $slug,
+                'id_kategori' => $request->id_kategori,
+                'harga' => $request->harga,
+                'stok' => $request->stok,
+                'konten' => $request->test,
+                'foto' => $photo,
+                
+            ]
+        );
+
+        return response()->json(['success' => ' Berhasil di Simpan']);
     }
 
     /**

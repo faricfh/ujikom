@@ -56,7 +56,7 @@
   </div>
 
 
-{{-- modal mulai --}}
+<!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -71,19 +71,49 @@
             <!-- Bagian Body Modal-->
             <div class="modal-body">
                 <!-- Form-->
-                <form id="form" name="form" class="form-horizontal">
+                <form id="form" name="form" class="form-horizontal" enctype="multipart/form-data">
                     <input type="hidden" name="produk_id" id="produk_id">
                     <div class="form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="name" class="control-label">Nama Produk</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Produk" maxlength="50" autocomplete="off" required>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Produk" autocomplete="off" required>
                             <p style="color: red;" id="error_nama"></p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="name" class="control-label">Kategori</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Kategori" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_nama"></p>
+                            <select name="id_kategori" id="id_kategori" class="select2 select2-selection--single">
+                              <option value="#">Pilih Kategori</option>
+                            </select>
+                            <p style="color: red;" id="error_kategori"></p>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="name" class="control-label">Harga</label>
+                            <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga" autocomplete="off" required>
+                            <p style="color: red;" id="error_harga"></p>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="name" class="control-label">Stok</label>
+                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" autocomplete="off" required>
+                            <p style="color: red;" id="error_stok"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12">
+                          <label for="name" class="control-label">Foto</label>
+                          <input type="file" name="foto" id="foto" class="form-control">
+                          <p style="color: red;" id="error_foto"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12">
+                          <label for="name" class="control-label">Deskripsi</label>
+                          <textarea name="konten" id="editor1" cols="30" rows="10">
+                          </textarea>
+                          <input type="text" name="test">
+                          <p style="color: red;" id="error_konten"></p>
+                      </div>
                     </div>
                 </form>
                 <!-- Akhir Form-->
@@ -138,25 +168,49 @@
         $('#modal').modal('show');
     });
 
-    // $.ajax({
-    //     url: "{{ url('detail-pemakaian-resep') }}",
-    //     method: "GET",
-    //     dataType: "json",
-    //     success: function (berhasil) {
-    //         $.each(berhasil, function (key, value) {
-    //             $('#id_resep_'+no+'').append(
-    //                 `
-    //                 <option value="${value.id}">
-    //                     ${value.nama}
-    //                 </option>
-    //                 `
-    //             )
-    //         })
-    //     },
-    //     error: function () {
-    //         console.log('data tidak ada');
-    //     }
-    // });
+    //KETIKA BUTTON SAVE DI KLIK
+    $('#simpan').click(function (e) {
+        e.preventDefault();
+        // $(this).hide();
+        var formdata = new FormData($('#form')[0]);
+        $.ajax({
+            data: formdata,
+            url: "{{ url('admin/produk-store') }}",
+            type: "POST",
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('#form').trigger("reset");
+                $('#modal').modal('hide');
+                table.draw();
+            },
+
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    });
+
+    $.ajax({
+        url: "{{ url('admin/kategori') }}",
+        method: "GET",
+        dataType: "json",
+        success: function (berhasil) {
+            $.each(berhasil.data, function (key, value) {
+                $('#id_kategori').append(
+                    `
+                    <option value="${value.id}">
+                        ${value.nama}
+                    </option>
+                    `
+                )
+            })
+        },
+        error: function () {
+            console.log('data tidak ada');
+        }
+    });
 });
 
 </script>

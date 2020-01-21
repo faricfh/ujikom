@@ -44,6 +44,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::delete('/kategori-destroy/{id}', 'KategoriController@destroy');
 
     Route::get('/produk', 'ProdukController@index');
+    Route::post('/produk-store', 'ProdukController@store');
 
     Route::get('/order', 'OrderController@index');
 

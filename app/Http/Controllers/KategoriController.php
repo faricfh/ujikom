@@ -51,7 +51,6 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-
         $slug = Str::slug($request->nama, '-');
         Kategori::updateOrCreate(
             ['id' => $request->kategori_id],
