@@ -25,7 +25,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-body">
-          <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
+          <a class="btn btn-primary" href="javascript:void(0)" id="tambahdata">
             Tambah Data
           </a>
           <br/>
@@ -41,7 +41,7 @@
                   <th>Harga</th>
                   <th>Jumlah</th>
                   <th>Stok</th>
-                  <th width="120px">Opsi</th>
+                  <th width="69px">Opsi</th>
               </tr>
           </thead>
           <tbody>
@@ -54,6 +54,53 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+{{-- modal mulai --}}
+<div class="modal fade" id="modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Bagian header modal-->
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <ion-icon name="close-circle"></ion-icon>
+                </button>
+            </div>
+            <!-- Akhir Bagian header modal-->
+            <!-- Bagian Body Modal-->
+            <div class="modal-body">
+                <!-- Form-->
+                <form id="form" name="form" class="form-horizontal">
+                    <input type="hidden" name="produk_id" id="produk_id">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="name" class="control-label">Nama Produk</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Produk" maxlength="50" autocomplete="off" required>
+                            <p style="color: red;" id="error_nama"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name" class="control-label">Kategori</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Kategori" maxlength="50" autocomplete="off" required>
+                            <p style="color: red;" id="error_nama"></p>
+                        </div>
+                    </div>
+                </form>
+                <!-- Akhir Form-->
+            </div>
+            <!-- modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-danger pull-left"
+                id="reset">Batal</button>
+
+                <button align="right" type="submit" class="btn btn-primary" id="simpan"
+                value="create">Simpan</button>
+            </div>
+            <!-- Akhir modal footer-->
+        </div>
+    </div>
+</div>
+<!-- modal berakhir -->
 @endsection
 
 @section('js')
@@ -83,6 +130,33 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
+
+    $('#tambahdata').click(function () {
+        $('#produk_id').val('');
+        $('#form').trigger("reset");
+        $('#modal').modal({backdrop: 'static', keyboard: false});
+        $('#modal').modal('show');
+    });
+
+    // $.ajax({
+    //     url: "{{ url('detail-pemakaian-resep') }}",
+    //     method: "GET",
+    //     dataType: "json",
+    //     success: function (berhasil) {
+    //         $.each(berhasil, function (key, value) {
+    //             $('#id_resep_'+no+'').append(
+    //                 `
+    //                 <option value="${value.id}">
+    //                     ${value.nama}
+    //                 </option>
+    //                 `
+    //             )
+    //         })
+    //     },
+    //     error: function () {
+    //         console.log('data tidak ada');
+    //     }
+    // });
 });
 
 </script>

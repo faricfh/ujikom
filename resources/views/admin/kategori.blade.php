@@ -36,7 +36,7 @@
                     <th width="10px">No</th>
                     <th>Nama</th>
                     <th>Slug</th>
-                    <th width="120px">Opsi</th>
+                    <th width="69px">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +50,7 @@
     <!-- /.content -->
 </div>
 
+{{-- modal mulai --}}
 <div class="modal fade" id="modal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -69,7 +70,7 @@
                     <div class="form-group">
                         <label for="name" class="control-label" style="margin-bottom: 10px; margin-left: 10px;">Nama Kategori</label>
                         <div class="col-lg-12">
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kategori" maxlength="50" required>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kategori" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_nama"></p>
                         </div>
                     </div>

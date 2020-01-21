@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use DataTables;
 use App\Kategori;
 use Auth;
@@ -21,8 +22,8 @@ class KategoriController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit">EDIT</i></a>';
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus">HAPUS</i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
 
                     return $btn;
                 })
@@ -51,11 +52,12 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
 
+        $slug = Str::slug($request->nama, '-');
         Kategori::updateOrCreate(
             ['id' => $request->kategori_id],
             [
                 'nama' => $request->nama,
-                'slug' => $request->nama
+                'slug' => $slug
             ]
         );
 

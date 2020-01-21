@@ -36,7 +36,7 @@
                     <th width="10px">No</th>
                     <th>Username</th>
                     <th>E-mail</th>
-                    <th width="50px">Opsi</th>
+                    <th width="30px">Opsi</th>
                 </tr>
             </thead>
             <tbody>

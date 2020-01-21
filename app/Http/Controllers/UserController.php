@@ -22,9 +22,9 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     if (Auth::user()->id == $row->id) {
-                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteData" style="display: none;">HAPUS</i></a>';
-                    }else{
-                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteData">HAPUS</i></a>';
+                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteData" style="display: none;"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
+                    } else {
+                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteData"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
                     }
                     return $btn;
                 })
