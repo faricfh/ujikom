@@ -33,6 +33,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- sweetalert -->
+  <link rel="stylesheet" href="{{ asset(assets/backend/sweetalert2/dist/sweetalert2.min.css') }}">
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -100,6 +102,8 @@
 <!-- ckeditor -->
 <!-- <script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script> -->
+<!-- sweetalert2 -->
+<script src="{{ asset(assets/backend/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <script>
   $('.select2').select2();
 </script>
