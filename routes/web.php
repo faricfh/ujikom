@@ -45,6 +45,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
 
     Route::get('/produk', 'ProdukController@index');
     Route::post('/produk-store', 'ProdukController@store');
+    Route::get('/produk/{id}/edit', 'ProdukController@edit');
+    Route::delete('/produk-destroy/{id}', 'ProdukController@destroy');
 
     Route::get('/order', 'OrderController@index');
 

@@ -25,13 +25,13 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-body">
-            <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
+            {{-- <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
             Tambah Data
-          </a>
+          </a> --}}
           <br/>
           <br/>
-          <table class="table table-bordered data-table" width="100%">
-          <thead class="thead-dark">
+          <table class="table table-striped data-table" width="100%">
+          <thead>
               <tr>
                   <th width="10px">No</th>
                   <th>Order</th>

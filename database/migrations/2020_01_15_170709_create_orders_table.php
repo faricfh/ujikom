@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('tgl');
-            $table->double('total')->nullable();
+            $table->double('jmlh')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -29,7 +29,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('id_order')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });
-
     }
 
     /**

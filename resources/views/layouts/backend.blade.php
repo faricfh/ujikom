@@ -101,7 +101,7 @@
 <script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script>
 <script>
-  $('.select2').select2()
+  $('.select2').select2();
 </script>
 <script>
     CKEDITOR.replace( 'editor1' );

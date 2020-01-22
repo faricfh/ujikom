@@ -126,7 +126,7 @@
     $('body').on('click','.edit',function(){
         var idKategori = $(this).data('id');
         $.get("{{ url('admin/kategori') }}"+"/"+idKategori+"/edit", function(data){
-            console.log(data);
+            // console.log(data);
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
             $('#kategori_id').val(data.id);

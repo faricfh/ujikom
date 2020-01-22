@@ -20,7 +20,7 @@ class CreateTransaksisTable extends Migration
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->date('tgl');
-            $table->double('jmlh');
+            $table->double('total')->nullable();
             $table->timestamps();
         });
     }

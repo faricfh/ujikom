@@ -25,17 +25,17 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-body">
-            <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
+            {{-- <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
             Tambah Data
-          </a>
+          </a> --}}
           <br/>
           <br/>
-          <table class="table table-bordered data-table" width="100%">
-          <thead class="thead-dark">
+          <table class="table table-striped data-table" width="100%">
+          <thead>
               <tr>
                   <th width="10px">No</th>
                   <th>Tanggal</th>
-                  <th>Total</th>
+                  <th>Jumlah</th>
                   <th>User</th>
                   <th width="120px">Opsi</th>
               </tr>
@@ -70,7 +70,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'tgl', name: 'tgl'},
-            {data: 'total', name: 'total'},
+            {data: 'jmlh', name: 'jmlh'},
             {data: 'user.name', name: 'id_user'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

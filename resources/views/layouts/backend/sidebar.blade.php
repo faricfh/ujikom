@@ -33,25 +33,25 @@
                 </li>
                 <li class="nav-item">
                 <a href="{{ url('admin/kategori') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                    <i class="nav-icon fas fa-layer-group"></i>
                     <p>Kategori</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/produk') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                    <i class="nav-icon fas fa-book"></i>
                     <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/order') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                    <i class="nav-icon fas fa-plane"></i>
                     <p>Order</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/transaksi') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                    <i class="nav-icon fas fa-money-bill"></i>
                     <p>Transaksi</p>
                     </a>
                 </li>

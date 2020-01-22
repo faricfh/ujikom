@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use DataTables;
 use App\Produk;
+use Illuminate\Support\Facades\File;
 use Auth;
+use DB;
 
 class ProdukController extends Controller
 {
@@ -22,12 +24,16 @@ class ProdukController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm editData"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteData"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('gambar', function ($data) {
+                    $img = '<img src="../poto/' . $data->foto . '" alt="" width="100%" height="15%">';
+                    return $img;
+                })
+                ->rawColumns(['action', 'gambar'])
                 ->make(true);
         }
         return view('admin.produk');
@@ -52,32 +58,64 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $slug = Str::slug($request->nama, '-');
-        if ($files = $request->file('foto')) {
-           
-            $image = $files->store('public/poto');
-             
-            // return Response()->json([
-            //     "success" => true,
-            //     "image" => $image
-            // ]);
- 
-        }
 
-        $photo = $request->file('foto')->getClientOriginalName();
-        
-        Produk::updateOrCreate(
-            ['id' => $request->produk_id],
-            [
-                'nama' => $request->nama,
-                'slug' => $slug,
-                'id_kategori' => $request->id_kategori,
-                'harga' => $request->harga,
-                'stok' => $request->stok,
-                'konten' => $request->test,
-                'foto' => $photo,
-                
-            ]
-        );
+        if (is_null($request->produk_id)) {
+            $photo = $request->file('foto')->getClientOriginalName();
+            $request->foto->move(public_path('poto'), $request->file('foto')->getClientOriginalName());
+            Produk::updateOrCreate(
+                ['id' => $request->produk_id],
+                [
+                    'nama' => $request->nama,
+                    'slug' => $slug,
+                    'id_kategori' => $request->id_kategori,
+                    'harga' => $request->harga,
+                    'stok' => $request->stok,
+                    'konten' => $request->konten,
+                    'foto' => $photo,
+
+                ]
+            );
+        } else {
+            if (is_null($request->foto)) {
+                Produk::updateOrCreate(
+                    ['id' => $request->produk_id],
+                    [
+                        'nama' => $request->nama,
+                        'slug' => $slug,
+                        'id_kategori' => $request->id_kategori,
+                        'harga' => $request->harga,
+                        'stok' => $request->stok,
+                        'konten' => $request->konten
+
+                    ]
+                );
+            } else {
+                $old_photo = \DB::select('SELECT foto FROM produks WHERE id = ' . $request->produk_id . '');
+                $data = '';
+                foreach ($old_photo as $value) {
+                    $data .= $value->foto;
+                }
+                $image_path = "poto/" . $data;
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+                $photo = $request->file('foto')->getClientOriginalName();
+                $request->foto->move(public_path('poto'), $request->file('foto')->getClientOriginalName());
+                Produk::updateOrCreate(
+                    ['id' => $request->produk_id],
+                    [
+                        'nama' => $request->nama,
+                        'slug' => $slug,
+                        'id_kategori' => $request->id_kategori,
+                        'harga' => $request->harga,
+                        'stok' => $request->stok,
+                        'konten' => $request->konten,
+                        'foto' => $photo,
+
+                    ]
+                );
+            }
+        }
 
         return response()->json(['success' => ' Berhasil di Simpan']);
     }
@@ -101,7 +139,15 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produk = Produk::find($id);
+        $kategori = \DB::select('SELECT id,nama FROM kategoris');
+        foreach ($kategori as $value) {
+            $data[] = '<option value="' . $value->id . '" ' . ($value->id == $produk->id_kategori ? 'selected' : '') . '>' . $value->nama . '</option>';
+        }
+
+        $option = implode('', $data);
+        $data = ['produk' => $produk, 'kategori' => $option];
+        return response()->json($data);
     }
 
     /**
@@ -124,6 +170,12 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produk = Produk::find($id);
+        $image_path = "poto/" . $produk->foto;
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        }
+        $produk->delete();
+        return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }
