@@ -58,7 +58,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Tambah Data</h4>
                 <button type="button" class="close" data-dismiss="modal">
-                    <ion-icon name="close-circle"></ion-icon>
+                    <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
             </div>
             <!-- Akhir Bagian header modal-->

@@ -63,7 +63,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Tambah Data</h4>
                 <button type="button" class="close" data-dismiss="modal">
-                    <ion-icon name="close-circle"></ion-icon>
+                    <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
             </div>
             <!-- Akhir Bagian header modal-->
@@ -106,8 +106,7 @@
                     <div class="form-group">
                       <div class="col-sm-12">
                           <label for="name" class="control-label">Deskripsi</label>
-                          <textarea name="konten" id="editor1" cols="30" rows="10" value="" style="resize: none">
-                          </textarea>
+                          <textarea name="konten" id="konten" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
                           <p style="color: red;" id="error_konten"></p>
                       </div>
                     </div>
@@ -163,8 +162,9 @@ $('.select2').select2({
     });
 
     $('#tambahdata').click(function () {
-        $('#produk_id').val('');
         $('#form').trigger("reset");
+        $('#id_kategori').trigger("reset");
+        $('#produk_id').val('');
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
     });

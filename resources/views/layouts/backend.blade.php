@@ -98,14 +98,14 @@
 <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 <!-- ckeditor -->
-<script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script>
+<!-- <script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script> -->
 <script>
   $('.select2').select2();
 </script>
-<script>
+<!-- <script>
     CKEDITOR.replace( 'editor1' );
-</script>
+</script> -->
 @yield('js')
 </body>
 </html>

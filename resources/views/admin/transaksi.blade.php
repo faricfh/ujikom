@@ -25,9 +25,9 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-body">
-            {{-- <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
+          <!-- <a class="btn btn-primary" href="javascript:void(0)" id="buatbaru">
             Tambah Data
-          </a> --}}
+          </a> -->
           <br/>
           <br/>
           <table class="table table-striped data-table" width="100%">
@@ -37,7 +37,7 @@
                   <th>Order</th>
                   <th>User</th>
                   <th>Tanggal</th>
-                  <th>Jumlah</th>
+                  <th>Total</th>
                   <th width="120px">Opsi</th>
               </tr>
           </thead>
@@ -73,7 +73,7 @@
             {data: 'order.tgl', name: 'id_order'},
             {data: 'user.name', name: 'id_user'},
             {data: 'tgl', name: 'tgl'},
-            {data: 'jmlh', name: 'id_jmlh'},
+            {data: 'total', name: 'total'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
