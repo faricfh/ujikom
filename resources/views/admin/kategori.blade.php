@@ -36,7 +36,7 @@
                     <th width="10px">No</th>
                     <th>Nama</th>
                     <th>Slug</th>
-                    <th width="69px">Opsi</th>
+                    <th width="71px">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -161,6 +161,12 @@
                 $('#form').trigger("reset");
                 $('#modal').modal('hide');
                 table.draw();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             },
 
             error: function (request, status, error) {

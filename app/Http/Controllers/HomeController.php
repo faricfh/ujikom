@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Kategori;
+use App\Produk;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = count(User::all());
+        $kategori = count(Kategori::all());
+        $produk = count(Produk::all());
+        return view('admin.dashboard', compact('user', 'kategori', 'produk'));
     }
 }

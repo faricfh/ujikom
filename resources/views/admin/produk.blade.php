@@ -216,6 +216,12 @@ $('.select2').select2({
                 $('#form').trigger("reset");
                 $('#modal').modal('hide');
                 table.draw();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             },
 
             error: function (request, status, error) {

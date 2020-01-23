@@ -30,7 +30,7 @@ class ProdukController extends Controller
                     return $btn;
                 })
                 ->addColumn('gambar', function ($data) {
-                    $img = '<img src="../poto/' . $data->foto . '" alt="" width="100%" height="15%">';
+                    $img = '<img src="../assets/poto/' . $data->foto . '" alt="" width="100%" height="15%">';
                     return $img;
                 })
                 ->rawColumns(['action', 'gambar'])
@@ -61,7 +61,7 @@ class ProdukController extends Controller
 
         if (is_null($request->produk_id)) {
             $photo = $request->file('foto')->getClientOriginalName();
-            $request->foto->move(public_path('poto'), $request->file('foto')->getClientOriginalName());
+            $request->foto->move(public_path('assets/poto'), $photo);
             Produk::updateOrCreate(
                 ['id' => $request->produk_id],
                 [
@@ -95,12 +95,12 @@ class ProdukController extends Controller
                 foreach ($old_photo as $value) {
                     $data .= $value->foto;
                 }
-                $image_path = "poto/" . $data;
+                $image_path = "assets/poto/" . $data;
                 if (File::exists($image_path)) {
                     File::delete($image_path);
                 }
                 $photo = $request->file('foto')->getClientOriginalName();
-                $request->foto->move(public_path('poto'), $request->file('foto')->getClientOriginalName());
+                $request->foto->move(public_path('assets/poto'), $photo);
                 Produk::updateOrCreate(
                     ['id' => $request->produk_id],
                     [
@@ -171,7 +171,7 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produk = Produk::find($id);
-        $image_path = "poto/" . $produk->foto;
+        $image_path = "assets/poto/" . $produk->foto;
         if (File::exists($image_path)) {
             File::delete($image_path);
         }

@@ -18,11 +18,15 @@ Route::get('/', function () {
 Route::get('/shop', function () {
     return view('frontend.shop');
 });
+Route::get('/shop/{kategori}', function () {
+    return view('frontend.shop');
+});
+Route::get('/produk/{produk}', function () {
+    return view('frontend.product');
+});
+
 Route::get('/cart', function () {
     return view('frontend.cart');
-});
-Route::get('/product', function () {
-    return view('frontend.product');
 });
 Route::get('/cart', function () {
     return view('frontend.cart');
@@ -32,9 +36,7 @@ Route::get('/checkout', function () {
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/', 'HomeController@index');
 
     Route::get('/user', 'UserController@index');
 
