@@ -11,8 +11,8 @@
                 $("#home-produk").append(
                     `
                 <div class="single-products-catagory clearfix">
-                    <a href="frontend/shop">
-                        <img src="/poto/${value.foto}" alt="">
+                    <a href="/produk/${value.slug}">
+                        <img src="assets/poto/${value.foto}" alt="">
                         <!-- Hover Content -->
                         <div class="hover-content">
                             <div class="line"></div>
@@ -22,7 +22,7 @@
                     </a>
                 </div>
                 `
-                );
+                ).listview('refresh') ;
             });
         }
     });

@@ -16,7 +16,7 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $index = Produk::take(3)->get();
+        $index = Produk::take(7)->get();
 
         $response = [
             'success' => true,
