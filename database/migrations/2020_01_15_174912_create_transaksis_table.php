@@ -17,10 +17,11 @@ class CreateTransaksisTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_order');
             $table->foreign('id_order')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_customer');
+            $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
             $table->date('tgl');
-            $table->double('total')->nullable();
+            $table->unsignedBigInteger('jmlh')->nullable();
+            $table->unsignedBigInteger('total')->nullable();
             $table->timestamps();
         });
     }

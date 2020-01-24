@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    protected $fillable = ['id_order', 'id_user', 'tgl', 'jmlh'];
+    protected $fillable = ['id_order', 'id_customer', 'tgl', 'jmlh', 'total'];
     public $timestamps = true;
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo('App\User', 'id_user');
+        return $this->belongsTo('App\Customer', 'id_customer');
     }
 
     public function order()

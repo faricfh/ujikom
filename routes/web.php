@@ -39,6 +39,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
 
     Route::get('/user', 'UserController@index');
+    Route::post('/user-store', 'UserController@store');
+    Route::delete('/user-destroy/{id}', 'UserController@destroy');
+
+    Route::get('/customer', 'CustomerController@index');
+    Route::post('/customer-store', 'CustomerController@store');
+    Route::get('/customer/{id}/edit', 'CustomerController@edit');
+    Route::delete('/customer-destroy/{id}', 'CustomerController@destroy');
 
     Route::get('/kategori', 'KategoriController@index');
     Route::post('/kategori-store', 'KategoriController@store');

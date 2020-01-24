@@ -17,8 +17,9 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->date('tgl');
             $table->double('jmlh')->nullable();
-            $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->double('total')->nullable();
+            $table->unsignedBigInteger('id_customer');
+            $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
 

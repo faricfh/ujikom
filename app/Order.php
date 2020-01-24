@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['tgl', 'total', 'id_user'];
+    protected $fillable = ['tgl', 'jmlh', 'total', 'id_customer'];
     public $timestamps = true;
 
     public function produk()
@@ -14,9 +14,9 @@ class Order extends Model
         return $this->belongsToMany('App\Produk', 'order_produk', 'id_order', 'id_produk');
     }
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo('App\User', 'id_user');
+        return $this->belongsTo('App\Customer', 'id_customer');
     }
 
     public function transaksi()

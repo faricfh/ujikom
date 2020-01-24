@@ -7,12 +7,12 @@
         <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1>User</h1>
+            <h1>Customer</h1>
             </div>
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                <li class="breadcrumb-item active">User</li>
+                <li class="breadcrumb-item active">Customer</li>
             </ol>
             </div>
         </div>
@@ -34,9 +34,11 @@
                 <thead class="thead-dark">
                     <tr>
                         <th width="10px">No</th>
-                        <th>Username</th>
+                        <th>Nama</th>
                         <th>E-mail</th>
-                        <th width="30px">Opsi</th>
+                        <th>No Telp</th>
+                        <th>Alamat</th>
+                        <th width="71px">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +55,7 @@
 
 <!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
@@ -67,22 +69,34 @@
             <div class="modal-body">
                 <!-- Form-->
                 <form id="form" name="form" class="form-horizontal">
-                    <input type="hidden" name="user_id" id="user_id">
-                    <div class="form-group">
-                        <div class="col-lg-12">
-                            <label for="name" class="control-label">Nama User</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama User" maxlength="50" autocomplete="off" required>
+                    <input type="hidden" name="customer_id" id="customer_id">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="name" class="control-label">Nama Customer</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Customer" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_name"></p>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <label for="name" class="control-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_email"></p>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <label for="name" class="control-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_password"></p>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="name" class="control-label">No Telepon</label>
+                            <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="No Telepon" maxlength="50" autocomplete="off" required>
+                            <p style="color: red;" id="error_no_telp"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label for="name" class="control-label">Alamat</label>
+                            <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
+                            <p style="color: red;" id="error_alamat"></p>
                         </div>
                     </div>
                 </form>
@@ -115,27 +129,43 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('admin/user') }}",
+        ajax: "{{ url('admin/customer') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'name', name: 'name'},
+            {data: 'nama', name: 'nama'},
             {data: 'email', name: 'email'},
+            {data: 'no_tlp', name: 'no_tlp'},
+            {data: 'alamat', name: 'alamat'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
 
     $('#tambahdata').click(function () {
-        $('#user_id').val('');
+        $('#customer_id').val('');
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
     });
 
+    $('body').on('click','.edit',function(){
+        var idCustomer = $(this).data('id');
+        $.get("{{ url('admin/customer') }}"+"/"+idCustomer+"/edit", function(data){
+            console.log(data);
+            $('#modal').modal({backdrop: 'static', keyboard: false});
+            $('#modal').modal('show');
+            $('#customer_id').val(data.customer.id);
+            $('#nama').val(data.customer.nama);
+            $('#email').val(data.customer.email);
+            $('#no_tlp').val(data.customer.no_tlp);
+            $('#alamat').val(data.customer.alamat);
+        });
+    });
+
     $('body').on('click','.hapus', function(){
-        var idUser = $(this).data('id');
+        var idCustomer = $(this).data('id');
         $.ajax({
             type: "DELETE",
-            url: "{{ url('admin/user-destroy') }}"+"/"+idUser,
+            url: "{{ url('admin/customer-destroy') }}"+"/"+idCustomer,
             success: function(data){
                 table.draw();
             },
@@ -150,7 +180,7 @@
         // $(this).hide();
         $.ajax({
             data: $('#form').serialize(),
-            url: "{{ url('admin/user-store') }}",
+            url: "{{ url('admin/customer-store') }}",
             type: "POST",
             dataType: 'json',
             success: function (data) {

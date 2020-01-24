@@ -32,6 +32,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('admin/customer') }}" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>Customer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                 <a href="{{ url('admin/kategori') }}" class="nav-link">
                     <i class="nav-icon fas fa-layer-group"></i>
                     <p>Kategori</p>

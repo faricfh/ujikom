@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Customer;
 use DataTables;
-use App\User;
-use Auth;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,21 +17,19 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = Customer::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    if (Auth::user()->id == $row->id) {
-                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus" style="display: none;"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
-                    } else {
-                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
-                    }
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('admin.user');
+        return view('admin.customer');
     }
 
     /**
@@ -53,12 +51,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $pass = bcrypt($request->password);
-        User::updateOrCreate(
-            ['id' => $request->kategori_id],
+        Customer::updateOrCreate(
+            ['id' => $request->customer_id],
             [
-                'name' => $request->name,
+                'nama' => $request->nama,
                 'email' => $request->email,
-                'password' => $pass
+                'password' => $pass,
+                'no_tlp' => $request->no_tlp,
+                'alamat' => $request->alamat
             ]
         );
 
@@ -84,7 +84,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = customer::find($id);
+        $pass = $customer->password;
+        return response()->json(['customer' => $customer, 'password' => $pass]);
     }
 
     /**
@@ -107,7 +109,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        Customer::find($id)->delete();
         return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }

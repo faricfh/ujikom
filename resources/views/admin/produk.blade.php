@@ -118,8 +118,7 @@
                 <button data-dismiss="modal" type="button" class="btn btn-danger pull-left"
                 id="reset">Batal</button>
 
-                <button align="right" type="submit" class="btn btn-primary" id="simpan"
-                value="create">Simpan</button>
+                <button align="right" type="submit" class="btn btn-primary" id="simpan">Simpan</button>
             </div>
             <!-- Akhir modal footer-->
         </div>

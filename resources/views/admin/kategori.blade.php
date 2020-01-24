@@ -52,7 +52,7 @@
 
 <!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
@@ -68,8 +68,8 @@
                 <form id="form" name="form" class="form-horizontal">
                     <input type="hidden" name="kategori_id" id="kategori_id">
                     <div class="form-group">
-                        <label for="name" class="control-label" style="margin-bottom: 10px; margin-left: 10px;">Nama Kategori</label>
                         <div class="col-lg-12">
+                            <label for="name" class="control-label">Nama Kategori</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kategori" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_nama"></p>
                         </div>
@@ -82,8 +82,7 @@
                 <button data-dismiss="modal" type="button" class="btn btn-danger pull-left"
                 id="reset">Batal</button>
 
-                <button align="right" type="submit" class="btn btn-primary" id="simpan"
-                value="create">Simpan</button>
+                <button align="right" type="submit" class="btn btn-primary" id="simpan">Simpan</button>
             </div>
             <!-- Akhir modal footer-->
         </div>
