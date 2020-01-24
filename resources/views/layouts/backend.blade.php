@@ -35,6 +35,11 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- sweetalert -->
   <link rel="stylesheet" href="{{ asset('assets/backend/sweetalert2/package/dist/sweetalert2.min.css') }}">
+  <style>
+    body {
+      padding-right: 0 !important;
+    }
+  </style>
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
