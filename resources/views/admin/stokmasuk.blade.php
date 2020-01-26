@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Produk</h1>
+            <h1>Stok Masuk</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-              <li class="breadcrumb-item active">Produk</li>
+              <li class="breadcrumb-item active">Stok Masuk</li>
             </ol>
           </div>
         </div>
@@ -34,12 +34,9 @@
           <thead class="thead-dark">
               <tr>
                   <th width="10px">No</th>
-                  <th>Foto</th>
-                  <th>Nama</th>
-                  <th>Slug</th>
-                  <th>Kategori</th>
-                  <th>Harga</th>
-                  <th>Stok</th>
+                  <th>Tanggal</th>
+                  <th>Produk</th>
+                  <th>Quantity</th>
                   <th width="71px">Opsi</th>
               </tr>
           </thead>
@@ -57,7 +54,7 @@
 
 <!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
@@ -71,44 +68,25 @@
             <div class="modal-body">
                 <!-- Form-->
                 <form id="form" name="form" class="form-horizontal" enctype="multipart/form-data">
-                    <input type="hidden" name="produk_id" id="produk_id">
+                    <input type="hidden" name="stokmasuk_id" id="stokmasuk_id">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <label for="name" class="control-label">Nama Produk</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Produk" autocomplete="off" required>
-                            <p style="color: red;" id="error_nama"></p>
+                        <div class="col-sm-4">
+                            <label for="name" class="control-label">Tanggal</label>
+                            <input type="date" name="tgl" id="tgl" class="form-control" required>
+                            <p style="color: red;" id="error_tgl"></p>
                         </div>
-                        <div class="col-sm-6">
-                            <label for="name" class="control-label">Kategori</label>
-                            <select name="id_kategori" id="id_kategori" class="select2 select2-selection--single">
+                        <div class="col-sm-4">
+                            <label for="name" class="control-label">Produk</label>
+                            <select name="id_produk" id="id_produk" class="select2 select2-selection--single">
                               <option></option>
                             </select>
-                            <p style="color: red;" id="error_kategori"></p>
+                            <p style="color: red;" id="error_produk"></p>
                         </div>
-                        <div class="col-sm-6">
-                            <label for="name" class="control-label">Harga</label>
-                            <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga" autocomplete="off" required>
-                            <p style="color: red;" id="error_harga"></p>
+                        <div class="col-sm-4">
+                            <label for="name" class="control-label">Quantity</label>
+                            <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity" autocomplete="off" required>
+                            <p style="color: red;" id="error_qty"></p>
                         </div>
-                        <div class="col-sm-6">
-                            <label for="name" class="control-label">Stok</label>
-                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" autocomplete="off" required>
-                            <p style="color: red;" id="error_stok"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-12">
-                          <label for="name" class="control-label">Foto</label>
-                          <input type="file" name="foto" id="foto" class="form-control">
-                          <p style="color: red;" id="error_foto"></p>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-12">
-                          <label for="name" class="control-label">Deskripsi</label>
-                          <textarea name="deskripsi" id="deskripsi" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
-                          <p style="color: red;" id="error_deskripsi"></p>
-                      </div>
                     </div>
                 </form>
                 <!-- Akhir Form-->
@@ -130,7 +108,7 @@
 @section('js')
 <script>
 $('.select2').select2({
-    placeholder: "Pilih Kategori",
+    placeholder: "Pilih Produk",
     allowClear: true
 });
 </script>
@@ -147,49 +125,43 @@ $('.select2').select2({
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('admin/produk') }}",
+        ajax: "{{ url('admin/stokmasuk') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'gambar', name: 'gambar'},
-            {data: 'nama', name: 'nama'},
-            {data: 'slug', name: 'slug'},
-            {data: 'kategori.nama', name: 'id_kategori'},
-            {data: 'harga', name: 'harga'},
-            {data: 'stok', name: 'stok'},
+            {data: 'tgl', name: 'tgl'},
+            {data: 'produk.nama', name: 'id_produk'},
+            {data: 'qty', name: 'qty'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
 
     $('#tambahdata').click(function () {
         $('#form').trigger("reset");
-        $('#id_kategori').trigger("reset");
-        $('#produk_id').val('');
+        $('#id_produk').trigger("reset");
+        $('#stokmasuk_id').val('');
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
     });
 
     $('body').on('click','.edit',function(){
-        var idProduk = $(this).data('id');
-        $.get("{{ url('admin/produk') }}"+"/"+idProduk+"/edit", function(data){
+        var idStok = $(this).data('id');
+        $.get("{{ url('admin/stokmasuk') }}"+"/"+idStok+"/edit", function(data){
             // console.log(data);
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
-            $('#produk_id').val(data.produk.id);
-            $('#nama').val(data.produk.nama);
-            $('#id_kategori').html('');
-            $('#id_kategori').html(data.kategori);
-            $('#harga').val(data.produk.harga);
-            $('#stok').val(data.produk.stok);
-            // $('#foto').html(data.produk.foto);
-            $('#deskripsi').val(data.produk.deskripsi);
+            $('#stokmasuk_id').val(data.stokmasuk.id);
+            $('#tgl').val(data.stokmasuk.tgl);
+            $('#id_produk').html('');
+            $('#id_produk').html(data.produk);
+            $('#qty').val(data.stokmasuk.qty);
         });
     });
 
     $('body').on('click','.hapus', function(){
-        var idProduk = $(this).data('id');
+        var idStok = $(this).data('id');
         $.ajax({
             type: "DELETE",
-            url: "{{ url('admin/produk-destroy') }}"+"/"+idProduk,
+            url: "{{ url('admin/stokmasuk-destroy') }}"+"/"+idStok,
             success: function(data){
                 table.draw();
             },
@@ -206,7 +178,7 @@ $('.select2').select2({
         var formdata = new FormData($('#form')[0]);
         $.ajax({
             data: formdata,
-            url: "{{ url('admin/produk-store') }}",
+            url: "{{ url('admin/stokmasuk-store') }}",
             type: "POST",
             cache:false,
             contentType: false,
@@ -230,12 +202,12 @@ $('.select2').select2({
     });
 
     $.ajax({
-        url: "{{ url('admin/kategori') }}",
+        url: "{{ url('admin/produk') }}",
         method: "GET",
         dataType: "json",
         success: function (berhasil) {
             $.each(berhasil.data, function (key, value) {
-                $('#id_kategori').append(
+                $('#id_produk').append(
                     `
                     <option value="${value.id}">
                         ${value.nama}

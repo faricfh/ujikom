@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    protected $fillable = ['nama', 'slug', 'id_kategori', 'harga', 'stok', 'foto', 'konten'];
+    protected $fillable = ['nama', 'slug', 'id_kategori', 'harga', 'stok', 'foto', 'deskripsi'];
     public $timestamps = true;
 
     public function kategori()
@@ -14,9 +14,9 @@ class Produk extends Model
         return $this->belongsTo('App\Kategori', 'id_kategori');
     }
 
-    public function order()
+    public function stokmasuk()
     {
-        return $this->belongsToMany('App\Order', 'order_produk', 'id_produk', 'id_order');
+        return $this->hasMany('App\StokMasuk', 'id_produk');
     }
 
     public function getRouteKeyName()

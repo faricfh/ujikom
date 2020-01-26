@@ -6,17 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $fillable = ['nama', 'email', 'no_tlp', 'alamat', 'password'];
-    protected $hidden = ['password'];
+    protected $fillable = ['nama', 'email', 'no_tlp', 'alamat', 'status'];
     public $timestamps = true;
-
-    public function order()
-    {
-        return $this->hasMany('App\Order', 'id_customer');
-    }
-
-    public function transaksi()
-    {
-        return $this->hasMany('App\Transaksi', 'id_customer');
-    }
 }

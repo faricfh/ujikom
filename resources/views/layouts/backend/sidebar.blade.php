@@ -27,13 +27,13 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ url('admin/user') }}" class="nav-link">
-                    <i class="nav-icon fas fa-user"></i>
+                    <i class="nav-icon fas fa-user" style="color:red"></i>
                     <p>User</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/customer') }}" class="nav-link">
-                    <i class="nav-icon fas fa-user"></i>
+                    <i class="nav-icon fas fa-user" style="color:yellow"></i>
                     <p>Customer</p>
                     </a>
                 </li>
@@ -50,15 +50,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/order') }}" class="nav-link">
-                    <i class="nav-icon fas fa-plane"></i>
-                    <p>Order</p>
+                    <a href="{{ url('admin/stokmasuk') }}" class="nav-link">
+                    <i class="nav-icon fas fa-cube"></i>
+                    <p>Stok Masuk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/transaksi') }}" class="nav-link">
-                    <i class="nav-icon fas fa-money-bill"></i>
-                    <p>Transaksi</p>
+                    <a href="{{ url('admin/order') }}" class="nav-link">
+                    <i class="nav-icon fas fa-plane"></i>
+                    <p>Order</p>
                     </a>
                 </li>
             </ul>

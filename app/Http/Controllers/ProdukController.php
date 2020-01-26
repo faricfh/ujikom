@@ -70,7 +70,7 @@ class ProdukController extends Controller
                     'id_kategori' => $request->id_kategori,
                     'harga' => $request->harga,
                     'stok' => $request->stok,
-                    'konten' => $request->konten,
+                    'deskripsi' => $request->deskripsi,
                     'foto' => $photo,
 
                 ]
@@ -85,7 +85,7 @@ class ProdukController extends Controller
                         'id_kategori' => $request->id_kategori,
                         'harga' => $request->harga,
                         'stok' => $request->stok,
-                        'konten' => $request->konten
+                        'deskripsi' => $request->deskripsi
 
                     ]
                 );
@@ -109,7 +109,7 @@ class ProdukController extends Controller
                         'id_kategori' => $request->id_kategori,
                         'harga' => $request->harga,
                         'stok' => $request->stok,
-                        'konten' => $request->konten,
+                        'deskripsi' => $request->deskripsi,
                         'foto' => $photo,
 
                     ]

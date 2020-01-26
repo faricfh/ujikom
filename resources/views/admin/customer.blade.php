@@ -38,6 +38,7 @@
                         <th>E-mail</th>
                         <th>No Telp</th>
                         <th>Alamat</th>
+                        <th>Status</th>
                         <th width="71px">Opsi</th>
                     </tr>
                 </thead>
@@ -55,7 +56,7 @@
 
 <!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
@@ -71,22 +72,17 @@
                 <form id="form" name="form" class="form-horizontal">
                     <input type="hidden" name="customer_id" id="customer_id">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <label for="name" class="control-label">Nama Customer</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Customer" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_name"></p>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <label for="name" class="control-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_email"></p>
                         </div>
-                        <div class="col-lg-6">
-                            <label for="name" class="control-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_password"></p>
-                        </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <label for="name" class="control-label">No Telepon</label>
                             <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="No Telepon" maxlength="50" autocomplete="off" required>
                             <p style="color: red;" id="error_no_telp"></p>
@@ -136,6 +132,7 @@
             {data: 'email', name: 'email'},
             {data: 'no_tlp', name: 'no_tlp'},
             {data: 'alamat', name: 'alamat'},
+            {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -153,11 +150,12 @@
             console.log(data);
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
-            $('#customer_id').val(data.customer.id);
-            $('#nama').val(data.customer.nama);
-            $('#email').val(data.customer.email);
-            $('#no_tlp').val(data.customer.no_tlp);
-            $('#alamat').val(data.customer.alamat);
+            $('#customer_id').val(data.id);
+            $('#nama').val(data.nama);
+            $('#email').val(data.email);
+            $('#no_tlp').val(data.no_tlp);
+            $('#alamat').val(data.alamat);
+
         });
     });
 

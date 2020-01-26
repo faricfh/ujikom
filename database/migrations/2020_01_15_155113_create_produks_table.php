@@ -21,7 +21,7 @@ class CreateProduksTable extends Migration
             $table->unsignedBigInteger('id_kategori');
             $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
             $table->double('harga');
-            $table->text('konten')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->float('stok')->nullable();
             $table->timestamps();
         });

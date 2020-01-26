@@ -15,19 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('tgl');
-            $table->double('jmlh')->nullable();
-            $table->double('total')->nullable();
-            $table->unsignedBigInteger('id_customer');
-            $table->foreign('id_customer')->references('id')->on('customers')->onDelete('cascade');
-            $table->timestamps();
-        });
-
-        Schema::create('order_produk', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_produk');
-            $table->foreign('id_produk')->references('id')->on('produks')->onDelete('cascade');
-            $table->unsignedBigInteger('id_order');
-            $table->foreign('id_order')->references('id')->on('orders')->onDelete('cascade');
+            $table->string('invoice');
+            $table->string('id_customer');
+            $table->string('nama_customer');
+            $table->string('phone_customer');
+            $table->string('alamat_customer');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

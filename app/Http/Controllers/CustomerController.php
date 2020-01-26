@@ -50,15 +50,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $pass = bcrypt($request->password);
         Customer::updateOrCreate(
             ['id' => $request->customer_id],
             [
                 'nama' => $request->nama,
                 'email' => $request->email,
-                'password' => $pass,
                 'no_tlp' => $request->no_tlp,
-                'alamat' => $request->alamat
+                'alamat' => $request->alamat,
+                'status' => 1,
             ]
         );
 
@@ -85,8 +84,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = customer::find($id);
-        $pass = $customer->password;
-        return response()->json(['customer' => $customer, 'password' => $pass]);
+        return response()->json($customer);
     }
 
     /**
