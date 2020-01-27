@@ -60,7 +60,7 @@ class ProdukController extends Controller
         $slug = Str::slug($request->nama, '-');
 
         if (is_null($request->produk_id)) {
-            $photo = $request->file('foto')->getClientOriginalName();
+            $photo = Str::random(6) . $request->file('foto')->getClientOriginalName();
             $request->foto->move(public_path('assets/poto'), $photo);
             Produk::updateOrCreate(
                 ['id' => $request->produk_id],
@@ -99,7 +99,7 @@ class ProdukController extends Controller
                 if (File::exists($image_path)) {
                     File::delete($image_path);
                 }
-                $photo = $request->file('foto')->getClientOriginalName();
+                $photo = Str::random(6) . $request->file('foto')->getClientOriginalName();
                 $request->foto->move(public_path('assets/poto'), $photo);
                 Produk::updateOrCreate(
                     ['id' => $request->produk_id],
