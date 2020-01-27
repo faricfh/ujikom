@@ -35,6 +35,8 @@ Route::get('/checkout', function () {
     return view('frontend.checkout');
 });
 
+Route::post('/formcart', 'Ecommerce\CartController@addToCart');
+
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
 
@@ -63,8 +65,6 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::delete('/stokmasuk-destroy/{id}', 'StokmasukController@destroy');
 
     Route::get('/order', 'OrderController@index');
-
-    Route::get('/transaksi', 'TransaksiController@index');
 });
 
 Auth::routes();
