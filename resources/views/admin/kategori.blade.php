@@ -56,7 +56,7 @@
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
@@ -116,6 +116,7 @@
     });
 
     $('#tambahdata').click(function () {
+        $('.modal-title').html('Tambah Data');
         $('#kategori_id').val('');
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
@@ -128,6 +129,7 @@
             // console.log(data);
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
+            $('.modal-title').html('Edit Data');
             $('#kategori_id').val(data.id);
             $('#nama').val(data.nama);
         });
