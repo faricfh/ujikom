@@ -25,17 +25,13 @@ Route::get('/produk/{produk}', function () {
     return view('frontend.product');
 });
 
-Route::get('/cart', function () {
-    return view('frontend.cart');
-});
-Route::get('/cart', function () {
-    return view('frontend.cart');
-});
+Route::get('/cart', 'Ecommerce\CartController@listCart');
+
 Route::get('/checkout', function () {
     return view('frontend.checkout');
 });
 
-Route::post('/formcart', 'Ecommerce\CartController@addToCart');
+Route::resource('/formcart', 'Ecommerce\CartController');
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
