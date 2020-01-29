@@ -58,7 +58,7 @@
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
@@ -136,6 +136,7 @@ $('.select2').select2({
     });
 
     $('#tambahdata').click(function () {
+        $('.modal-title').html('Tambah Data');
         $('#form').trigger("reset");
         $('#id_produk').trigger("reset");
         $('#stokmasuk_id').val('');
@@ -147,6 +148,7 @@ $('.select2').select2({
         var idStok = $(this).data('id');
         $.get("{{ url('admin/stokmasuk') }}"+"/"+idStok+"/edit", function(data){
             // console.log(data);
+            $('.modal-title').html('Edit Data');
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
             $('#stokmasuk_id').val(data.stokmasuk.id);
@@ -189,7 +191,7 @@ $('.select2').select2({
                 table.draw();
                 Swal.fire({
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: data.success,
                     showConfirmButton: false,
                     timer: 1000
                 });

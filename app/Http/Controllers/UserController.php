@@ -52,6 +52,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|unique:users,email,' . $request->user_id . ',id',
+                'password' => 'required|min:6'
+            ]
+        );
+
         $pass = bcrypt($request->password);
         User::updateOrCreate(
             ['id' => $request->kategori_id],
@@ -62,7 +70,7 @@ class UserController extends Controller
             ]
         );
 
-        return response()->json(['success' => ' Berhasil di Simpan']);
+        return response()->json(['success' => 'Berhasil di Simpan']);
     }
 
     /**

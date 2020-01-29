@@ -30,7 +30,7 @@ class ProdukController extends Controller
                     return $btn;
                 })
                 ->addColumn('gambar', function ($data) {
-                    $img = '<img src="../assets/poto/' . $data->foto . '" alt="" width="100%" height="15%">';
+                    $img = '<img src="../assets/poto/' . $data->foto . '" alt="" width="100%" height="18%">';
                     return $img;
                 })
                 ->rawColumns(['action', 'gambar'])
@@ -117,7 +117,7 @@ class ProdukController extends Controller
             }
         }
 
-        return response()->json(['success' => ' Berhasil di Simpan']);
+        return response()->json(['success' => 'Berhasil di Simpan']);
     }
 
     /**

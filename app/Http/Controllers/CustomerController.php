@@ -61,7 +61,7 @@ class CustomerController extends Controller
             ]
         );
 
-        return response()->json(['success' => ' Berhasil di Simpan']);
+        return response()->json(['success' => 'Berhasil di Simpan']);
     }
 
     /**

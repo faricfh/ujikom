@@ -60,7 +60,7 @@
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
@@ -138,6 +138,7 @@
     });
 
     $('#tambahdata').click(function () {
+        $('.modal-title').html('Tambah Data');
         $('#customer_id').val('');
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
@@ -147,7 +148,7 @@
     $('body').on('click','.edit',function(){
         var idCustomer = $(this).data('id');
         $.get("{{ url('admin/customer') }}"+"/"+idCustomer+"/edit", function(data){
-            console.log(data);
+            $('.modal-title').html('Edit Data');
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
             $('#customer_id').val(data.id);
@@ -187,7 +188,7 @@
                 table.draw();
                 Swal.fire({
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: data.success,
                     showConfirmButton: false,
                     timer: 1000
                 });

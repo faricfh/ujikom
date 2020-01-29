@@ -36,7 +36,7 @@
                     <th width="10px">No</th>
                     <th>Nama</th>
                     <th>Slug</th>
-                    <th width="71px">Opsi</th>
+                    <th width="90px">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -164,7 +164,7 @@
                 table.draw();
                 Swal.fire({
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: data.success,
                     showConfirmButton: false,
                     timer: 1000
                 });

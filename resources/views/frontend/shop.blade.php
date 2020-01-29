@@ -47,3 +47,7 @@
             </div>
         </div>
 @endsection
+
+@section('js')
+    <script src="{{ asset('js/frontend.js') }}"></script>
+@endsection

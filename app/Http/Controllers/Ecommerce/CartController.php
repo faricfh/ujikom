@@ -12,7 +12,7 @@ class CartController extends Controller
     private function getCarts()
     {
         $carts = json_decode(request()->cookie('dw-carts'), true);
-        $carts = $carts != '' ? $carts:[];
+        $carts = $carts != '' ? $carts : [];
         return $carts;
     }
     public function store(Request $request)
@@ -25,7 +25,7 @@ class CartController extends Controller
 
         //AMBIL DATA CART DARI COOKIE, KARENA BENTUKNYA JSON MAKA KITA GUNAKAN JSON_DECODE UNTUK MENGUBAHNYA MENJADI ARRAY
         $carts = $this->getCarts();
-            
+
         //CEK JIKA CARTS TIDAK NULL DAN PRODUCT_ID ADA DIDALAM ARRAY CARTS
         if ($carts && array_key_exists($request->id_produk, $carts)) {
             //MAKA UPDATE QTY-NYA BERDASARKAN PRODUCT_ID YANG DIJADIKAN KEY ARRAY
@@ -46,7 +46,7 @@ class CartController extends Controller
         //BUAT COOKIE-NYA DENGAN NAME DW-CARTS
         //JANGAN LUPA UNTUK DI-ENCODE KEMBALI, DAN LIMITNYA 2800 MENIT ATAU 48 JAM
 
-        $cookie = cookie('dw-carts', json_encode($carts), 2880);
+        $cookie = cookie('dw-carts', json_encode($carts), 1);
         return redirect()->back()->cookie($cookie);
     }
 

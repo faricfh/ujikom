@@ -34,7 +34,7 @@
           <thead class="thead-dark">
               <tr>
                   <th width="10px">No</th>
-                  <th>Foto</th>
+                  <th width="100px">Foto</th>
                   <th>Nama</th>
                   <th>Slug</th>
                   <th>Kategori</th>
@@ -61,7 +61,7 @@
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
@@ -161,6 +161,7 @@ $('.select2').select2({
     });
 
     $('#tambahdata').click(function () {
+        $('.modal-title').html('Tambah Data');
         $('#form').trigger("reset");
         $('#id_kategori').trigger("reset");
         $('#produk_id').val('');
@@ -172,6 +173,7 @@ $('.select2').select2({
         var idProduk = $(this).data('id');
         $.get("{{ url('admin/produk') }}"+"/"+idProduk+"/edit", function(data){
             // console.log(data);
+            $('.modal-title').html('Edit Data');
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
             $('#produk_id').val(data.produk.id);
@@ -217,7 +219,7 @@ $('.select2').select2({
                 table.draw();
                 Swal.fire({
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: data.success,
                     showConfirmButton: false,
                     timer: 1000
                 });

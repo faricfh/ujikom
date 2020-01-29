@@ -29,7 +29,7 @@
                                             <h5>{{ $data['nama_produk'] }}</h5>
                                         </td>
                                         <td class="price">
-                                            <span>{{ $data['harga_produk'] }}</span>
+                                            <span>{{ number_format($data['harga_produk']) }}</span>
                                         </td>
                                         <td class="qty">
                                             <div class="qty-btn d-flex">
@@ -53,7 +53,7 @@
                             <ul class="summary-table">
                                 <li><span>subtotal:</span> <span>Rp. {{ number_format($subtotal)  }}</span></li>
                                 <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>total:</span> <span>Rp. {{ number_format($subtotal)  }}</span></li>
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="cart.html" class="btn amado-btn w-100">Checkout</a>
@@ -64,4 +64,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/cart.js') }}"></script>
 @endsection

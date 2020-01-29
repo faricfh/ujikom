@@ -23,8 +23,10 @@ class KategoriController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
-                    if($row->produk->count() == 0){
+                    if ($row->produk->count() == 0) {
                         $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
+                    } else {
+                        $btn = $btn . ' <span class="badge badge-warning">Dipakai</span>';
                     }
                     return $btn;
                 })
@@ -61,7 +63,7 @@ class KategoriController extends Controller
             ]
         );
 
-        return response()->json(['success' => ' Berhasil di Simpan']);
+        return response()->json(['success' => 'Berhasil di Simpan']);
     }
 
     /**

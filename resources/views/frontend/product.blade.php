@@ -28,31 +28,31 @@
 @endsection
 
 @section('js')
-<script src="text/javascript">
+<script src="{{ asset('js/produkdetail.js') }}"></script>
+{{-- <script src="text/javascript">
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        // });
 
-$(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    // });
+        // $.('body').on('click','#simpan',function(e) {
+        //     e.preventDefault();
+        //     // $(this).hide();
+        //     $.ajax({
+        //         data: $('#form').serialize(),
+        //         url: "{{ route('formcart.store') }}",
+        //         type: "POST",
+        //         success: function(data) {
+        //             $('#form').trigger("reset");
+        //         },
 
-    // $.('body').on('click','#simpan',function(e) {
-    //     e.preventDefault();
-    //     // $(this).hide();
-    //     $.ajax({
-    //         data: $('#form').serialize(),
-    //         url: "{{ route('formcart.store') }}",
-    //         type: "POST",
-    //         success: function(data) {
-    //             $('#form').trigger("reset");
-    //         },
-
-    //         error: function(request, status, error) {
-    //             console.log(error);
-    //         }
-    //     });
-    // });
-});
-</script>
+        //         error: function(request, status, error) {
+        //             console.log(error);
+        //         }
+        //     });
+        });
+    });
+</script> --}}
 @endsection

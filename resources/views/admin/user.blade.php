@@ -57,7 +57,7 @@
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <img src="{{ asset('assets/backend/open-iconic/svg/x.svg') }}">
                 </button>
@@ -72,17 +72,20 @@
                         <div class="col-lg-12">
                             <label for="name" class="control-label">Nama User</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nama User" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_name"></p>
+                            <span style="color: red;" id="error_name"></span>
+                            <br>
                         </div>
                         <div class="col-lg-12">
                             <label for="name" class="control-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_email"></p>
+                            <span style="color: red;" id="error_email"></span>
+                            <br>
                         </div>
                         <div class="col-lg-12">
                             <label for="name" class="control-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_password"></p>
+                            <span style="color: red;" id="error_password"></span>
+                            <br>
                         </div>
                     </div>
                 </form>
@@ -125,10 +128,23 @@
     });
 
     $('#tambahdata').click(function () {
+        $('.modal-title').html('Tambah Data');
         $('#user_id').val('');
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
+        $('#name').keypress(function(){
+            $('#name').removeClass('is-invalid');
+            $('#error_name').css('display','none');
+        });
+        $('#email').keypress(function(){
+            $('#email').removeClass('is-invalid');
+            $('#error_email').css('display','none');
+        });
+        $('#password').keypress(function(){
+            $('#password').removeClass('is-invalid');
+            $('#error_password').css('display','none');
+        });
     });
 
     $('body').on('click','.hapus', function(){
@@ -159,14 +175,20 @@
                 table.draw();
                 Swal.fire({
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: data.success,
                     showConfirmButton: false,
                     timer: 1000
                 });
             },
 
             error: function (request, status, error) {
-                console.log(error);
+                $('#error_name').empty().show();
+                $('#error_email').empty().show();
+                $('#error_password').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_name').html(json.errors.name);
+                $('#error_email').html(json.errors.email);
+                $('#error_password').html(json.errors.password);
             }
         });
     });
