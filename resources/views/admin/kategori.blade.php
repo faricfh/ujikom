@@ -71,7 +71,8 @@
                         <div class="col-lg-12">
                             <label for="name" class="control-label">Nama Kategori</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Kategori" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_nama"></p>
+                            <span style="color: red;" id="error_nama"></span>
+                            <br>
                         </div>
                     </div>
                 </form>
@@ -148,16 +149,35 @@ $('#modal').on('hidden.bs.modal',function(){
 
     $('body').on('click','.hapus', function(){
         var idKategori = $(this).data('id');
-        $.ajax({
-            type: "DELETE",
-            url: "{{ url('admin/kategori-destroy') }}"+"/"+idKategori,
-            success: function(data){
-                table.draw();
-            },
-            error: function(request, status, error) {
-                console.log(error);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/kategori-destroy') }}"+"/"+idKategori,
+                    success: function(data){
+                        table.draw();
+                    },
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                });
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             }
-        });
+        })
     });
 
     //KETIKA BUTTON SAVE DI KLIK

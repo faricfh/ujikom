@@ -73,19 +73,22 @@
                         <div class="col-sm-4">
                             <label for="name" class="control-label">Tanggal</label>
                             <input type="date" name="tgl" id="tgl" class="form-control" required>
-                            <p style="color: red;" id="error_tgl"></p>
+                            <span style="color: red;" id="error_tgl"></span>
+                            <br>
                         </div>
                         <div class="col-sm-4">
                             <label for="name" class="control-label">Produk</label>
                             <select name="id_produk" id="id_produk" class="select2 select2-selection--single">
                               <option></option>
                             </select>
-                            <p style="color: red;" id="error_produk"></p>
+                            <span style="color: red;" id="error_produk"></span>
+                            <br>
                         </div>
                         <div class="col-sm-4">
                             <label for="name" class="control-label">Quantity</label>
                             <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity" autocomplete="off" required>
-                            <p style="color: red;" id="error_qty"></p>
+                            <span style="color: red;" id="error_qty"></span>
+                            <br>
                         </div>
                     </div>
                 </form>
@@ -111,6 +114,13 @@ $('.select2').select2({
     placeholder: "Pilih Produk",
     allowClear: true
 });
+</script>
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#error_tgl').css('display','none');
+    $('#error_produk').css('display','none');
+    $('#error_qty').css('display','none');
+})
 </script>
 <script type="text/javascript">
 
@@ -142,6 +152,15 @@ $('.select2').select2({
         $('#stokmasuk_id').val('');
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
+        $('#tgl').on('change',function(){
+            $('#error_tgl').css('display','none');
+        });
+        $('#id_produk').on('change',function(){
+            $('#error_produk').css('display','none');
+        });
+        $('#qty').keypress(function(){
+            $('#error_qty').css('display','none');
+        });
     });
 
     $('body').on('click','.edit',function(){
@@ -156,21 +175,49 @@ $('.select2').select2({
             $('#id_produk').html('');
             $('#id_produk').html(data.produk);
             $('#qty').val(data.stokmasuk.qty);
+            $('#tgl').on('change',function(){
+                $('#error_tgl').css('display','none');
+            });
+            $('#id_produk').on('change',function(){
+                $('#error_produk').css('display','none');
+            });
+            $('#qty').keypress(function(){
+                $('#error_qty').css('display','none');
+            });
         });
     });
 
     $('body').on('click','.hapus', function(){
         var idStok = $(this).data('id');
-        $.ajax({
-            type: "DELETE",
-            url: "{{ url('admin/stokmasuk-destroy') }}"+"/"+idStok,
-            success: function(data){
-                table.draw();
-            },
-            error: function(request, status, error) {
-                console.log(error);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/stokmasuk-destroy') }}"+"/"+idStok,
+                    success: function(data){
+                        table.draw();
+                    },
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                });
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             }
-        });
+        })
     });
 
     //KETIKA BUTTON SAVE DI KLIK
@@ -198,7 +245,13 @@ $('.select2').select2({
             },
 
             error: function (request, status, error) {
-                console.log(error);
+                $('#error_tgl').empty().show();
+                $('#error_produk').empty().show();
+                $('#error_qty').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_tgl').html(json.errors.tgl);
+                $('#error_produk').html(json.errors.id_produk);
+                $('#error_qty').html(json.errors.qty);
             }
         });
     });

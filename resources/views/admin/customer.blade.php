@@ -197,16 +197,35 @@ $('#modal').on('hidden.bs.modal',function(){
 
     $('body').on('click','.hapus', function(){
         var idCustomer = $(this).data('id');
-        $.ajax({
-            type: "DELETE",
-            url: "{{ url('admin/customer-destroy') }}"+"/"+idCustomer,
-            success: function(data){
-                table.draw();
-            },
-            error: function(request, status, error) {
-                console.log(error);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/customer-destroy') }}"+"/"+idCustomer,
+                    success: function(data){
+                        table.draw();
+                    },
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                });
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             }
-        });
+        })
     });
 
     $('#simpan').click(function (e) {

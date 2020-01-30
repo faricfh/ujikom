@@ -30,10 +30,16 @@ class ProdukController extends Controller
                     return $btn;
                 })
                 ->addColumn('gambar', function ($data) {
-                    $img = '<img src="../assets/poto/' . $data->foto . '" alt="" width="100%" height="18%">';
+                    $img = '<img src="../assets/poto/' . $data->foto . '" alt="" width="100px" height="100px">';
                     return $img;
                 })
-                ->rawColumns(['action', 'gambar'])
+                ->addColumn('stok', function ($data) {
+                    return number_format($data->stok);
+                })
+                ->addColumn('harga', function ($data) {
+                    return number_format($data->harga);
+                })
+                ->rawColumns(['action', 'gambar', 'stok', 'harga'])
                 ->make(true);
         }
         return view('admin.produk');
@@ -57,6 +63,25 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
+        if (is_null($request->produk_id)) {
+            $request->validate(
+                [
+                    'nama' => 'required',
+                    'id_kategori' => 'required',
+                    'harga' => 'required',
+                    'foto' => 'required'
+                ]
+            );
+        } else {
+            $request->validate(
+                [
+                    'nama' => 'required',
+                    'id_kategori' => 'required',
+                    'harga' => 'required'
+                ]
+            );
+        }
+
         $slug = Str::slug($request->nama, '-');
 
         if (is_null($request->produk_id)) {

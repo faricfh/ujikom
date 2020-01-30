@@ -51,6 +51,13 @@ class StokmasukController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'tgl' => 'required',
+                'id_produk' => 'required',
+                'qty' => 'required'
+            ]
+        );
 
         DB::transaction(function () use ($request) {
 

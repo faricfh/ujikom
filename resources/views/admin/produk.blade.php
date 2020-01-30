@@ -76,38 +76,40 @@
                         <div class="col-sm-6">
                             <label for="name" class="control-label">Nama Produk</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Produk" autocomplete="off" required>
-                            <p style="color: red;" id="error_nama"></p>
+                            <span style="color: red;" id="error_nama"></span>
+                            <br>
                         </div>
                         <div class="col-sm-6">
                             <label for="name" class="control-label">Kategori</label>
                             <select name="id_kategori" id="id_kategori" class="select2 select2-selection--single">
                               <option></option>
                             </select>
-                            <p style="color: red;" id="error_kategori"></p>
+                            <span style="color: red;" id="error_kategori"></span>
+                            <br>
                         </div>
                         <div class="col-sm-6">
                             <label for="name" class="control-label">Harga</label>
                             <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga" autocomplete="off" required>
-                            <p style="color: red;" id="error_harga"></p>
+                            <span style="color: red;" id="error_harga"></span>
+                            <br>
                         </div>
                         <div class="col-sm-6">
                             <label for="name" class="control-label">Stok</label>
-                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" autocomplete="off" required>
-                            <p style="color: red;" id="error_stok"></p>
+                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-12">
                           <label for="name" class="control-label">Foto</label>
                           <input type="file" name="foto" id="foto" class="form-control">
-                          <p style="color: red;" id="error_foto"></p>
+                          <span style="color: red;" id="error_foto"></span>
+                            <br>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-12">
                           <label for="name" class="control-label">Deskripsi</label>
                           <textarea name="deskripsi" id="deskripsi" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
-                          <p style="color: red;" id="error_deskripsi"></p>
                       </div>
                     </div>
                 </form>
@@ -133,6 +135,14 @@ $('.select2').select2({
     placeholder: "Pilih Kategori",
     allowClear: true
 });
+</script>
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#error_nama').css('display','none');
+    $('#error_kategori').css('display','none');
+    $('#error_harga').css('display','none');
+    $('#error_foto').css('display','none');
+})
 </script>
 <script type="text/javascript">
 
@@ -167,6 +177,18 @@ $('.select2').select2({
         $('#produk_id').val('');
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
+        $('#nama').keypress(function(){
+            $('#error_nama').css('display','none');
+        });
+        $('#id_kategori').on('change',function(){
+            $('#error_kategori').css('display','none');
+        });
+        $('#harga').keypress(function(){
+            $('#error_harga').css('display','none');
+        });
+        $('#foto').on('change',function(){
+            $('#error_foto').css('display','none');
+        });
     });
 
     $('body').on('click','.edit',function(){
@@ -184,21 +206,49 @@ $('.select2').select2({
             $('#stok').val(data.produk.stok);
             // $('#foto').html(data.produk.foto);
             $('#deskripsi').val(data.produk.deskripsi);
+            $('#nama').keypress(function(){
+                $('#error_nama').css('display','none');
+            });
+            $('#id_kategori').on('change',function(){
+                $('#error_kategori').css('display','none');
+            });
+            $('#harga').keypress(function(){
+                $('#error_harga').css('display','none');
+            });
         });
     });
 
     $('body').on('click','.hapus', function(){
         var idProduk = $(this).data('id');
-        $.ajax({
-            type: "DELETE",
-            url: "{{ url('admin/produk-destroy') }}"+"/"+idProduk,
-            success: function(data){
-                table.draw();
-            },
-            error: function(request, status, error) {
-                console.log(error);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/produk-destroy') }}"+"/"+idProduk,
+                    success: function(data){
+                        table.draw();
+                    },
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                });
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             }
-        });
+        })
     });
 
     //KETIKA BUTTON SAVE DI KLIK
@@ -226,7 +276,15 @@ $('.select2').select2({
             },
 
             error: function (request, status, error) {
-                console.log(error);
+                $('#error_nama').empty().show();
+                $('#error_kategori').empty().show();
+                $('#error_harga').empty().show();
+                $('#error_foto').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_nama').html(json.errors.nama);
+                $('#error_kategori').html(json.errors.id_kategori);
+                $('#error_harga').html(json.errors.harga);
+                $('#error_foto').html(json.errors.foto);
             }
         });
     });
