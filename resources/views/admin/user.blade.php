@@ -105,6 +105,13 @@
 <!-- modal berakhir -->
 @endsection
 @section('js')
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#error_name').css('display','none');
+    $('#error_email').css('display','none');
+    $('#error_password').css('display','none');
+})
+</script>
 <script type="text/javascript">
 
     $(function () {
@@ -134,15 +141,12 @@
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
         $('#name').keypress(function(){
-            $('#name').removeClass('is-invalid');
             $('#error_name').css('display','none');
         });
         $('#email').keypress(function(){
-            $('#email').removeClass('is-invalid');
             $('#error_email').css('display','none');
         });
         $('#password').keypress(function(){
-            $('#password').removeClass('is-invalid');
             $('#error_password').css('display','none');
         });
     });

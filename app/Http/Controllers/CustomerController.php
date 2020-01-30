@@ -50,6 +50,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|unique:customers,email,'.$request->customer_id.',id|email',
+                'no_tlp' => 'required',
+                'alamat' => 'required'
+            ]
+            );
         Customer::updateOrCreate(
             ['id' => $request->customer_id],
             [

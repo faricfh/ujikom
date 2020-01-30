@@ -75,24 +75,28 @@
                         <div class="col-lg-4">
                             <label for="name" class="control-label">Nama Customer</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Customer" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_name"></p>
+                            <span style="color: red;" id="error_nama"></span>
+                            <br>
                         </div>
                         <div class="col-lg-4">
                             <label for="name" class="control-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_email"></p>
+                            <span style="color: red;" id="error_email"></span>
+                            <br>
                         </div>
                         <div class="col-lg-4">
                             <label for="name" class="control-label">No Telepon</label>
                             <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="No Telepon" maxlength="50" autocomplete="off" required>
-                            <p style="color: red;" id="error_no_telp"></p>
+                            <span style="color: red;" id="error_no_tlp"></span>
+                            <br>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12">
                             <label for="name" class="control-label">Alamat</label>
                             <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
-                            <p style="color: red;" id="error_alamat"></p>
+                            <span style="color: red;" id="error_alamat"></span>
+                            <br>
                         </div>
                     </div>
                 </form>
@@ -112,6 +116,14 @@
 <!-- modal berakhir -->
 @endsection
 @section('js')
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#error_nama').css('display','none');
+    $('#error_email').css('display','none');
+    $('#error_no_tlp').css('display','none');
+    $('#error_alamat').css('display','none');
+})
+</script>
 <script type="text/javascript">
 
     $(function () {
@@ -143,6 +155,18 @@
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
+        $('#nama').keypress(function(){
+            $('#error_nama').css('display','none');
+        });
+        $('#email').keypress(function(){
+            $('#error_email').css('display','none');
+        });
+        $('#no_tlp').keypress(function(){
+            $('#error_no_tlp').css('display','none');
+        });
+        $('#alamat').keypress(function(){
+            $('#error_alamat').css('display','none');
+        });
     });
 
     $('body').on('click','.edit',function(){
@@ -156,7 +180,18 @@
             $('#email').val(data.email);
             $('#no_tlp').val(data.no_tlp);
             $('#alamat').val(data.alamat);
-
+            $('#nama').keypress(function(){
+                $('#error_nama').css('display','none');
+            });
+            $('#email').keypress(function(){
+                $('#error_email').css('display','none');
+            });
+            $('#no_tlp').keypress(function(){
+                $('#error_no_tlp').css('display','none');
+            });
+            $('#alamat').keypress(function(){
+                $('#error_alamat').css('display','none');
+            });
         });
     });
 
@@ -195,7 +230,15 @@
             },
 
             error: function (request, status, error) {
-                console.log(error);
+                $('#error_nama').empty().show();
+                $('#error_email').empty().show();
+                $('#error_no_tlp').empty().show();
+                $('#error_alamat').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_nama').html(json.errors.nama);
+                $('#error_email').html(json.errors.email);
+                $('#error_no_tlp').html(json.errors.no_tlp);
+                $('#error_alamat').html(json.errors.alamat);
             }
         });
     });

@@ -93,6 +93,11 @@
 @endsection
 
 @section('js')
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#error_nama').css('display','none');
+})
+</script>
 <script type="text/javascript">
 
     $(function () {
@@ -121,6 +126,9 @@
         $('#form').trigger("reset");
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
+        $('#nama').keypress(function(){
+            $('#error_nama').css('display','none');
+        });
     });
 
     $('body').on('click','.edit',function(){
@@ -132,6 +140,9 @@
             $('.modal-title').html('Edit Data');
             $('#kategori_id').val(data.id);
             $('#nama').val(data.nama);
+            $('#nama').keypress(function(){
+                $('#error_nama').css('display','none');
+            });
         });
     });
 
@@ -171,7 +182,9 @@
             },
 
             error: function (request, status, error) {
-                console.log(error);
+                $('#error_nama').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_nama').html(json.errors.nama);
             }
         });
     });
