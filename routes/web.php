@@ -31,7 +31,8 @@ Route::get('/checkout', function () {
     return view('frontend.checkout');
 });
 
-Route::resource('/formcart', 'Ecommerce\CartController');
+Route::post('/formcart', 'Ecommerce\CartController@addToCart');
+Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');

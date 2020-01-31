@@ -9,7 +9,7 @@
         <div class="single_product_desc" style="margin-left:60%;">
             <div class="product-meta-data">
                 <div class="line"></div>
-                <form class="cart clearfix" id="form" name="form" method="post" action="{{ route('formcart.store') }}">
+                <form class="cart clearfix" id="form" name="form" method="post" action="{{ url('/formcart') }}">
                 @csrf
                     <div class="cart-btn d-flex mb-50">
                         <p>Qty</p>
@@ -35,23 +35,23 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        // });
+        });
 
-        // $.('body').on('click','#simpan',function(e) {
-        //     e.preventDefault();
-        //     // $(this).hide();
-        //     $.ajax({
-        //         data: $('#form').serialize(),
-        //         url: "{{ route('formcart.store') }}",
-        //         type: "POST",
-        //         success: function(data) {
-        //             $('#form').trigger("reset");
-        //         },
+        $.('body').on('click','#simpan',function(e) {
+            e.preventDefault();
+            // $(this).hide();
+            $.ajax({
+                data: $('#form').serialize(),
+                url: "{{ route('formcart.store') }}",
+                type: "POST",
+                success: function(data) {
+                    $('#form').trigger("reset");
+                },
 
-        //         error: function(request, status, error) {
-        //             console.log(error);
-        //         }
-        //     });
+                error: function(request, status, error) {
+                    console.log(error);
+                }
+            });
         });
     });
 </script> --}}

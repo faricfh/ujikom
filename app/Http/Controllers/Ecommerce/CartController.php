@@ -15,7 +15,7 @@ class CartController extends Controller
         $carts = $carts != '' ? $carts : [];
         return $carts;
     }
-    public function store(Request $request)
+    public function addToCart(Request $request)
     {
         //VALIDASI DATA YANG DIKIRIM
         $this->validate($request, [
@@ -61,5 +61,27 @@ class CartController extends Controller
         });
         //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL
         return view('frontend.cart', compact('carts', 'subtotal'));
+    }
+
+    public function updateCart(Request $request)
+    {
+        //AMBIL DATA DARI COOKIE
+        $carts = $this->getCarts();
+        //KEMUDIAN LOOPING DATA PRODUCT_ID, KARENA NAMENYA ARRAY PADA VIEW SEBELUMNYA
+        //MAKA DATA YANG DITERIMA ADALAH ARRAY SEHINGGA BISA DI-LOOPING
+        foreach ($request->id_produk as $key => $row) {
+            //DI CHECK, JIKA QTY DENGAN KEY YANG SAMA DENGAN PRODUCT_ID = 0
+            if ($request->qty[$key] == 0) {
+                //MAKA DATA TERSEBUT DIHAPUS DARI ARRAY
+                unset($carts[$row]);
+            } else {
+                //SELAIN ITU MAKA AKAN DIPERBAHARUI
+                $carts[$row]['qty'] = $request->qty[$key];
+            }
+        }
+        //SET KEMBALI COOKIE-NYA SEPERTI SEBELUMNYA
+        $cookie = cookie('dw-carts', json_encode($carts), 1);
+        //DAN STORE KE BROWSER.
+        return redirect()->back()->cookie($cookie);
     }
 }

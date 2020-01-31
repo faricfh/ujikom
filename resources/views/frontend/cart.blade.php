@@ -10,6 +10,8 @@
                         </div>
 
                         <div class="cart-table clearfix">
+                            <form action="{{ url('/formcart-update') }}" method="post">
+                            @csrf
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
@@ -19,32 +21,35 @@
                                         <th>Quantity</th>
                                     </tr>
                                 </thead>
-                                <tbody >
-                                   @foreach($carts as $data)
-                                   <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="assets/poto/{{ $data['foto_produk'] }}" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>{{ $data['nama_produk'] }}</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>{{ number_format($data['harga_produk']) }}</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="{{ $data['qty'] }}">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                   @endforeach
-                                </tbody>
+                                    <tbody >
+                                        @foreach($carts as $data)
+                                        <input type="hidden" name="id_produk[]" value="{{ $data['id_produk']}}">
+                                        <tr>
+                                                <td class="cart_product_img">
+                                                    <a href="#"><img src="assets/poto/{{ $data['foto_produk'] }}" alt="Product"></a>
+                                                </td>
+                                                <td class="cart_product_desc">
+                                                    <h5>{{ $data['nama_produk'] }}</h5>
+                                                </td>
+                                                <td class="price">
+                                                    <span>{{ number_format($data['harga_produk']) }}</span>
+                                                </td>
+                                                <td class="qty">
+                                                    <div class="qty-btn d-flex">
+                                                        <p>Qty</p>
+                                                        <div class="quantity">
+                                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
+                                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                             </table>
+                            <button type="submit" class="btn amado-btn">Update</button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
