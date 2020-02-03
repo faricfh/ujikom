@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Ecommerce;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Produk;
 use Cookie;
+use App\Produk;
 
 class CartController extends Controller
 {
@@ -47,7 +47,8 @@ class CartController extends Controller
         //JANGAN LUPA UNTUK DI-ENCODE KEMBALI, DAN LIMITNYA 2800 MENIT ATAU 48 JAM
 
         $cookie = cookie('dw-carts', json_encode($carts), 1);
-        return redirect()->back()->cookie($cookie);
+        Cookie::queue($cookie);
+        return response()->json('Berhasil');
     }
 
     public function listCart()
@@ -67,6 +68,10 @@ class CartController extends Controller
     {
         //AMBIL DATA DARI COOKIE
         $carts = $this->getCarts();
+
+        if(is_null($request->id_produk)){
+            return response()->json('Error : Your Product Not Found, Please Refresh Again or Try Again to AddToCart Your Product',500);
+        }
         //KEMUDIAN LOOPING DATA PRODUCT_ID, KARENA NAMENYA ARRAY PADA VIEW SEBELUMNYA
         //MAKA DATA YANG DITERIMA ADALAH ARRAY SEHINGGA BISA DI-LOOPING
         foreach ($request->id_produk as $key => $row) {
@@ -82,6 +87,7 @@ class CartController extends Controller
         //SET KEMBALI COOKIE-NYA SEPERTI SEBELUMNYA
         $cookie = cookie('dw-carts', json_encode($carts), 1);
         //DAN STORE KE BROWSER.
-        return redirect()->back()->cookie($cookie);
+        Cookie::queue($cookie);
+        return response()->json('Berhasil');
     }
 }

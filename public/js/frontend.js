@@ -1,4 +1,9 @@
 (function($) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     var grabedurl = window.location.pathname;
     var url = "/api" + grabedurl;
 
@@ -42,19 +47,21 @@
         }
     });
 
+    var no = 0;
     $.ajax({
         url: url,
         method: "GET",
         datatype: "json",
         success: function(berhasil) {
             $.each(berhasil.data.produk, function(key, value) {
+                no++;
                 $("#produk").append(
                     `
                     <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="/assets/poto/${value.foto}" alt="">
+                                <img src="/assets/poto/${value.foto}" style="width:500px; height:300px">
                                 <!-- Hover Thumb -->
                                 <img class="hover-img" src="/assets/poto/${value.foto}" alt="">
                             </div>
@@ -79,15 +86,40 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
                                     <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="/assets/frontend/img/core-img/cart.png" alt=""></a>
+                                        <form id="form` + no + `">
+                                            <input type="hidden" id="id_produk` + no + `" value="${value.id}">
+                                            <input type="hidden" id="qty` + no + `" value="1">
+                                        </form>
+                                        <img src="/assets/frontend/img/core-img/cart.png" alt="" class="simpan" data-id="` + no + `">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `
+                ).add(
+                    $('#id_produk' + no + '').attr('name', 'id_produk'), //
+                    $('#qty' + no + '').attr('name', 'qty'), //
+                    //
                 );
             });
+            $('.simpan').click(function(e) {
+                e.preventDefault();
+                var idform = $(this).data('id');
+                // $(this).hide();
+                $.ajax({
+                    data: $('#form' + idform + '').serialize(),
+                    url: "/formcart",
+                    type: "POST",
+                    success: function(data) {
+                        $('#form').trigger("reset");
+                    },
+
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                })
+            })
         }
     });
 

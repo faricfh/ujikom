@@ -10,8 +10,7 @@
                         </div>
 
                         <div class="cart-table clearfix">
-                            <form action="{{ url('/formcart-update') }}" method="post">
-                            @csrf
+                            <form id="form">
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
@@ -22,7 +21,13 @@
                                     </tr>
                                 </thead>
                                     <tbody >
+                                        @php
+                                            $no = 0;
+                                        @endphp
                                         @foreach($carts as $data)
+                                        @php
+                                            $no++
+                                        @endphp
                                         <input type="hidden" name="id_produk[]" value="{{ $data['id_produk']}}">
                                         <tr>
                                                 <td class="cart_product_img">
@@ -38,9 +43,9 @@
                                                     <div class="qty-btn d-flex">
                                                         <p>Qty</p>
                                                         <div class="quantity">
-                                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
-                                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                            <input type="number" class="qty-text" id="qty{{ $no }}" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
+                                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -48,12 +53,12 @@
                                         @endforeach
                                     </tbody>
                             </table>
-                            <button type="submit" class="btn amado-btn">Update</button>
                             </form>
+                            <button type="submit" class="btn amado-btn" id="update">Update</button>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
-                        <div class="cart-summary">
+                        <div class="cart-summary tanda">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
                                 <li><span>subtotal:</span> <span>Rp. {{ number_format($subtotal)  }}</span></li>
@@ -72,5 +77,31 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/cart.js') }}"></script>
+<script src="{{ asset('js/cart.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#update').click(function(e) {
+            e.preventDefault();
+            // $(this).hide();
+            $.ajax({
+                data: $('#form').serialize(),
+                url: "{{ url('/formcart-update') }}",
+                type: "POST",
+                success: function(data) {
+                    //
+                },
+
+                error: function(request, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 @endsection

@@ -9,8 +9,7 @@
         <div class="single_product_desc" style="margin-left:60%;">
             <div class="product-meta-data">
                 <div class="line"></div>
-                <form class="cart clearfix" id="form" name="form" method="post" action="{{ url('/formcart') }}">
-                @csrf
+                <form class="cart clearfix" id="form" name="form">
                     <div class="cart-btn d-flex mb-50">
                         <p>Qty</p>
                         <div class="quantity">
@@ -19,8 +18,8 @@
                             <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn amado-btn" id="simpan">Add to cart</button>
                 </form>
+                <button type="submit" class="btn amado-btn" id="simpan">Add to cart</button>
             </div>
         </div>
     </div>
@@ -29,7 +28,7 @@
 
 @section('js')
 <script src="{{ asset('js/produkdetail.js') }}"></script>
-{{-- <script src="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -37,12 +36,12 @@
             }
         });
 
-        $.('body').on('click','#simpan',function(e) {
+        $('#simpan').click(function(e) {
             e.preventDefault();
             // $(this).hide();
             $.ajax({
                 data: $('#form').serialize(),
-                url: "{{ route('formcart.store') }}",
+                url: "{{ url('/formcart') }}",
                 type: "POST",
                 success: function(data) {
                     $('#form').trigger("reset");
@@ -54,5 +53,5 @@
             });
         });
     });
-</script> --}}
+</script>
 @endsection

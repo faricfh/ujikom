@@ -33,7 +33,7 @@
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
+                            <input type="search" name="search" id="search" placeholder="Type your keyword..." autocomplete="off">
                             <button type="submit"><img src="{{ asset('assets/frontend/img/core-img/search.png') }}" alt=""></button>
                         </form>
                     </div>
@@ -93,19 +93,13 @@
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="index.html">Home</a>
+                                            <a class="nav-link" href="{{ url('/')}}">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="shop.html">Shop</a>
+                                            <a class="nav-link" href="{{ url('/shop')}}">Shop</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="product-details.html">Product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="cart.html">Cart</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.html">Checkout</a>
+                                            <a class="nav-link" href="{{ url('/cart')}}">Cart</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -119,9 +113,9 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    {{-- <script src="{{ asset('assets/frontend/js/jquery/jquery-2.2.4.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/frontend/js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- jQuery -->
-    <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js') }}"></script> --}}
     <!-- Popper js -->
     <script src="{{ asset('assets/frontend/js/popper.min.js') }}"></script>
     <!-- Bootstrap js -->
