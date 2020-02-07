@@ -30,7 +30,7 @@ class FrontendController extends Controller
     public function shop()
     {
         $kategori = Kategori::take(7)->get();
-        $produk = Produk::take(6)->get();
+        $produk = Produk::paginate(6);
 
         $response = [
             'success' => true,
@@ -46,7 +46,7 @@ class FrontendController extends Controller
 
     public function kategorishop(Kategori $kategori)
     {
-        $produk = $kategori->produk()->take(6)->get();
+        $produk = $kategori->produk()->paginate(6);
         $kategoris = Kategori::take(7)->get();
         $response = [
             'success' => true,

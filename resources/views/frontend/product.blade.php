@@ -24,6 +24,18 @@
         </div>
     </div>
 </div>
+<div class="notify-alert notify-success bounceOutRight" role="alert" style="display: none" id="notif">
+    <div class="notify-alert-icon"><i class="flaticon2-check-mark"></i></div>
+    <div class="notify-alert-text">
+        <h4>success</h4>
+        <p>Product Successfully Added to Cart</p>
+    </div>
+    <div class="notify-alert-close">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="flaticon2-cross"></i></span>
+        </button>
+    </div>
+</div>
 @endsection
 
 @section('js')
@@ -45,6 +57,10 @@
                 type: "POST",
                 success: function(data) {
                     $('#form').trigger("reset");
+                    $('#notif').show();
+                    setInterval(function(){
+                        $('#notif').css('display','none');
+                    },2000)
                 },
 
                 error: function(request, status, error) {

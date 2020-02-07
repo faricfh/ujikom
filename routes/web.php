@@ -15,12 +15,9 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::get('/shop', function () {
-    return view('frontend.shop');
-});
-Route::get('/shop/{kategori}', function () {
-    return view('frontend.shop');
-});
+Route::get('/shop', 'FrontendController@shop');
+Route::get('/shop/{kategori}', 'FrontendController@kategorishop');
+
 Route::get('/produk/{produk}', function () {
     return view('frontend.product');
 });

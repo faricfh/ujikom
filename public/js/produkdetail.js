@@ -63,7 +63,7 @@ $.ajax({
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
                             <div class="line"></div>
-                            <p class="product-price">Rp. ${get.data.harga}</p>
+                            <p class="product-price">Rp${get.data.harga}</p>
                             <a href="/shop/${get.data.slug}">
                                 <h6>${get.data.nama}</h6>
                             </a>

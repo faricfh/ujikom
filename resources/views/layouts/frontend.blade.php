@@ -62,6 +62,8 @@
 
         <!-- Product Catagories Area Start -->
         @yield('content')
+        @notifyCss
+        @notifyJs
         <!-- Product Catagories Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
@@ -124,6 +126,11 @@
     <script src="{{ asset('assets/frontend/js/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('assets/frontend/js/active.js') }}"></script>
+    <script>
+        $(".close").click(function(){
+            $('#alert').css('display','none');
+        })
+    </script>
     @yield('js')
 
 </body>

@@ -6,6 +6,7 @@
     });
     var grabedurl = window.location.pathname;
     var url = "/api" + grabedurl;
+    var tambahan = window.location.search;
 
     $.ajax({
         url: url,
@@ -49,11 +50,12 @@
 
     var no = 0;
     $.ajax({
-        url: url,
+        url: url + tambahan,
         method: "GET",
         datatype: "json",
         success: function(berhasil) {
-            $.each(berhasil.data.produk, function(key, value) {
+            console.log(berhasil)
+            $.each(berhasil.data.produk.data, function(key, value) {
                 no++;
                 $("#produk").append(
                     `
@@ -61,9 +63,7 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="/assets/poto/${value.foto}" style="width:500px; height:300px">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="/assets/poto/${value.foto}" alt="">
+                                <img src="/assets/poto/${value.foto}" style="width:500px; height:450px">
                             </div>
 
                             <!-- Product Description -->
@@ -71,7 +71,7 @@
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
-                                    <p class="product-price">Rp. ${value.harga}</p>
+                                    <p class="product-price">Rp${value.harga}</p>
                                     <a href="/produk/${value.slug}">
                                         <h6>${value.nama}</h6>
                                     </a>
@@ -113,6 +113,10 @@
                     type: "POST",
                     success: function(data) {
                         $('#form').trigger("reset");
+                        $('#notif').show();
+                        setTimeout(() => {
+                            $('#notif').css('display', 'none');
+                        }, 3000);
                     },
 
                     error: function(request, status, error) {
