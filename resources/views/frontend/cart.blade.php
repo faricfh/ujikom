@@ -30,26 +30,26 @@
                                         @endphp
                                         <input type="hidden" name="id_produk[]" value="{{ $data['id_produk']}}">
                                         <tr>
-                                                <td class="cart_product_img">
-                                                    <a href="#"><img src="assets/poto/{{ $data['foto_produk'] }}" alt="Product"></a>
-                                                </td>
-                                                <td class="cart_product_desc">
-                                                    <h5>{{ $data['nama_produk'] }}</h5>
-                                                </td>
-                                                <td class="price">
-                                                    <span>{{ number_format($data['harga_produk']) }}</span>
-                                                </td>
-                                                <td class="qty">
-                                                    <div class="qty-btn d-flex">
-                                                        <p>Qty</p>
-                                                        <div class="quantity">
-                                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                            <input type="number" class="qty-text" id="qty{{ $no }}" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
-                                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                        </div>
+                                            <td class="cart_product_img">
+                                                <a href="#"><img src="assets/poto/{{ $data['foto_produk'] }}" alt="Product" style="width:200px; height:200px"></a>
+                                            </td>
+                                            <td class="cart_product_desc">
+                                                <h5>{{ $data['nama_produk'] }}</h5>
+                                            </td>
+                                            <td class="price">
+                                                <span>{{ number_format($data['harga_produk']) }}</span>
+                                            </td>
+                                            <td class="qty">
+                                                <div class="qty-btn d-flex">
+                                                    <p>Qty</p>
+                                                    <div class="quantity">
+                                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                        <input type="number" class="qty-text" id="qty{{ $no }}" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
+                                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                     </div>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                             </table>
@@ -61,9 +61,9 @@
                         <div class="cart-summary tanda">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>Rp{{ number_format($subtotal)  }}</span></li>
+                                <li><span>subtotal:</span> <span>Rp<span id="subtotal"></span></span></li>
                                 <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>Rp{{ number_format($subtotal)  }}</span></li>
+                                <li><span>total:</span> <span>Rp<span id="subtotal2"></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="cart.html" class="btn amado-btn w-100">Checkout</a>
@@ -86,6 +86,8 @@
             }
         });
 
+        var geturl = "{{ url('/getdatacart') }}";
+
         $('#update').click(function(e) {
             e.preventDefault();
             // $(this).hide();
@@ -94,7 +96,8 @@
                 url: "{{ url('/formcart-update') }}",
                 type: "POST",
                 success: function(data) {
-                    //
+                    $('#subtotal').load(geturl)
+                    $('#subtotal2').load(geturl)
                 },
 
                 error: function(request, status, error) {

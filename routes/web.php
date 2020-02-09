@@ -22,7 +22,8 @@ Route::get('/produk/{produk}', function () {
     return view('frontend.product');
 });
 
-Route::get('/cart', 'Ecommerce\CartController@listCart');
+Route::get('/cart', 'Ecommerce\CartController@cart');
+Route::get('/getdatacart', 'Ecommerce\CartController@listCart');
 
 Route::get('/checkout', function () {
     return view('frontend.checkout');

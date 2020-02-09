@@ -15,6 +15,19 @@ class CartController extends Controller
         $carts = $carts != '' ? $carts : [];
         return $carts;
     }
+
+    public function cart()
+    {
+        $carts = $this->getCarts();
+
+        //UBAH ARRAY MENJADI COLLECTION, KEMUDIAN GUNAKAN METHOD SUM UNTUK MENGHITUNG SUBTOTAL
+        $subtotal = collect($carts)->sum(function ($q) {
+            return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
+        });
+
+        return view('frontend.cart', compact('carts', 'subtotal'));
+    }
+
     public function addToCart(Request $request)
     {
         //VALIDASI DATA YANG DIKIRIM
@@ -46,7 +59,7 @@ class CartController extends Controller
         //BUAT COOKIE-NYA DENGAN NAME DW-CARTS
         //JANGAN LUPA UNTUK DI-ENCODE KEMBALI, DAN LIMITNYA 2800 MENIT ATAU 48 JAM
 
-        $cookie = cookie('dw-carts', json_encode($carts), 1);
+        $cookie = cookie('dw-carts', json_encode($carts), 36000);
         Cookie::queue($cookie);
         return response()->json('Berhasil');
     }
@@ -60,8 +73,9 @@ class CartController extends Controller
         $subtotal = collect($carts)->sum(function ($q) {
             return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
         });
+
         //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL
-        return view('frontend.cart', compact('carts', 'subtotal'));
+        return response()->json($subtotal);
     }
 
     public function updateCart(Request $request)
@@ -85,7 +99,7 @@ class CartController extends Controller
             }
         }
         //SET KEMBALI COOKIE-NYA SEPERTI SEBELUMNYA
-        $cookie = cookie('dw-carts', json_encode($carts), 1);
+        $cookie = cookie('dw-carts', json_encode($carts), 36000);
         //DAN STORE KE BROWSER.
         Cookie::queue($cookie);
         return response()->json('Berhasil');
