@@ -11,26 +11,28 @@ class LaratrustSeeder extends Seeder
      */
     public function run()
     {
-        $superadmin = new App\Role();
-        $superadmin->name         = 'superadmin';
-        $superadmin->display_name = 'SuperAdmin'; // optional
+        $superadminRole = new App\Role();
+        $superadminRole->name         = 'superadmin';
+        $superadminRole->display_name = 'SuperAdmin'; // optional
+        $superadminRole->save();
+
+        $adminRole = new App\Role();
+        $adminRole->name         = 'admin';
+        $adminRole->display_name = 'Admin'; // optional
+        $adminRole->save();
+
+        $superadmin = new App\User();
+        $superadmin->name = "AdminFShop";
+        $superadmin->email = "admin@fshop.com";
+        $superadmin->password = bcrypt('adminfshop');
         $superadmin->save();
+        $superadmin->attachRole($superadminRole);
 
-        $admin = new App\Role();
-        $admin->name         = 'admin';
-        $admin->display_name = 'Admin'; // optional
+        $admin = new App\User();
+        $admin->name = "Admin";
+        $admin->email = "admin@gmail.com";
+        $admin->password = bcrypt('admin123');
         $admin->save();
-
-        $permissionSA = new App\Permission();
-        $permissionSA->name         = 'crud-all';
-        $permissionSA->display_name = 'CRUD-ALL'; // optional
-        // Allow a user to...
-        $permissionSA->save();
-
-        $permissionA = new App\Permission();
-        $permissionA->name         = 'crud-noall';
-        $permissionA->display_name = 'CRUD-NoAll'; // optional
-        // Allow a user to...
-        $permissionA->save();
+        $admin->attachRole($adminRole);
     }
 }

@@ -114,6 +114,7 @@
                     success: function(data) {
                         $('#form').trigger("reset");
                         $('#notif').show();
+                        $('#totalproduk').load('/totalproduk');
                         setTimeout(() => {
                             $('#notif').css('display', 'none');
                         }, 3000);

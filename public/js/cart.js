@@ -2,7 +2,7 @@ var grabedurl = window.location.pathname;
 var url = "/api" + grabedurl;
 
 $.ajax({
-    url: '/getdatacart',
+    url: '/getsubtotal',
     method: "GET",
     datatype: "json",
     success: function(get) {

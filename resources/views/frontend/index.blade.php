@@ -15,7 +15,7 @@
                     <!-- Hover Content -->
                     <div class="hover-content">
                         <div class="line"></div>
-                        <p>Rp. {{ number_format($data->harga) }}</p>
+                        <p>Rp{{ number_format($data->harga) }}</p>
                         <h4>{{ $data->nama }}</h4>
                     </div>
                 </a>

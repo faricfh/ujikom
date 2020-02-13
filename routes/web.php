@@ -23,14 +23,21 @@ Route::get('/produk/{produk}', function () {
 });
 
 Route::get('/cart', 'Ecommerce\CartController@cart');
-Route::get('/getdatacart', 'Ecommerce\CartController@listCart');
+Route::get('/getsubtotal', 'Ecommerce\CartController@subtotal');
+Route::get('/totalproduk', 'Ecommerce\CartController@totalproduk');
 
-Route::get('/checkout', function () {
-    return view('frontend.checkout');
+Route::get('/frontlogin', function () {
+    return view('frontend.login');
 });
 
 Route::post('/formcart', 'Ecommerce\CartController@addToCart');
 Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
+
+Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
+    Route::get('/checkout', function () {
+        return view('frontend.checkout');
+    });
+});
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');

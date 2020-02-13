@@ -66,7 +66,7 @@
                                 <li><span>total:</span> <span>Rp<span id="subtotal2"></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="cart.html" class="btn amado-btn w-100">Checkout</a>
+                                <a class="btn amado-btn w-100" id="checkout">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,8 @@
             </div>
         </div>
     </div>
+    @include('frontend.login');
 @endsection
-
 @section('js')
 <script src="{{ asset('js/cart.js') }}"></script>
 <script type="text/javascript">
@@ -86,7 +86,26 @@
             }
         });
 
-        var geturl = "{{ url('/getdatacart') }}";
+        var geturl = "{{ url('/getsubtotal') }}";
+
+        $('#checkout').click(function () {
+            $('#modal').modal('show');
+            $('#btn-post').html('Login');
+        });
+
+        $('#create_account').click(function(){
+            $('#formlogin').trigger('reset');
+            $('#formlogin').css('display','none');
+            $('#formregister').show();
+            $('#btn-post').html('Register');
+        });
+
+        $('#backformlogin').click(function(){
+            $('#formregister').trigger('reset');
+            $('#formregister').css('display','none');
+            $('#formlogin').show();
+            $('#btn-post').html('Login');
+        })
 
         $('#update').click(function(e) {
             e.preventDefault();

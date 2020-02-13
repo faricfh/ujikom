@@ -20,12 +20,7 @@ class CartController extends Controller
     {
         $carts = $this->getCarts();
 
-        //UBAH ARRAY MENJADI COLLECTION, KEMUDIAN GUNAKAN METHOD SUM UNTUK MENGHITUNG SUBTOTAL
-        $subtotal = collect($carts)->sum(function ($q) {
-            return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
-        });
-
-        return view('frontend.cart', compact('carts', 'subtotal'));
+        return view('frontend.cart', compact('carts'));
     }
 
     public function addToCart(Request $request)
@@ -64,7 +59,7 @@ class CartController extends Controller
         return response()->json('Berhasil');
     }
 
-    public function listCart()
+    public function subtotal()
     {
         //MENGAMBIL DATA DARI COOKIE
         $carts = $this->getCarts();
@@ -103,5 +98,12 @@ class CartController extends Controller
         //DAN STORE KE BROWSER.
         Cookie::queue($cookie);
         return response()->json('Berhasil');
+    }
+
+    public function totalproduk()
+    {
+        $carts = $this->getCarts();
+        $total = count($carts);
+        return response()->json($total);
     }
 }

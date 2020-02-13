@@ -126,6 +126,7 @@
     <script src="{{ asset('assets/frontend/js/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('assets/frontend/js/active.js') }}"></script>
+    <script src="{{ asset('js/jmlh.js') }}"></script>
     <script>
         $(".close").click(function(){
             $('#alert').css('display','none');

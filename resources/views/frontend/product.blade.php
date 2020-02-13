@@ -58,6 +58,7 @@
                 success: function(data) {
                     $('#form').trigger("reset");
                     $('#notif').show();
+                    $('#totalproduk').load('/totalproduk');
                     setInterval(function(){
                         $('#notif').css('display','none');
                     },2000)

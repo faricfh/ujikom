@@ -25,12 +25,14 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <ul class="nav nav-treeview">
+                @role('superadmin')
                 <li class="nav-item">
                     <a href="{{ url('admin/user') }}" class="nav-link">
                     <i class="nav-icon fas fa-user" style="color:red"></i>
                     <p>User</p>
                     </a>
                 </li>
+                @endrole
                 <li class="nav-item">
                     <a href="{{ url('admin/customer') }}" class="nav-link">
                     <i class="nav-icon fas fa-user" style="color:yellow"></i>
