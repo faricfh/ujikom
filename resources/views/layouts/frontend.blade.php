@@ -62,6 +62,16 @@
 
         <!-- Product Catagories Area Start -->
         @yield('content')
+        @php
+            $data =  Auth::guard('customer')->check();
+            if($data == false){
+                $a = 0;
+            }else{
+                $a = 1;
+            }
+        @endphp
+            <input type="hidden" id="check_auth" value="{{ $a }}">
+        @include('frontend.login');
         @notifyCss
         @notifyJs
         <!-- Product Catagories Area End -->
@@ -131,6 +141,46 @@
         $(".close").click(function(){
             $('#alert').css('display','none');
         })
+    </script>
+    <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#btn-post2').click(function (e) {
+        e.preventDefault();
+        // $(this).hide();
+        $.ajax({
+            data: $('#formregister').serialize(),
+            url: "{{ url('admin/customer-store') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                $('#formregister').trigger('reset');
+                $('#formregister').css('display','none');
+                $('#formlogin').show();
+                $('#btn-post').html('Login');
+                $('#btn-post2').remove();
+                $('#alert_success').html('Akun Berhasil Di Buat, Silahkan Login');
+            },
+
+            error: function (request, status, error) {
+                $('#error_nama').empty().show();
+                $('#error_email').empty().show();
+                $('#error_no_tlp').empty().show();
+                $('#error_alamat').empty().show();
+                $('#error_password').empty().show();
+                json = $.parseJSON(request.responseText);
+                $('#error_nama').html(json.errors.nama);
+                $('#error_email').html(json.errors.email);
+                $('#error_no_tlp').html(json.errors.no_tlp);
+                $('#error_alamat').html(json.errors.alamat);
+                $('#error_password').html(json.errors.password);
+            }
+        });
+    });
     </script>
     @yield('js')
 

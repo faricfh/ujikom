@@ -53,11 +53,13 @@ class CustomerController extends Controller
         $request->validate(
             [
                 'nama' => 'required',
-                'email' => 'required|unique:customers,email,'.$request->customer_id.',id|email',
+                'email' => 'required|unique:customers,email,' . $request->customer_id . ',id|email',
                 'no_tlp' => 'required',
-                'alamat' => 'required'
+                'alamat' => 'required',
+                'password' => 'required'
             ]
-            );
+        );
+
         Customer::updateOrCreate(
             ['id' => $request->customer_id],
             [
@@ -65,6 +67,7 @@ class CustomerController extends Controller
                 'email' => $request->email,
                 'no_tlp' => $request->no_tlp,
                 'alamat' => $request->alamat,
+                'password' => $request->password,
                 'status' => 1,
             ]
         );

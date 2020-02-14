@@ -56,7 +56,7 @@
 
 <!-- {{-- modal mulai --}} -->
 <div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <!-- Bagian header modal-->
             <div class="modal-header">
@@ -72,22 +72,30 @@
                 <form id="form" name="form" class="form-horizontal">
                     <input type="hidden" name="customer_id" id="customer_id">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <label for="name" class="control-label">Nama Customer</label>
                             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Customer" maxlength="50" autocomplete="off" required>
                             <span style="color: red;" id="error_nama"></span>
                             <br>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
+                            <label for="name" class="control-label">No Telepon</label>
+                            <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="No Telepon" maxlength="50" autocomplete="off" required>
+                            <span style="color: red;" id="error_no_tlp"></span>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
                             <label for="name" class="control-label">Email</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" maxlength="50" autocomplete="off" required>
                             <span style="color: red;" id="error_email"></span>
                             <br>
                         </div>
-                        <div class="col-lg-4">
-                            <label for="name" class="control-label">No Telepon</label>
-                            <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="No Telepon" maxlength="50" autocomplete="off" required>
-                            <span style="color: red;" id="error_no_tlp"></span>
+                        <div class="col-lg-6">
+                            <label for="name" class="control-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="50" autocomplete="off" required>
+                            <span style="color: red;" id="error_password"></span>
                             <br>
                         </div>
                     </div>
@@ -122,6 +130,7 @@ $('#modal').on('hidden.bs.modal',function(){
     $('#error_email').css('display','none');
     $('#error_no_tlp').css('display','none');
     $('#error_alamat').css('display','none');
+    $('#error_password').css('display','none');
 })
 </script>
 <script type="text/javascript">
@@ -167,6 +176,9 @@ $('#modal').on('hidden.bs.modal',function(){
         $('#alamat').keypress(function(){
             $('#error_alamat').css('display','none');
         });
+        $('#password').keypress(function(){
+            $('#error_password').css('display','none');
+        });
     });
 
     $('body').on('click','.edit',function(){
@@ -191,6 +203,9 @@ $('#modal').on('hidden.bs.modal',function(){
             });
             $('#alamat').keypress(function(){
                 $('#error_alamat').css('display','none');
+            });
+            $('#password').keypress(function(){
+                $('#error_password').css('display','none');
             });
         });
     });
@@ -253,11 +268,13 @@ $('#modal').on('hidden.bs.modal',function(){
                 $('#error_email').empty().show();
                 $('#error_no_tlp').empty().show();
                 $('#error_alamat').empty().show();
+                $('#error_password').empty().show();
                 json = $.parseJSON(request.responseText);
                 $('#error_nama').html(json.errors.nama);
                 $('#error_email').html(json.errors.email);
                 $('#error_no_tlp').html(json.errors.no_tlp);
                 $('#error_alamat').html(json.errors.alamat);
+                $('#error_password').html(json.errors.password);
             }
         });
     });

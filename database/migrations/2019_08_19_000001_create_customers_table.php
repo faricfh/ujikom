@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('email')->unique();
+            $table->string('password');
             $table->integer('no_tlp');
             $table->text('alamat');
             $table->integer('status');

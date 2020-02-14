@@ -18,44 +18,63 @@
                     <body>
                         <div class="inner">
                             <div class="image-holder">
-                                <img src="{{ asset('assets/frontend/login/images/registration-form-1.jpg') }}" alt="">
+                                <img src="{{ asset('assets/login/images/furniture.jpg') }}" alt="">
                             </div>
                             <div>
-                            <form id="formlogin" style="width:155%">
+                            <p id="alert_success"></p>
+                            <form id="formlogin" style="width:155%" method="post" action="{{ url('/customerlogin')}}">
+                                @csrf
                                 <h3>Login Form</h3>
                                 <div class="form-wrapper">
-                                    <input type="text" placeholder="Email Address" class="form-control-template">
+                                    <input type="text" placeholder="Email Address" name="email" class="form-control-template">
                                     <i class="zmdi zmdi-email"></i>
                                 </div>
                                 <div class="form-wrapper">
-                                    <input type="password" placeholder="Password" class="form-control-template">
+                                    <input type="password" placeholder="Password" name="password" class="form-control-template">
                                     <i class="zmdi zmdi-lock"></i>
                                 </div>
                                 <a id="create_account">create account</a>
+                                <button id="btn-post">
+                                    <i class="zmdi zmdi-arrow-right"></i>
+                                </button>
                             </form>
                             <form id="formregister" style="display:none; width:120%;">
                                 <i class="zmdi zmdi-arrow-left" style="height:30px; width:50px;" id="backformlogin">  Back</i>
                                 <h3>Registration Form</h3>
                                 <div class="form-wrapper">
-                                    <input type="text" placeholder="Username" class="form-control-template">
+                                    <input type="text" placeholder="Username" name="nama" class="form-control-template">
                                     <i class="zmdi zmdi-account"></i>
                                 </div>
                                 <div class="form-wrapper">
-                                    <input type="text" placeholder="Email Address" class="form-control-template">
+                                    <input type="text" placeholder="Email Address" name="email" class="form-control-template">
                                     <i class="zmdi zmdi-email"></i>
                                 </div>
                                 <div class="form-wrapper">
-                                    <input type="password" placeholder="Password" class="form-control-template">
-                                    <i class="zmdi zmdi-lock"></i>
+                                    <input type="text" placeholder="No Telp" name="no_tlp" class="form-control-template">
+                                    <i class="zmdi zmdi-phone"></i>
                                 </div>
                                 <div class="form-wrapper">
-                                    <input type="password" placeholder="Confirm Password" class="form-control-template">
+                                    <textarea name="alamat" id="alamat" cols="30" rows="10" placeholder="Alamat" class="form-control-template"></textarea>
+                                    <i class="zmdi zmdi-address"></i>
+                                </div>
+                                <div class="form-wrapper">
+                                    <input type="password" placeholder="Password" name="password" class="form-control-template">
                                     <i class="zmdi zmdi-lock"></i>
                                 </div>
+                                {{-- <div class="form-wrapper">
+                                    <input type="password" placeholder="Confirm Password" name="confirm_password" class="form-control-template">
+                                    <i class="zmdi zmdi-lock"></i>
+                                </div> --}}
                             </form>
-                            <button id="btn-post">
+                             <div class="button_register" style="display: none;">
+                                <button id="btn-post2">
+                                    Register
+                                    <i class="zmdi zmdi-arrow-right"></i>
+                                </button>
+                            </div>
+                            {{-- <button id="btn-post">
                                 <i class="zmdi zmdi-arrow-right"></i>
-                            </button>
+                            </button> --}}
                             </div>
                         </div>
 

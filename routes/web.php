@@ -33,10 +33,11 @@ Route::get('/frontlogin', function () {
 Route::post('/formcart', 'Ecommerce\CartController@addToCart');
 Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
 
-Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
-    Route::get('/checkout', function () {
-        return view('frontend.checkout');
-    });
+Route::post('/customerlogin', 'Ecommerce\LoginController@login');
+
+Route::group(['middleware' => 'customer'], function () {
+    Route::get('/checkout', 'Ecommerce\LoginController@checkout');
+    Route::get('/logout', 'Ecommerce\LoginController@logout');
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {

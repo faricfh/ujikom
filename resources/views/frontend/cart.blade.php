@@ -74,7 +74,6 @@
             </div>
         </div>
     </div>
-    @include('frontend.login');
 @endsection
 @section('js')
 <script src="{{ asset('js/cart.js') }}"></script>
@@ -87,16 +86,21 @@
         });
 
         var geturl = "{{ url('/getsubtotal') }}";
-
+        var check = $('#check_auth').val();
         $('#checkout').click(function () {
-            $('#modal').modal('show');
-            $('#btn-post').html('Login');
+            if(check == 1){
+                window.location.href = "/checkout";
+            }else{
+                $('#modal').modal('show');
+                $('#btn-post').html('Login');
+            }
         });
 
         $('#create_account').click(function(){
             $('#formlogin').trigger('reset');
             $('#formlogin').css('display','none');
             $('#formregister').show();
+            $('.button_register').show();
             $('#btn-post').html('Register');
         });
 
@@ -105,6 +109,8 @@
             $('#formregister').css('display','none');
             $('#formlogin').show();
             $('#btn-post').html('Login');
+            $('#btn-post2').remove();
+            $('.button_register').css('display','none');
         })
 
         $('#update').click(function(e) {
