@@ -34,6 +34,7 @@ Route::post('/formcart', 'Ecommerce\CartController@addToCart');
 Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
 
 Route::post('/customerlogin', 'Ecommerce\LoginController@login');
+Route::post('/customerregister', 'Ecommerce\LoginController@register');
 
 Route::group(['middleware' => 'customer'], function () {
     Route::get('/checkout', 'Ecommerce\LoginController@checkout');

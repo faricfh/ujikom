@@ -62,16 +62,6 @@
 
         <!-- Product Catagories Area Start -->
         @yield('content')
-        @php
-            $data =  Auth::guard('customer')->check();
-            if($data == false){
-                $a = 0;
-            }else{
-                $a = 1;
-            }
-        @endphp
-            <input type="hidden" id="check_auth" value="{{ $a }}">
-        @include('frontend.login');
         @notifyCss
         @notifyJs
         <!-- Product Catagories Area End -->
@@ -122,6 +112,16 @@
             </div>
         </div>
     </footer>
+    @php
+        $data =  Auth::guard('customer')->check();
+        if($data == false){
+            $a = 0;
+        }else{
+            $a = 1;
+        }
+    @endphp
+        <input type="hidden" id="check_auth" value="{{ $a }}">
+    @include('frontend.login');
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
@@ -143,6 +143,12 @@
         })
     </script>
     <script>
+        $('#modal').on('hidden.bs.modal',function(){
+            $('#formlogin').trigger('reset');
+            $('#formregister').trigger('reset');
+        })
+    </script>
+    <script>
 
         $.ajaxSetup({
             headers: {
@@ -154,7 +160,7 @@
         // $(this).hide();
         $.ajax({
             data: $('#formregister').serialize(),
-            url: "{{ url('admin/customer-store') }}",
+            url: "{{ url('/customerregister') }}",
             type: "POST",
             dataType: 'json',
             success: function (data) {
@@ -162,8 +168,7 @@
                 $('#formregister').css('display','none');
                 $('#formlogin').show();
                 $('#btn-post').html('Login');
-                $('#btn-post2').remove();
-                $('#alert_success').html('Akun Berhasil Di Buat, Silahkan Login');
+                $('#btn-post2').css('display','none');
             },
 
             error: function (request, status, error) {

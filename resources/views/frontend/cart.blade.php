@@ -54,7 +54,7 @@
                                     </tbody>
                             </table>
                             </form>
-                            <button type="submit" class="btn amado-btn" id="update">Update</button>
+                            {{-- <button type="submit" class="btn amado-btn" id="update">Update</button> --}}
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
@@ -109,11 +109,28 @@
             $('#formregister').css('display','none');
             $('#formlogin').show();
             $('#btn-post').html('Login');
-            $('#btn-post2').remove();
             $('.button_register').css('display','none');
         })
 
-        $('#update').click(function(e) {
+        $('.qty-minus').click(function(e) {
+            e.preventDefault();
+            // $(this).hide();
+            $.ajax({
+                data: $('#form').serialize(),
+                url: "{{ url('/formcart-update') }}",
+                type: "POST",
+                success: function(data) {
+                    $('#subtotal').load(geturl)
+                    $('#subtotal2').load(geturl)
+                },
+
+                error: function(request, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $('.qty-plus').click(function(e) {
             e.preventDefault();
             // $(this).hide();
             $.ajax({

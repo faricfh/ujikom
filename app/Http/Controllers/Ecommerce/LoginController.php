@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ecommerce;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Customer;
 
 class LoginController extends Controller
 {
@@ -45,7 +46,29 @@ class LoginController extends Controller
 
     public function register(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|unique:customers,email,' . $request->customer_id . ',id|email',
+                'no_tlp' => 'required',
+                'alamat' => 'required',
+                'password' => 'required'
+            ]
+        );
+
+        Customer::updateOrCreate(
+            ['id' => $request->customer_id],
+            [
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'no_tlp' => $request->no_tlp,
+                'alamat' => $request->alamat,
+                'password' => $request->password,
+                'status' => 1,
+            ]
+        );
+
+        return response()->json(['success' => 'Berhasil di Simpan']);
     }
 
     public function logout()
