@@ -8,6 +8,13 @@ use App\Customer;
 
 class LoginController extends Controller
 {
+    private function getCarts()
+    {
+        $carts = json_decode(request()->cookie('dw-carts'), true);
+        $carts = $carts != '' ? $carts : [];
+        return $carts;
+    }
+
     public function loginForm()
     {
         if (auth()->guard('customer')->check()) return redirect('checkout');
@@ -41,7 +48,16 @@ class LoginController extends Controller
 
     public function checkout()
     {
-        return view('frontend.checkout');
+        //MENGAMBIL DATA DARI COOKIE
+        $carts = $this->getCarts();
+
+        //UBAH ARRAY MENJADI COLLECTION, KEMUDIAN GUNAKAN METHOD SUM UNTUK MENGHITUNG SUBTOTAL
+        $subtotal = collect($carts)->sum(function ($q) {
+            return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
+        });
+
+        //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL        
+        return view('frontend.checkout',compact('subtotal'));
     }
 
     public function register(Request $request)

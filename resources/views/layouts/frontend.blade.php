@@ -19,7 +19,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/style.css') }}">
-
+    @yield('css')
 </head>
 
 <body>
@@ -121,7 +121,7 @@
         }
     @endphp
         <input type="hidden" id="check_auth" value="{{ $a }}">
-    @include('frontend.login');
+    @include('frontend.login')
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->

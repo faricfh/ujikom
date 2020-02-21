@@ -22,7 +22,7 @@
                             </div>
                             <div>
                             <p id="alert_success"></p>
-                            <form id="formlogin" style="width:155%" method="post" action="{{ url('/customerlogin')}}">
+                            <form id="formlogin" style="width:auto" method="post" action="{{ url('/customerlogin')}}">
                                 @csrf
                                 <h3>Login Form</h3>
                                 <div class="form-wrapper">
@@ -38,7 +38,7 @@
                                     <i class="zmdi zmdi-arrow-right"></i>
                                 </button>
                             </form>
-                            <form id="formregister" style="display:none; width:120%;">
+                            <form id="formregister" style="display:none; width:auto;">
                                 <i class="zmdi zmdi-arrow-left" style="height:30px; width:50px;" id="backformlogin">  Back</i>
                                 <h3>Registration Form</h3>
                                 <div class="form-wrapper">

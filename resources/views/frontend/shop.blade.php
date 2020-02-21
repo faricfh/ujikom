@@ -50,9 +50,9 @@
         <p>Product Successfully Added to Cart</p>
     </div>
     <div class="notify-alert-close">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"><i class="flaticon2-cross"></i></span>
-        </button>
+        </button> -->
     </div>
 </div>
 @endsection
