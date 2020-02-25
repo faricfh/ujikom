@@ -39,6 +39,16 @@ Route::post('/customerregister', 'Ecommerce\LoginController@register');
 Route::group(['middleware' => 'customer'], function () {
     Route::get('/checkout', 'Ecommerce\LoginController@checkout');
     Route::get('/logout', 'Ecommerce\LoginController@logout');
+
+    // -------------------------------------------------------------------------------------------------------- //
+    // Route::get('/', 'DonationController@index')->name('welcome');
+    Route::post('/finish', function () {
+        return redirect()->route('welcome');
+    })->name('order.finish');
+
+    Route::post('/order-store', 'OrderController@submitOrder')->name('order.store');
+    Route::post('/notification/handler', 'OrderController@notificationHandler')->name('notification.handler');
+    // -------------------------------------------------------------------------------------------------------- //
 });
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {

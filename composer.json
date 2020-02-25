@@ -16,6 +16,7 @@
         "laravolt/indonesia": "^0.25.0",
         "mckenziearts/laravel-notify": "^1.1",
         "santigarcor/laratrust": "^5.2",
+        "veritrans/veritrans-php": "^1.2",
         "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {

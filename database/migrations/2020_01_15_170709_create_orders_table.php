@@ -15,12 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('invoice');
-            $table->string('id_customer');
+            $table->string('invoice')->nullable();
+            // $table->string('id_customer');
             $table->string('nama_customer');
             $table->string('phone_customer');
             $table->string('alamat_customer');
             $table->integer('subtotal');
+            $table->string('status')->default('pending');
+            $table->string('snap_token')->nullable();
             $table->timestamps();
         });
     }
