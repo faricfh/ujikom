@@ -46,8 +46,8 @@ Route::group(['middleware' => 'customer'], function () {
         return redirect()->route('welcome');
     })->name('order.finish');
 
-    Route::post('/order-store', 'OrderController@submitOrder')->name('order.store');
-    Route::post('/notification/handler', 'OrderController@notificationHandler')->name('notification.handler');
+    Route::post('/order-store', 'TransaksiController@submitOrder')->name('order.store');
+    Route::post('/notification/handler', 'TransaksiController@notificationHandler')->name('notification.handler');
     // -------------------------------------------------------------------------------------------------------- //
 });
 

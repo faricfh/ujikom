@@ -21,8 +21,8 @@
     </nav>
     <!-- Cart Menu -->
     <div class="cart-fav-search mb-100">
-        <a href="{{ url('/cart')}}" class="cart-nav"><img src="{{ asset('assets/frontend/img/core-img/cart.png') }}" alt=""> Cart (<span id="totalproduk"></span>)</a>
-        <a href="#" class="fav-nav"><img src="{{ asset('assets/frontend/img/core-img/favorites.png') }}" alt=""> Favourite</a>
+        <a href="{{ url('/cart')}}" class="cart-nav"><img src="{{ asset('assets/frontend/img/core-img/cart.png') }}" alt=""> Cart (<b id="totalproduk"></b>)</a>
+        <!-- <a href="#" class="fav-nav"><img src="{{ asset('assets/frontend/img/core-img/favorites.png') }}" alt=""> Favourite</a> -->
         <a href="#" class="search-nav"><img src="{{ asset('assets/frontend/img/core-img/search.png') }}" alt=""> Search</a>
         @if (Auth::guard('customer')->check())
         <a class="btn amado-btn w-100" href="{{ url('/logout') }}"
