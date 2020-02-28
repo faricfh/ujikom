@@ -54,7 +54,7 @@ class CartController extends Controller
         //BUAT COOKIE-NYA DENGAN NAME DW-CARTS
         //JANGAN LUPA UNTUK DI-ENCODE KEMBALI, DAN LIMITNYA 2800 MENIT ATAU 48 JAM
 
-        $cookie = cookie('dw-carts', json_encode($carts), 1);
+        $cookie = cookie('dw-carts', json_encode($carts), 1400);
         Cookie::queue($cookie);
         return response()->json('Berhasil');
     }
@@ -94,7 +94,7 @@ class CartController extends Controller
             }
         }
         //SET KEMBALI COOKIE-NYA SEPERTI SEBELUMNYA
-        $cookie = cookie('dw-carts', json_encode($carts), 1);
+        $cookie = cookie('dw-carts', json_encode($carts), 1400);
         //DAN STORE KE BROWSER.
         Cookie::queue($cookie);
         return response()->json('Berhasil');

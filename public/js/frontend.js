@@ -90,7 +90,7 @@
                                             <input type="hidden" id="id_produk` + no + `" value="${value.id}">
                                             <input type="hidden" id="qty` + no + `" value="1">
                                         </form>
-                                        <img src="/assets/frontend/img/core-img/cart.png" alt="" class="simpan" data-id="` + no + `">
+                                        <a href='javascript:void(0)'><img src="/assets/frontend/img/core-img/cart.png" alt="" class="simpan" data-id="` + no + `"></a>
                                     </div>
                                 </div>
                             </div>

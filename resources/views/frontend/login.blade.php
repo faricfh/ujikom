@@ -18,7 +18,7 @@
                     <body>
                         <div class="inner">
                             <div class="image-holder">
-                                <img src="{{ asset('assets/login/images/furniture.jpg') }}" alt="">
+                                <img src="{{ asset('assets/login/images/furniture.jpg') }}" style="widht:100%; height:100%">
                             </div>
                             <div>
                             <p id="alert_success"></p>
@@ -33,13 +33,14 @@
                                     <input type="password" placeholder="Password" name="password" class="form-control-template">
                                     <i class="zmdi zmdi-lock"></i>
                                 </div>
-                                <a id="create_account">create account</a>
+                                <a href="javascript:void(0)" id="create_account">create account</a>
                                 <button id="btn-post">
+                                    Login
                                     <i class="zmdi zmdi-arrow-right"></i>
                                 </button>
                             </form>
                             <form id="formregister" style="display:none; width:auto;">
-                                <i class="zmdi zmdi-arrow-left" style="height:30px; width:50px;" id="backformlogin">  Back</i>
+                                <a href="javascript:void(0)"><i class="zmdi zmdi-arrow-left" style="height:30px; width:50px;" id="backformlogin">  Back</i></a>
                                 <h3>Registration Form</h3>
                                 <div class="form-wrapper">
                                     <input type="text" placeholder="Username" name="nama" class="form-control-template">
@@ -54,7 +55,7 @@
                                     <i class="zmdi zmdi-phone"></i>
                                 </div>
                                 <div class="form-wrapper">
-                                    <textarea name="alamat" id="alamat" cols="30" rows="10" placeholder="Alamat" class="form-control-template"></textarea>
+                                    <textarea name="alamat" id="alamat" placeholder="Alamat" class="form-control-template"></textarea>
                                     <i class="zmdi zmdi-address"></i>
                                 </div>
                                 <div class="form-wrapper">

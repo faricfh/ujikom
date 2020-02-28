@@ -77,6 +77,12 @@
 @endsection
 @section('js')
 <script src="{{ asset('js/cart.js') }}"></script>
+<script>
+$('#modal').on('hidden.bs.modal',function(){
+    $('#formlogin').trigger('reset');
+    $('#formregister').trigger('reset');
+
+})</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $.ajaxSetup({
@@ -92,7 +98,9 @@
                 window.location.href = "/checkout";
             }else{
                 $('#modal').modal('show');
-                $('#btn-post').html('Login');
+                $('#formregister').css('display','none');
+                $('#formlogin').show();
+                $('.button_register').css('display','none');
             }
         });
 
@@ -101,14 +109,12 @@
             $('#formlogin').css('display','none');
             $('#formregister').show();
             $('.button_register').show();
-            $('#btn-post').html('Register');
         });
 
         $('#backformlogin').click(function(){
             $('#formregister').trigger('reset');
             $('#formregister').css('display','none');
             $('#formlogin').show();
-            $('#btn-post').html('Login');
             $('.button_register').css('display','none');
         })
 

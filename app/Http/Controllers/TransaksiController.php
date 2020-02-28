@@ -38,11 +38,6 @@ class TransaksiController extends Controller
         \DB::transaction(function () {
             //get data cart
             $carts = $this->getCarts();
-
-            foreach ($carts as $data) {
-                $qty = $data['qty'];
-                $produk = $data['nama_produk'];
-            }
             
             // Save order ke database
             $order = Order::create([
@@ -51,6 +46,18 @@ class TransaksiController extends Controller
                 'alamat_customer' => $this->request->alamat_customer,
                 'subtotal' => floatval($this->request->subtotal),
             ]);
+
+
+            foreach ($carts as $data) {
+                $qty = $data['qty'];
+                $produk = $data['nama_produk'];
+                $item[] = [
+                        'id'       => $order->id,
+                        'price'    => $data['harga_produk'],
+                        'quantity' => $qty,
+                        'name'     => ucwords(str_replace('_', ' ', $produk))
+                ];
+            }
 
             // Buat transaksi ke midtrans kemudian save snap tokennya.
             $payload = [
@@ -64,14 +71,7 @@ class TransaksiController extends Controller
                     // 'phone'         => '08888888888',
                     // 'address'       => '',
                 ],
-                'item_details' => [
-                    [
-                        'id'       => $order->id,
-                        'price'    => $order->subtotal,
-                        'quantity' => $qty,
-                        'name'     => ucwords(str_replace('_', ' ', $produk))
-                    ]
-                ]
+                'item_details' => $item
             ];
             $snapToken = Veritrans_Snap::getSnapToken($payload);
             $order->snap_token = $snapToken;
