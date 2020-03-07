@@ -157,36 +157,43 @@
             }
         });
         $('#btn-post2').click(function (e) {
-        e.preventDefault();
-        // $(this).hide();
-        $.ajax({
-            data: $('#formregister').serialize(),
-            url: "{{ url('/customerregister') }}",
-            type: "POST",
-            dataType: 'json',
-            success: function (data) {
-                $('#formregister').trigger('reset');
-                $('#formregister').css('display','none');
-                $('#formlogin').show();
-                $('#btn-post').html('Login');
-                $('#btn-post2').css('display','none');
-            },
+            e.preventDefault();
+            // $(this).hide();
+            $.ajax({
+                data: $('#formregister').serialize(),
+                url: "{{ url('/customerregister') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                    $('#formregister').trigger('reset');
+                    $('#formregister').css('display','none');
+                    $('.button_register').css('display','none');
+                    $('#formlogin').show();
+                    $('#alertberhasil').append(
+                        `
+                             <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                Akun Berhasil Dibuat!
+                            </div>
+                        `
+                    );
+                },
 
-            error: function (request, status, error) {
-                $('#error_nama').empty().show();
-                $('#error_email').empty().show();
-                $('#error_no_tlp').empty().show();
-                $('#error_alamat').empty().show();
-                $('#error_password').empty().show();
-                json = $.parseJSON(request.responseText);
-                $('#error_nama').html(json.errors.nama);
-                $('#error_email').html(json.errors.email);
-                $('#error_no_tlp').html(json.errors.no_tlp);
-                $('#error_alamat').html(json.errors.alamat);
-                $('#error_password').html(json.errors.password);
-            }
+                error: function (request, status, error) {
+                    $('#error_nama').empty().show();
+                    $('#error_email').empty().show();
+                    $('#error_no_tlp').empty().show();
+                    $('#error_alamat').empty().show();
+                    $('#error_password').empty().show();
+                    json = $.parseJSON(request.responseText);
+                    $('#error_nama').html(json.errors.nama);
+                    $('#error_email').html(json.errors.email);
+                    $('#error_no_tlp').html(json.errors.no_tlp);
+                    $('#error_alamat').html(json.errors.alamat);
+                    $('#error_password').html(json.errors.password);
+                }
+            });
         });
-    });
     </script>
     @yield('js')
 

@@ -20,7 +20,7 @@
                                         <th>Quantity</th>
                                     </tr>
                                 </thead>
-                                    <tbody >
+                                    <tbody id="tbody">
                                         @php
                                             $no = 0;
                                         @endphp
@@ -28,8 +28,8 @@
                                         @php
                                             $no++
                                         @endphp
-                                        <input type="hidden" name="id_produk[]" value="{{ $data['id_produk']}}">
-                                        <tr>
+                                        <tr class="baris">
+                                            <input type="hidden" name="id_produk[]" value="{{ $data['id_produk']}}">
                                             <td class="cart_product_img">
                                                 <a href="#"><img src="assets/poto/{{ $data['foto_produk'] }}" alt="Product" style="width:200px; height:200px"></a>
                                             </td>
@@ -46,6 +46,12 @@
                                                         <span class="qty-minus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                                         <input type="number" class="qty-text" id="qty{{ $no }}" step="1" min="1" max="300" name="qty[]" value="{{ $data['qty'] }}">
                                                         <span class="qty-plus" onclick="var effect = document.getElementById('qty{{ $no }}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="qty-btn d-flex">
+                                                    <div class="hapus">
+                                                        <a href="javascript:void(0)" data-id="{{ $data['id_produk']}}" class="btn btn-danger hapus-item" style="width:auto; height:auto">Hapus</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -93,6 +99,7 @@ $('#modal').on('hidden.bs.modal',function(){
 
         var geturl = "{{ url('/getsubtotal') }}";
         var check = $('#check_auth').val();
+
         $('#checkout').click(function () {
             if(check == 1){
                 window.location.href = "/checkout";
@@ -108,6 +115,7 @@ $('#modal').on('hidden.bs.modal',function(){
             $('#formlogin').trigger('reset');
             $('#formlogin').css('display','none');
             $('#formregister').show();
+            $('.alert').remove();
             $('.button_register').show();
         });
 
@@ -144,6 +152,37 @@ $('#modal').on('hidden.bs.modal',function(){
                 url: "{{ url('/formcart-update') }}",
                 type: "POST",
                 success: function(data) {
+                    $('#subtotal').load(geturl)
+                    $('#subtotal2').load(geturl)
+                },
+
+                error: function(request, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $('.hapus-item').click(function(e) {
+            e.preventDefault();
+            var valueItem = $(this).data('id');
+
+            $(this).parents('.baris').remove()
+            // console.log(noItem);
+            $('#tbody').append(
+                `
+                <tr class="baris">
+                    <input type="hidden" name="id_produk[]" value="`+valueItem+`">
+                    <input type="hidden" name="qty[]" value="0">
+                </tr>
+                `
+            )
+            // $(this).hide();
+            $.ajax({
+                data: $('#form').serialize(),
+                url: "{{ url('/formcart-update') }}",
+                type: "POST",
+                success: function(data) {
+
                     $('#subtotal').load(geturl)
                     $('#subtotal2').load(geturl)
                 },
