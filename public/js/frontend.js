@@ -105,10 +105,10 @@
             });
             $('.simpan').click(function(e) {
                 e.preventDefault();
-                var idform = $(this).data('id');
+                var noform = $(this).data('id');
                 // $(this).hide();
                 $.ajax({
-                    data: $('#form' + idform + '').serialize(),
+                    data: $('#form' + noform + '').serialize(),
                     url: "/formcart",
                     type: "POST",
                     success: function(data) {

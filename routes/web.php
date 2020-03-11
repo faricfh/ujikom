@@ -39,6 +39,9 @@ Route::post('/customerregister', 'Ecommerce\LoginController@register');
 Route::group(['middleware' => 'customer'], function () {
     Route::get('/checkout', 'Ecommerce\LoginController@checkout');
     Route::get('/logout', 'Ecommerce\LoginController@logout');
+    Route::get('/provinsi/{id}/kota', 'Ecommerce\LoginController@getKota');
+    Route::post('/test-submit', 'Ecommerce\LoginController@submit');
+
 
     // -------------------------------------------------------------------------------------------------------- //
     // Route::get('/', 'DonationController@index')->name('welcome');
@@ -79,6 +82,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::delete('/stokmasuk-destroy/{id}', 'StokmasukController@destroy');
 
     Route::get('/order', 'OrderController@index');
+    Route::get('/order/{id}/show', 'OrderController@show');
 });
 
 Auth::routes();

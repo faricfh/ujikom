@@ -126,7 +126,8 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="{{ asset('assets/frontend/js/jquery/jquery-2.2.4.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/frontend/js/jquery/jquery-2.2.4.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/frontend/js/jquery/jquery-3.3.1.min.js') }}"></script>
     <!-- jQuery -->
     {{-- <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js') }}"></script> --}}
     <!-- Popper js -->

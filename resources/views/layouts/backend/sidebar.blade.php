@@ -28,7 +28,7 @@
                 <li class="nav-item">
                     <a href="{{ url('admin/user') }}" class="nav-link">
                     <i class="nav-icon fas fa-user" style="color:red"></i>
-                    <p>User</p>
+                    <p>User (Admin)</p>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -10,10 +10,10 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "kavist/rajaongkir": "1.1",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.1",
-        "laravolt/indonesia": "^0.25.0",
         "mckenziearts/laravel-notify": "^1.1",
         "santigarcor/laratrust": "^5.2",
         "veritrans/veritrans-php": "^1.2",

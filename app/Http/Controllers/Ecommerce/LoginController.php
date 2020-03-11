@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Ecommerce;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Kota;
+use App\Kurir;
+use App\Provinsi;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class LoginController extends Controller
 {
@@ -46,20 +50,6 @@ class LoginController extends Controller
         return redirect()->back()->with(['error' => 'Email / Password Salah']);
     }
 
-    public function checkout()
-    {
-        //MENGAMBIL DATA DARI COOKIE
-        $carts = $this->getCarts();
-
-        //UBAH ARRAY MENJADI COLLECTION, KEMUDIAN GUNAKAN METHOD SUM UNTUK MENGHITUNG SUBTOTAL
-        $subtotal = collect($carts)->sum(function ($q) {
-            return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
-        });
-
-        //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL        
-        return view('frontend.checkout',compact('subtotal'));
-    }
-
     public function register(Request $request)
     {
         $request->validate(
@@ -85,6 +75,48 @@ class LoginController extends Controller
         );
 
         return response()->json(['success' => 'Berhasil di Simpan']);
+    }
+
+    public function checkout()
+    {
+        //MENGAMBIL DATA DARI COOKIE
+        $carts = $this->getCarts();
+
+        //UBAH ARRAY MENJADI COLLECTION, KEMUDIAN GUNAKAN METHOD SUM UNTUK MENGHITUNG SUBTOTAL
+        $subtotal = collect($carts)->sum(function ($q) {
+            return $q['qty'] * $q['harga_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
+        });
+
+        $kurir = Kurir::pluck('nama', 'kode');
+        $provinsi = Provinsi::pluck('nama', 'id_provinsi');
+
+        //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL
+        return view('frontend.checkout', compact('subtotal', 'kurir', 'provinsi'));
+    }
+
+    public function getKota($id)
+    {
+        $kota = Kota::where('id_provinsi', $id)->pluck('nama', 'id_kota');
+        return response()->json($kota);
+    }
+
+    public function submit(Request $request)
+    {
+        $harga = RajaOngkir::ongkosKirim([
+            'origin' => $request->kota_asal,
+            'destination' => $request->kota_tujuan,
+            'weight' => $request->berat,
+            'courier' => $request->kurir,
+        ])->get();
+
+        $option = '';
+        foreach ($harga[0]['costs'] as $data) {
+            foreach ($data['cost'] as $datas) {
+                $option .= '<label><input type="radio" name="pilih-layanan" class="form-controll" value="' . $datas['value'] . '">' . $data['description'] . '</label>  ';
+            }
+        }
+        // dd($option);
+        return response()->json($option);
     }
 
     public function logout()
