@@ -22,9 +22,6 @@
                             <div class="col-md-6 mb-3">
                                 <input type="email" name="email_customer" class="form-control" id="email_customer" placeholder="Email" value="" required>
                             </div>
-                            <div class="col-12 mb-3">
-                                <textarea name="alamat_customer" id="alamat_customer" class="form-control" cols="30" rows="10" placeholder="Alamat" style="resize: none;" required></textarea>
-                            </div>
                             {{-- --------------- --}}
                             <div class="col-md-6 mb-3">
                                 <label for="">Provinsi Asal</label>
@@ -38,7 +35,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">Kota Asal</label>
                                 <select class="w-100" name="kota_asal" id="kota_asal">
-                                   <option value="kota_asal">--Kota Asal--</option>
+                                   <option value="kota_asal" selected disabled>--Kota Asal--</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -53,13 +50,13 @@
                             <div class="col-md-6 mb-3">
                                 <label for="">Kota Tujuan</label>
                                 <select class="w-100" name="kota_tujuan" id="kota_tujuan">
-                                   <option value="kota_tujuan">--Kota Tujuan--</option>
+                                   <option value="kota_tujuan" selected disabled>--Kota Tujuan--</option>
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="">Kurir</label>
                                 <select class="w-100" name="kurir" id="kurir">
-                                    <label for="">--Kurir--</label>
+                                    <option selected disabled>--Kurir--</option>
                                     @foreach($kurir as $kurirs => $value)
                                         <option value="{{ $kurirs }}">{{ $value }}</option>
                                     @endforeach
@@ -72,6 +69,9 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <input type="text" name="berat" class="form-control" id="berat" value="5000" placeholder="Berat (g)" value="" required readonly>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <textarea name="alamat_customer" id="alamat_customer" class="form-control" cols="30" rows="10" placeholder="Alamat Lengkap" style="resize: none;" required></textarea>
                             </div>
                             {{-- -------------- --}}
                             {{-- <div class="col-12 mb-3">
@@ -88,7 +88,9 @@
                                     @endforeach
                                 </select>
                             </div> --}}
-                            <input type="hidden" name="subtotal" id="subtotal" value="{{ $subtotal }}">
+                            <input type="hidden" name="GetSubtotal" id="GetSubtotal" value="{{ $subtotal }}">
+                            <input type="hidden" name="subtotal" id="subtotal" value="">
+                            <input type="hidden" name="ongkir" id="ongkir" value="">
                             <!-- <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" value="">
                             </div>
@@ -96,7 +98,7 @@
                                 <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" value="">
                             </div> -->
                             <div class="col-12 mb-3">
-                                <textarea name="pesan" class="form-control w-100" id="pesan" cols="30" rows="10" placeholder="Leave a comment about your order"></textarea>
+                                <textarea name="pesan" class="form-control w-100" id="pesan" cols="30" rows="10" placeholder="Pesan (Opsi)"></textarea>
                             </div>
 
                             <!-- <div class="col-12">
@@ -120,7 +122,7 @@
                         <input type="hidden" id="cek" value="{{ $subtotal }}">
                         <li><span>subtotal:</span> <span>Rp{{ number_format($subtotal) }}</span></li>
                         <li><span>delivery:</span> <span>Rp<label id="harga-kirim"></label></span></li>
-                        <li><span>total:</span> <span>Rp{{ number_format($subtotal) }}</span></li>
+                        <li><span>total:</span> <span>Rp<label id="SetSubtotal">{{ number_format($subtotal) }}</label></span></li>
                     </ul>
 
                     <div class="payment-method">
@@ -153,7 +155,7 @@
         crossorigin="anonymous"></script>
     <script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
     <script type="text/javascript">
-
+    $('ul[class="list"]').attr('style','width: 300px;height: 200px;overflow: auto;');
     $('#modal-dismiss').click(function() {
         $('#modal').hide();
     })
@@ -165,7 +167,7 @@
             type: 'POST',
             dataType: 'json',
             success: function(berhasil) {
-                console.log(berhasil);
+                // console.log(berhasil);
                 $('#layanan').empty();
                 $('#layanan').append(berhasil);
             }
@@ -177,6 +179,16 @@
         var hargaKirim = $(this).val();
         $('#harga-kirim').empty();
         $('#harga-kirim').append(hargaKirim);
+        $('#ongkir').empty();
+        $('#ongkir').val(hargaKirim);
+        var GetSubtotal = $('#GetSubtotal').val();
+        $('#SetSubtotal').empty();
+        $sub = parseInt(GetSubtotal);
+        $hKirim = parseInt(hargaKirim);
+        var total = $sub+$hKirim;
+        $('#SetSubtotal').append(total);
+        $('#subtotal').empty();
+        $('#subtotal').val(total);
     });
 
     function submitForm() {
@@ -190,6 +202,7 @@
             phone_customer: $('#phone_customer').val(),
             email_customer: $('#email_customer').val(),
             alamat_customer: $('#alamat_customer').val(),
+            ongkir: $('#ongkir').val(),
         },
         function (data, status) {
             snap.pay(data.snap_token, {
@@ -234,7 +247,10 @@
                 dataType: 'json',
                 success: function(data){
                     // $('ul[data-value="kota_asal"]').parents(".list").empty();
-                    $('ul[data-value="kota_asal"]').empty();
+                    $('select[name="kota_asal"').empty();
+                    $( "li.list" )
+                    .closest( "ul" )
+                    .append('ooooooooooooooooooooooooooo');
                     $.each(data, function(key,value){
                         $('li[data-value="kota_asal"]').after('<li data-value="'+key+'" class="option">'+value+'</li>');
                         $('#kota_asal').append('<option value="'+key+'">'+value+'</option>');

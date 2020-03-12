@@ -38,7 +38,6 @@ class TransaksiController extends Controller
         \DB::transaction(function () {
             //get data cart
             $carts = $this->getCarts();
-            
             // Save order ke database
             $order = Order::create([
                 'nama_customer' => $this->request->nama_customer,
@@ -52,12 +51,21 @@ class TransaksiController extends Controller
                 $qty = $data['qty'];
                 $produk = $data['nama_produk'];
                 $item[] = [
-                        'id'       => $order->id,
-                        'price'    => $data['harga_produk'],
-                        'quantity' => $qty,
-                        'name'     => ucwords(str_replace('_', ' ', $produk))
+                    'id'       => $order->id,
+                    'price'    => $data['harga_produk'],
+                    'quantity' => $qty,
+                    'name'     => ucwords(str_replace('_', ' ', $produk))
                 ];
             }
+
+            $ongkir = [
+                'id' => null,
+                'price' => floatval($this->request->ongkir),
+                'quantity' => 1,
+                'name' => 'Ongkir'
+            ];
+
+            array_push($item, $ongkir);
 
             // Buat transaksi ke midtrans kemudian save snap tokennya.
             $payload = [
