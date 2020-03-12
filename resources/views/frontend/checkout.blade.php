@@ -248,9 +248,7 @@
                 success: function(data){
                     // $('ul[data-value="kota_asal"]').parents(".list").empty();
                     $('select[name="kota_asal"').empty();
-                    $( "li.list" )
-                    .closest( "ul" )
-                    .append('ooooooooooooooooooooooooooo');
+                    $('li[data-value="kota_asal"]').closest('ul').empty().append('<li data-value="kota_asal" class="option selected disabled">--Kota Asal--</li>');
                     $.each(data, function(key,value){
                         $('li[data-value="kota_asal"]').after('<li data-value="'+key+'" class="option">'+value+'</li>');
                         $('#kota_asal').append('<option value="'+key+'">'+value+'</option>');
@@ -258,7 +256,8 @@
                 }
             });
         }else{
-            $('li[data-value="kota_asal"]').empty();
+            $('select[name="kota_asal"').empty();
+            $('li[data-value="kota_asal"]').closest('ul').empty().append('<li data-value="kota_asal" class="option selected disabled">--Kota Asal--</li>');
         }
     });
 
@@ -270,7 +269,8 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(data){
-                    $('li[data-value="kota_tujuan"]').empty();
+                    $('select[name="kota_tujuan"').empty();
+                    $('li[data-value="kota_tujuan"]').closest('ul').empty().append('<li data-value="kota_tujuan" class="option selected disabled">--Kota Tujuan--</li>');
                     $.each(data, function(key,value){
                         $('li[data-value="kota_tujuan"]').after('<li data-value="'+key+'" class="option">'+value+'</li>');
                         $('#kota_tujuan').append('<option value="'+key+'">'+value+'</option>');
@@ -278,7 +278,8 @@
                 }
             });
         }else{
-            $('li[data-value="kota_tujuan"]').empty();
+            $('select[name="kota_tujuan"').empty();
+            $('li[data-value="kota_tujuan"]').closest('ul').empty().append('<li data-value="kota_tujuan" class="option selected disabled">--Kota Tujuan--</li>');
         }
     });
     </script>
