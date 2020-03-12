@@ -34,7 +34,7 @@
                     <div class="search-content">
                         <form action="#" method="get">
                             <input type="search" name="search" id="search" placeholder="Type your keyword..." autocomplete="off">
-                            <button type="submit"><img src="{{ asset('assets/frontend/img/core-img/search.png') }}" alt=""></button>
+                            <button type="submit" style="margin-top:unset;"><img src="{{ asset('assets/frontend/img/core-img/search.png') }}" alt=""></button>
                         </form>
                     </div>
                 </div>
