@@ -28,11 +28,11 @@
                                     @csrf
                                     <h3>Login Form</h3>
                                     <div class="form-wrapper">
-                                        <input type="text" placeholder="Email Address" name="email" class="form-control-template">
+                                        <input type="text" placeholder="Email Address" name="email" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-email"></i>
                                     </div>
                                     <div class="form-wrapper">
-                                        <input type="password" placeholder="Password" name="password" class="form-control-template">
+                                        <input type="password" placeholder="Password" name="password" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-lock"></i>
                                     </div>
                                     <a href="javascript:void(0)" id="create_account">create account</a>
@@ -45,23 +45,23 @@
                                     <a href="javascript:void(0)"><i class="zmdi zmdi-arrow-left" style="height:30px; width:50px;" id="backformlogin">  Back</i></a>
                                     <h3>Registration Form</h3>
                                     <div class="form-wrapper">
-                                        <input type="text" placeholder="Username" name="nama" class="form-control-template">
+                                        <input type="text" placeholder="Username" name="nama" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-account"></i>
                                     </div>
                                     <div class="form-wrapper">
-                                        <input type="text" placeholder="Email Address" name="email" class="form-control-template">
+                                        <input type="text" placeholder="Email Address" name="email" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-email"></i>
                                     </div>
                                     <div class="form-wrapper">
-                                        <input type="text" placeholder="No Telp" name="no_tlp" class="form-control-template">
+                                        <input type="text" placeholder="No Telp" name="no_tlp" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-phone"></i>
                                     </div>
                                     <div class="form-wrapper">
-                                        <textarea name="alamat" id="alamat" placeholder="Alamat" class="form-control-template"></textarea>
+                                        <textarea name="alamat" id="alamat" placeholder="Alamat" class="form-control-template" autocomplete="off"></textarea>
                                         <i class="zmdi zmdi-address"></i>
                                     </div>
                                     <div class="form-wrapper">
-                                        <input type="password" placeholder="Password" name="password" class="form-control-template">
+                                        <input type="password" placeholder="Password" name="password" class="form-control-template" autocomplete="off">
                                         <i class="zmdi zmdi-lock"></i>
                                     </div>
                                     {{-- <div class="form-wrapper">

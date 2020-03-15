@@ -68,35 +68,61 @@ class StokmasukController extends Controller
             }
 
             if (isset($request->stokmasuk_id)) {
-                $data = '';
-                $getdata = \DB::select('select qty from stok_masuks where id =' . $request->stokmasuk_id . '');
-                foreach ($getdata as $key) {
-                    $data .= $key->qty;
+
+                $produkStokMasuk = '';
+                $getdatastokmasuk = \DB::select('SELECT stokmasuk.qty,stokmasuk.id_produk,produk.stok
+                                                FROM stok_masuks AS stokmasuk
+                                                LEFT JOIN produks AS produk ON produk.id = stokmasuk.id_produk
+                                                WHERE stokmasuk.id = ' . $request->stokmasuk_id . '');
+                foreach ($getdatastokmasuk as $value) {
+                    $produkStokMasuk .= $value->id_produk;
                 }
-                //
-                $old_qty = $data;
-                $qty = $request->qty;
 
-                if ($qty < $old_qty) {
-                    $new_qty = $old_qty - $qty;
-                    $stok = $stokproduk - $new_qty;
-                    Produk::updateOrCreate(
-                        ['id' => $request->id_produk],
-                        ['stok' => $stok]
-                    );
-                } elseif ($qty > $old_qty) {
+                if ($request->id_produk == $produkStokMasuk) {
+                    $data = '';
+                    $getdata = \DB::select('select qty from stok_masuks where id =' . $request->stokmasuk_id . '');
+                    foreach ($getdata as $key) {
+                        $data .= $key->qty;
+                    }
+                    //
+                    $old_qty = $data;
+                    $qty = $request->qty;
 
-                    $new_qty = $qty - $old_qty;
-                    $stok = $stokproduk + $new_qty;
-                    Produk::updateOrCreate(
-                        ['id' => $request->id_produk],
-                        ['stok' => $stok]
-                    );
+                    if ($qty < $old_qty) {
+                        $new_qty = $old_qty - $qty;
+                        $stok = $stokproduk - $new_qty;
+                        Produk::updateOrCreate(
+                            ['id' => $request->id_produk],
+                            ['stok' => $stok]
+                        );
+                    } elseif ($qty > $old_qty) {
+
+                        $new_qty = $qty - $old_qty;
+                        $stok = $stokproduk + $new_qty;
+                        Produk::updateOrCreate(
+                            ['id' => $request->id_produk],
+                            ['stok' => $stok]
+                        );
+                    } else {
+                        Produk::updateOrCreate(
+                            ['id' => $request->id_produk],
+                            ['stok' => $stokproduk]
+                        );
+                    }
                 } else {
-                    Produk::updateOrCreate(
-                        ['id' => $request->id_produk],
-                        ['stok' => $stokproduk]
-                    );
+                    foreach ($getdatastokmasuk as $value) {
+                        $stok = $value->stok - $value->qty;
+                        Produk::updateOrCreate(
+                            ['id' => $value->id_produk],
+                            ['stok' => $stok]
+                        );
+
+                        $stok2 = $stokproduk + $request->qty;
+                        Produk::updateOrCreate(
+                            ['id' => $request->id_produk],
+                            ['stok' => $stok2]
+                        );
+                    }
                 }
             } else {
                 $stok = $stokproduk + $request->qty;

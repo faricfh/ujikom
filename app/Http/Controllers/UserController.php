@@ -55,8 +55,16 @@ class UserController extends Controller
         $request->validate(
             [
                 'name' => 'required',
-                'email' => 'required|unique:users,email,' . $request->user_id . ',id',
+                'email' => 'required|unique:users,email,' . $request->user_id . ',id|email',
                 'password' => 'required|min:6'
+            ],
+            [
+                'name.required' => 'Nama harus diisi',
+                'email.required' => 'Email harus diisi',
+                'email.unique' => 'Email sudah ada',
+                'email.email' => 'Harus email yang benar',
+                'password.required' => 'Password harus diisi',
+                'password.min' => 'Password minimal harus 6'
             ]
         );
 

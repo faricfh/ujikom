@@ -97,6 +97,7 @@
 <script>
 $('#modal').on('hidden.bs.modal',function(){
     $('#error_nama').css('display','none');
+    $('#nama').removeClass('is-invalid');
 })
 </script>
 <script type="text/javascript">
@@ -129,6 +130,7 @@ $('#modal').on('hidden.bs.modal',function(){
         $('#modal').modal('show');
         $('#nama').keypress(function(){
             $('#error_nama').css('display','none');
+            $('#nama').removeClass('is-invalid');
         });
     });
 
@@ -143,6 +145,7 @@ $('#modal').on('hidden.bs.modal',function(){
             $('#nama').val(data.nama);
             $('#nama').keypress(function(){
                 $('#error_nama').css('display','none');
+                $('#nama').removeClass('is-invalid');
             });
         });
     });
@@ -204,6 +207,9 @@ $('#modal').on('hidden.bs.modal',function(){
             error: function (request, status, error) {
                 $('#error_nama').empty().show();
                 json = $.parseJSON(request.responseText);
+                if(json.errors.nama != null){
+                    $('#nama').addClass('is-invalid');
+                }
                 $('#error_nama').html(json.errors.nama);
             }
         });

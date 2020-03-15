@@ -47,7 +47,8 @@ class CartController extends Controller
                 'id_produk' => $produk->id,
                 'nama_produk' => $produk->nama,
                 'harga_produk' => $produk->harga,
-                'foto_produk' => $produk->foto
+                'foto_produk' => $produk->foto,
+                'berat_produk' => $produk->berat
             ];
         }
 

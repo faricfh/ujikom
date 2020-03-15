@@ -14,13 +14,13 @@
                     <form id="order">
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <input type="text" name="nama_customer" class="form-control" id="nama_customer" value="" placeholder="Nama Lengkap" required>
+                                <input type="text" name="nama_customer" class="form-control" id="nama_customer" value="" placeholder="Nama Lengkap" autocomplete="off" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="text" name="phone_customer" class="form-control" id="phone_customer" placeholder="No Telepon" value="" required>
+                                <input type="text" name="phone_customer" class="form-control" id="phone_customer" placeholder="No Telepon" value="" autocomplete="off" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="email" name="email_customer" class="form-control" id="email_customer" placeholder="Email" value="" required>
+                                <input type="email" name="email_customer" class="form-control" id="email_customer" placeholder="Email" value="" autocomplete="off" required>
                             </div>
                             {{-- --------------- --}}
                             <div class="col-md-6 mb-3">
@@ -68,9 +68,6 @@
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="text" name="berat" class="form-control" id="berat" value="5000" placeholder="Berat (g)" value="" required readonly>
-                            </div>
-                            <div class="col-12 mb-3">
                                 <textarea name="alamat_customer" id="alamat_customer" class="form-control" cols="30" rows="10" placeholder="Alamat Lengkap" style="resize: none;" required></textarea>
                             </div>
                             {{-- -------------- --}}
@@ -88,6 +85,7 @@
                                     @endforeach
                                 </select>
                             </div> --}}
+                            <input type="hidden" name="berat" id="berat" value="{{ $berat }}" value="">
                             <input type="hidden" name="GetSubtotal" id="GetSubtotal" value="{{ $subtotal }}">
                             <input type="hidden" name="subtotal" id="subtotal" value="">
                             <input type="hidden" name="ongkir" id="ongkir" value="">

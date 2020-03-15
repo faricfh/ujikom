@@ -26,7 +26,15 @@ class CustomerController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('status', function ($row) {
+                    if ($row->status == 1) {
+                        $status = '<span class="badge badge-success">Aktif</span>';
+                    } else {
+                        $status = '<span class="badge badge-danger">Nonaktif</span>';
+                    }
+                    return $status;
+                })
+                ->rawColumns(['action', 'status'])
                 ->make(true);
         }
         return view('admin.customer');
@@ -50,15 +58,44 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'nama' => 'required',
-                'email' => 'required|unique:customers,email,' . $request->customer_id . ',id|email',
-                'no_tlp' => 'required',
-                'alamat' => 'required',
-                'password' => 'required'
-            ]
-        );
+        if ($request->customer_id == null) {
+            $request->validate(
+                [
+                    'nama' => 'required',
+                    'email' => 'required|unique:customers,email,' . $request->customer_id . ',id|email',
+                    'no_tlp' => 'required',
+                    'alamat' => 'required',
+                    'password' => 'required|min:6'
+                ],
+                [
+                    'nama.required' => 'Nama Customer harus diisi',
+                    'email.required' => 'Email harus diisi',
+                    'email.unique' => 'Email sudah ada',
+                    'email.email' => 'Harus email yang benar',
+                    'no_tlp.required' => 'No Telepon harus diisi',
+                    'alamat.required' => 'Alamat harus diisi',
+                    'password.required' => 'Password harus diisi',
+                    'password.min' => 'Password minimal harus 6',
+                ]
+            );
+        } else {
+            $request->validate(
+                [
+                    'nama' => 'required',
+                    'email' => 'required|unique:customers,email,' . $request->customer_id . ',id|email',
+                    'no_tlp' => 'required',
+                    'alamat' => 'required',
+                ],
+                [
+                    'nama.required' => 'Nama Customer harus diisi',
+                    'email.required' => 'Email harus diisi',
+                    'email.unique' => 'Email sudah ada',
+                    'email.email' => 'Harus email yang benar',
+                    'no_tlp.required' => 'No Telepon harus diisi',
+                    'alamat.required' => 'Alamat harus diisi'
+                ]
+            );
+        }
 
         Customer::updateOrCreate(
             ['id' => $request->customer_id],

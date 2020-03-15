@@ -131,6 +131,12 @@ $('#modal').on('hidden.bs.modal',function(){
     $('#error_no_tlp').css('display','none');
     $('#error_alamat').css('display','none');
     $('#error_password').css('display','none');
+
+    $('#nama').removeClass('is-invalid');
+    $('#email').removeClass('is-invalid');
+    $('#no_tlp').removeClass('is-invalid');
+    $('#alamat').removeClass('is-invalid');
+    $('#password').removeClass('is-invalid');
 })
 </script>
 <script type="text/javascript">
@@ -166,18 +172,23 @@ $('#modal').on('hidden.bs.modal',function(){
         $('#modal').modal('show');
         $('#nama').keypress(function(){
             $('#error_nama').css('display','none');
+            $('#nama').removeClass('is-invalid');
         });
         $('#email').keypress(function(){
             $('#error_email').css('display','none');
+            $('#email').removeClass('is-invalid');
         });
         $('#no_tlp').keypress(function(){
             $('#error_no_tlp').css('display','none');
+            $('#no_tlp').removeClass('is-invalid');
         });
         $('#alamat').keypress(function(){
             $('#error_alamat').css('display','none');
+            $('#alamat').removeClass('is-invalid');
         });
         $('#password').keypress(function(){
             $('#error_password').css('display','none');
+            $('#password').removeClass('is-invalid');
         });
     });
 
@@ -194,18 +205,23 @@ $('#modal').on('hidden.bs.modal',function(){
             $('#alamat').val(data.alamat);
             $('#nama').keypress(function(){
                 $('#error_nama').css('display','none');
+                $('#nama').removeClass('is-invalid');
             });
             $('#email').keypress(function(){
                 $('#error_email').css('display','none');
+                $('#email').removeClass('is-invalid');
             });
             $('#no_tlp').keypress(function(){
                 $('#error_no_tlp').css('display','none');
+                $('#no_tlp').removeClass('is-invalid');
             });
             $('#alamat').keypress(function(){
                 $('#error_alamat').css('display','none');
+                $('#alamat').removeClass('is-invalid');
             });
             $('#password').keypress(function(){
                 $('#error_password').css('display','none');
+                $('#password').removeClass('is-invalid');
             });
         });
     });
@@ -270,6 +286,21 @@ $('#modal').on('hidden.bs.modal',function(){
                 $('#error_alamat').empty().show();
                 $('#error_password').empty().show();
                 json = $.parseJSON(request.responseText);
+                if(json.errors.nama != null){
+                    $('#nama').addClass('is-invalid')
+                }
+                if(json.errors.email != null){
+                    $('#email').addClass('is-invalid')
+                }
+                if(json.errors.no_tlp != null){
+                    $('#no_tlp').addClass('is-invalid')
+                }
+                if(json.errors.alamat != null){
+                    $('#alamat').addClass('is-invalid')
+                }
+                if(json.errors.password != null){
+                    $('#password').addClass('is-invalid')
+                }
                 $('#error_nama').html(json.errors.nama);
                 $('#error_email').html(json.errors.email);
                 $('#error_no_tlp').html(json.errors.no_tlp);

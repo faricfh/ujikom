@@ -56,7 +56,11 @@ class KategoriController extends Controller
     {
         $request->validate(
             [
-                'nama' => 'required|unique:kategoris,nama,'.$request->kategori_id.',id'
+                'nama' => 'required|unique:kategoris,nama,' . $request->kategori_id . ',id'
+            ],
+            [
+                'nama.required' => 'Nama Kategori harus diisi',
+                'nama.unique' => 'Nama Kategori sudah ada'
             ]
         );
         $slug = Str::slug($request->nama, '-');

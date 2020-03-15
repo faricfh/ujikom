@@ -40,6 +40,7 @@
                   <th>Kategori</th>
                   <th>Harga</th>
                   <th>Stok</th>
+                  <th width="70px">Berat</th>
                   <th width="71px">Opsi</th>
               </tr>
           </thead>
@@ -93,9 +94,15 @@
                             <span style="color: red;" id="error_harga"></span>
                             <br>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <label for="name" class="control-label">Stok</label>
-                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" autocomplete="off">
+                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok (Opsi)" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="name" class="control-label">Berat (kg)</label>
+                            <input type="text" class="form-control" id="berat" name="berat" placeholder="Berat" autocomplete="off">
+                            <span style="color: red;" id="error_berat"></span>
+                            <br>
                         </div>
                     </div>
                     <div class="form-group">
@@ -109,7 +116,7 @@
                     <div class="form-group">
                       <div class="col-sm-12">
                           <label for="name" class="control-label">Deskripsi</label>
-                          <textarea name="deskripsi" id="deskripsi" class="form-control" cols="30" rows="5" style="resize: none;"></textarea>
+                          <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Deskripsi (Opsi)" cols="30" rows="5" style="resize: none;"></textarea>
                       </div>
                     </div>
                 </form>
@@ -142,6 +149,13 @@ $('#modal').on('hidden.bs.modal',function(){
     $('#error_kategori').css('display','none');
     $('#error_harga').css('display','none');
     $('#error_foto').css('display','none');
+    $('#error_berat').css('display','none');
+
+    $('#nama').removeClass('is-invalid');
+    $('.select2-container--default .select2-selection--single').css('border-color','#aaa');
+    $('#harga').removeClass('is-invalid');
+    $('#foto').removeClass('is-invalid');
+    $('#berat').removeClass('is-invalid');
 })
 </script>
 <script type="text/javascript">
@@ -166,6 +180,7 @@ $('#modal').on('hidden.bs.modal',function(){
             {data: 'kategori.nama', name: 'id_kategori'},
             {data: 'harga', name: 'harga'},
             {data: 'stok', name: 'stok'},
+            {data: 'berat', name: 'berat'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -179,15 +194,23 @@ $('#modal').on('hidden.bs.modal',function(){
         $('#modal').modal('show');
         $('#nama').keypress(function(){
             $('#error_nama').css('display','none');
+            $('#nama').removeClass('is-invalid');
         });
         $('#id_kategori').on('change',function(){
             $('#error_kategori').css('display','none');
+            $('.select2-container--default .select2-selection--single').css('border-color','#aaa');
         });
         $('#harga').keypress(function(){
             $('#error_harga').css('display','none');
+            $('#harga').removeClass('is-invalid');
         });
         $('#foto').on('change',function(){
             $('#error_foto').css('display','none');
+            $('#foto').removeClass('is-invalid');
+        });
+        $('#berat').keypress(function(){
+            $('#error_berat').css('display','none');
+            $('#berat').removeClass('is-invalid');
         });
     });
 
@@ -204,16 +227,24 @@ $('#modal').on('hidden.bs.modal',function(){
             $('#id_kategori').html(data.kategori);
             $('#harga').val(data.produk.harga);
             $('#stok').val(data.produk.stok);
+            $('#berat').val(data.produk.berat/1000);
             // $('#foto').html(data.produk.foto);
             $('#deskripsi').val(data.produk.deskripsi);
             $('#nama').keypress(function(){
                 $('#error_nama').css('display','none');
+                $('#nama').removeClass('is-invalid');
             });
             $('#id_kategori').on('change',function(){
                 $('#error_kategori').css('display','none');
+                $('.select2-container--default .select2-selection--single').css('border-color','#aaa');
             });
             $('#harga').keypress(function(){
                 $('#error_harga').css('display','none');
+                $('#harga').removeClass('is-invalid');
+            });
+            $('#berat').keypress(function(){
+                $('#error_berat').css('display','none');
+                $('#berat').removeClass('is-invalid');
             });
         });
     });
@@ -280,11 +311,28 @@ $('#modal').on('hidden.bs.modal',function(){
                 $('#error_kategori').empty().show();
                 $('#error_harga').empty().show();
                 $('#error_foto').empty().show();
+                $('#error_berat').empty().show();
                 json = $.parseJSON(request.responseText);
+                if(json.errors.nama){
+                    $('#nama').addClass('is-invalid');
+                }
+                if(json.errors.id_kategori){
+                    $('.select2-container--default .select2-selection--single').css('border-color','#dc3545');
+                }
+                if(json.errors.harga){
+                    $('#harga').addClass('is-invalid');
+                }
+                if(json.errors.foto){
+                    $('#foto').addClass('is-invalid');
+                }
+                if(json.errors.berat){
+                    $('#berat').addClass('is-invalid');
+                }
                 $('#error_nama').html(json.errors.nama);
                 $('#error_kategori').html(json.errors.id_kategori);
                 $('#error_harga').html(json.errors.harga);
                 $('#error_foto').html(json.errors.foto);
+                $('#error_berat').html(json.errors.berat);
             }
         });
     });

@@ -110,6 +110,9 @@ $('#modal').on('hidden.bs.modal',function(){
     $('#error_name').css('display','none');
     $('#error_email').css('display','none');
     $('#error_password').css('display','none');
+    $('#name').removeClass('is-invalid');
+    $('#email').removeClass('is-invalid');
+    $('#password').removeClass('is-invalid');
 })
 </script>
 <script type="text/javascript">
@@ -142,12 +145,15 @@ $('#modal').on('hidden.bs.modal',function(){
         $('#modal').modal('show');
         $('#name').keypress(function(){
             $('#error_name').css('display','none');
+            $('#name').removeClass('is-invalid');
         });
         $('#email').keypress(function(){
             $('#error_email').css('display','none');
+            $('#email').removeClass('is-invalid');
         });
         $('#password').keypress(function(){
             $('#error_password').css('display','none');
+            $('#password').removeClass('is-invalid');
         });
     });
 
@@ -209,6 +215,15 @@ $('#modal').on('hidden.bs.modal',function(){
                 $('#error_email').empty().show();
                 $('#error_password').empty().show();
                 json = $.parseJSON(request.responseText);
+                if(json.errors.name != null){
+                    $('#name').addClass('is-invalid');
+                }
+                if(json.errors.email != null){
+                    $('#email').addClass('is-invalid');
+                }
+                if(json.errors.password != null){
+                    $('#password').addClass('is-invalid');
+                }
                 $('#error_name').html(json.errors.name);
                 $('#error_email').html(json.errors.email);
                 $('#error_password').html(json.errors.password);

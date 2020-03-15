@@ -39,7 +39,10 @@ class ProdukController extends Controller
                 ->addColumn('harga', function ($data) {
                     return number_format($data->harga);
                 })
-                ->rawColumns(['action', 'gambar', 'stok', 'harga'])
+                ->addColumn('berat', function ($data) {
+                    return '<p>' . number_format($data->berat) . ' Kg</p>';
+                })
+                ->rawColumns(['action', 'gambar', 'stok', 'harga', 'berat'])
                 ->make(true);
         }
         return view('admin.produk');
@@ -69,7 +72,8 @@ class ProdukController extends Controller
                     'nama' => 'required',
                     'id_kategori' => 'required',
                     'harga' => 'required',
-                    'foto' => 'required'
+                    'foto' => 'required',
+                    'berat' => 'required',
                 ]
             );
         } else {
@@ -77,12 +81,14 @@ class ProdukController extends Controller
                 [
                     'nama' => 'required',
                     'id_kategori' => 'required',
-                    'harga' => 'required'
+                    'harga' => 'required',
+                    'berat' => 'required'
                 ]
             );
         }
 
         $slug = Str::slug($request->nama, '-');
+        $convert_berat = $request->berat * 1000;
 
         if (is_null($request->produk_id)) {
             $photo = Str::random(6) . $request->file('foto')->getClientOriginalName();
@@ -95,6 +101,7 @@ class ProdukController extends Controller
                     'id_kategori' => $request->id_kategori,
                     'harga' => $request->harga,
                     'stok' => $request->stok,
+                    'berat' => $convert_berat,
                     'deskripsi' => $request->deskripsi,
                     'foto' => $photo,
 
@@ -110,6 +117,7 @@ class ProdukController extends Controller
                         'id_kategori' => $request->id_kategori,
                         'harga' => $request->harga,
                         'stok' => $request->stok,
+                        'berat' => $convert_berat,
                         'deskripsi' => $request->deskripsi
 
                     ]
@@ -134,6 +142,7 @@ class ProdukController extends Controller
                         'id_kategori' => $request->id_kategori,
                         'harga' => $request->harga,
                         'stok' => $request->stok,
+                        'berat' => $convert_berat,
                         'deskripsi' => $request->deskripsi,
                         'foto' => $photo,
 

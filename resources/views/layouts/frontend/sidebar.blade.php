@@ -45,6 +45,12 @@
                 @csrf
             </form>
         </div>
+    @else
+        <div class="cart-btn mt-100">
+            <a class="btn amado-btn w-100">
+                Login
+            </a>
+        </div>
     @endif
 </header>
 <!-- Header Area End -->

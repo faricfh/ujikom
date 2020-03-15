@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('no_tlp');
+            $table->char('no_tlp');
             $table->text('alamat');
             $table->integer('status');
             $table->timestamps();
