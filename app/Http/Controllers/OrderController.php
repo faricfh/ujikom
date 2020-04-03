@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Order;
+use App\OrderDetail;
 
 class OrderController extends Controller
 {
@@ -36,10 +37,8 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::find($id);
-        $order_detail = \DB::select('SELECT od.id_order,produk.nama AS nama_produk,od.harga,od.qty
-                                    FROM order_details AS od
-                                    LEFT JOIN produks AS produk ON produk.id = od.id_produk
-                                    WHERE od.id_order = ' . $id . '');
+        $order_detail = OrderDetail::with('produk')->where('id_order', $id)->get();
+
         $response = [
             'order' => $order,
             'order_detail' => $order_detail

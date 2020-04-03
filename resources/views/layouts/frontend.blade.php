@@ -19,77 +19,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/style.css') }}">
-    <style>
-        /* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
-}
-
-/* The popup chat - hidden by default */
-.chat-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-/* Full-width textarea */
-.form-container textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-  resize: none;
-  min-height: 200px;
-}
-
-/* When the textarea gets focus, do something */
-.form-container textarea:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/send button */
-.form-container .btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
     @yield('css')
 </head>
 
@@ -103,8 +33,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword..." autocomplete="off">
+                        <form action="{{ route('cariproduk') }}" method="get">
+                            <input type="text" name="produk" class="form-control typeahead" autocomplete="off">
                             <button type="submit" style="margin-top:unset;"><img src="{{ asset('assets/frontend/img/core-img/search.png') }}" alt=""></button>
                         </form>
                     </div>
@@ -184,19 +114,62 @@
             </div>
         </div>
     </footer>
-    <button class="open-button" onclick="openForm()">Chat</button>
 
-<div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
+    {{-- <div class="fabs">
+        <div class="chat">
+            <div class="chat_header">
+                <div class="chat_option">
+                    <div class="header_img">
+                        <img src="{{ asset('assets/frontend/img/chat/user_awesome.png') }}"/>
+                    </div>
+                    <span id="chat_head">FShop</span> <br> <span class="agent">Admin</span> <span class="online">(Online)</span>
+                    <span id="chat_fullscreen_loader" class="chat_fullscreen_loader"><i class="fullscreen zmdi zmdi-window-maximize"></i></span>
+                </div>
+            </div>
+            <div class="chat_body chat_login">
+                <br>
+                <form id="form_akun">
+                    <input type="hidden" name="id_chat">
+                    <input type="text" name="nama" id="nama" class="form-controll" placeholder="Masukan Nama" autocomplete="off">
+                    <br><br>
+                    <input type="text" name="email" id="email" class="form-controll" placeholder="Masukan Emai" autocomplete="off">
+                    <br><br>
+                </form>
+                <a href="javascript:void(0)" id="chat_first_screen">Buat</i></a>
+            </div>
+            <div id="chat_converse" class="chat_conversion chat_converse">
 
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
+                <span class="chat_msg_item chat_msg_item_admin">
+                    <div class="chat_avatar">
+                        <img src="asset('assets/frontend/img/chat/user_awesome.png')"/>
+                    </div>Hai! Ada yang bisa kami bantu?
+                </span>
 
-    <button type="submit" class="btn">Send</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div>
+
+
+                <span class="chat_msg_item chat_msg_item_user" id="pesan1">Hello!</span>
+
+
+                <span class="status">20m ago</span>
+                <span class="chat_msg_item chat_msg_item_admin">
+                    <div class="chat_avatar">
+                        <img src=" asset('assets/frontend/img/chat/user_awesome.png')"/>
+                    </div>Hey! Would you like to talk sales, support, or anyone?
+                </span>
+                <span class="chat_msg_item chat_msg_item_user" id="pesan1">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+            </div>
+            <div class="fab_field">
+                <i id="fab_camera" class="fab"><i class="zmdi zmdi-camera"></i></i>
+                <a id="fab_send" class="fab" style="display:none;"><i class="zmdi zmdi-mail-send"></i></a>
+                <form id="form_pesan">
+                    <input type="hidden" name="id_pesan" id="id_pesan" value="">
+                    <input type="hidden" name="id_customer" id="id_customer" value="">
+                    <textarea id="chatSend" name="pesan" placeholder="Send a message" class="chat_field chat_message"></textarea>
+                </form>
+            </div>
+        </div>
+        <a id="prime" class="fab"><i class="prime zmdi zmdi-comment-outline"></i></a>
+    </div> --}}
     @php
         $data =  Auth::guard('customer')->check();
         if($data == false){
@@ -223,15 +196,7 @@
     <!-- Active js -->
     <script src="{{ asset('assets/frontend/js/active.js') }}"></script>
     <script src="{{ asset('js/jmlh.js') }}"></script>
-    <script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
+    <script src="{{ asset('js/chat.js') }}"></script>
     <script>
         $(".close").click(function(){
             $('#alert').css('display','none');
@@ -250,6 +215,9 @@ function closeForm() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+
+        // register
         $('#btn-post2').click(function (e) {
             e.preventDefault();
             // $(this).hide();
@@ -265,7 +233,7 @@ function closeForm() {
                     $('#formlogin').show();
                     $('#alertberhasil').append(
                         `
-                             <div class="alert alert-success alert-dismissible">
+                            <div class="alert alert-success alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 Akun Berhasil Dibuat!
                             </div>
@@ -288,9 +256,74 @@ function closeForm() {
                 }
             });
         });
+
+        // chat
+        $('#chat_first_screen').click(function(){
+            $.ajax({
+                data: $('#form_akun').serialize(),
+                url: "{{ url('kirim_akun') }}",
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+                    $('#form_akun').trigger('reset');
+                    $('#id_customer').val(data.success.id);
+                    $('#fab_send').show();
+                },
+
+                error: function(request){
+                    console.log(request.responseText);
+                }
+            })
+        })
+
+        var no = 0;
+        $('#fab_send').click(function(){
+            $.ajax({
+                data: $('#form_pesan').serialize(),
+                url: "{{ url('/kirim_pesan') }}",
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+                    $('#fab_send').show();
+                    $('#form_pesan').trigger('reset');
+                    no++
+                    $('#pesan'+no+'').after('<span class="chat_msg_item chat_msg_item_user" id="pesan'+(no+1)+'">'+data+'</span>');
+                }
+            })
+        })
+
+        if (($(".is-visible").length == 0)) {
+            $('.chat').css('display', 'none');
+        }
     </script>
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript">
+    var path = "{{ route('search') }}";
+    $('input.typeahead').typeahead({
+        source:  function (query, process) {
+            return $.get(path, { query: query }, function (data) {
+                return process(data);
+            });
+        },
+        highlighter: function (item, data) {
+            var parts = item.split('#'),
+                html = '<div class="row">';
+                html += '<div class="col-md-2">';
+                html += '<img src="/assets/poto/'+data.img+'"/ height="44px;" width="65px;">';
+                html += '</div>';
+                html += '<div class="col-md-10 pl-0">';
+                html += '<span>'+data.name+'</span>';
+                // html += '<p class="m-0">'+data.desc+'</p>';
+                html += '</div>';
+                html += '</div>';
+
+            return html;
+        }
+    });
+</script>
     <!--Start of Tawk.to Script-->
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -300,7 +333,7 @@ function closeForm() {
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
-    </script> --}}
+    </script>
     <!--End of Tawk.to Script-->
     @yield('js')
 

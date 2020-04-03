@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\StokMasuk;
 use DataTables;
 use DB;
+use PDF;
 
 class StokmasukController extends Controller
 {
@@ -56,6 +57,11 @@ class StokmasukController extends Controller
                 'tgl' => 'required',
                 'id_produk' => 'required',
                 'qty' => 'required'
+            ],
+            [
+                'tgl.required' => 'Tanggal harus diisi',
+                'id_produk.required' => 'Produk harus dipilih',
+                'qty.required' => 'Jumlah harus diisi'
             ]
         );
 
@@ -197,5 +203,25 @@ class StokmasukController extends Controller
     {
         StokMasuk::find($id)->delete();
         return response()->json(['success' => 'Berhasil Dihapus']);
+    }
+
+    public function HtmlToPDF()
+    {
+        // dd($id);
+        $stokmasuk = StokMasuk::with('produk')->orderBy('tgl', 'asc')->get();
+        $qty = 0;
+        foreach ($stokmasuk as $data) {
+            $qty += $data->qty;
+        }
+        $qtynya = number_format($qty, 0, '', '.');
+        // dd($harganya);
+        $view = \View::make('StokMasukToPDF', compact('stokmasuk', 'qtynya'));
+        $html_content = $view->render();
+
+        PDF::SetTitle('Laporan Stok Masuk');
+        PDF::AddPage();
+        PDF::writeHTML($html_content, true, false, true, false, '');
+
+        PDF::Output('StokMasuk.pdf', 'I');
     }
 }

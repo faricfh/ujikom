@@ -36,9 +36,8 @@
                                         <i class="zmdi zmdi-lock"></i>
                                     </div>
                                     <a href="javascript:void(0)" id="create_account">create account</a>
-                                    <button id="btn-post">
-                                        Login
-                                        <i class="zmdi zmdi-arrow-right"></i>
+                                     <button id="btn-postFrontend">
+                                        Login<i class="zmdi zmdi-arrow-right"></i>
                                     </button>
                                 </form>
                                 <form id="formregister" style="display:none; width:auto;">

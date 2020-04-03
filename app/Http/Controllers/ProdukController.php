@@ -74,6 +74,13 @@ class ProdukController extends Controller
                     'harga' => 'required',
                     'foto' => 'required',
                     'berat' => 'required',
+                ],
+                [
+                    'nama.required' => 'Nama Produk harus diisi',
+                    'id_kategori.required' => 'Kategori harus dipilih',
+                    'harga.required' => 'Harga harus diisi',
+                    'foto.required' => 'Foto harus dipilih',
+                    'berat.required' => 'Berat harus diisi'
                 ]
             );
         } else {
@@ -83,6 +90,12 @@ class ProdukController extends Controller
                     'id_kategori' => 'required',
                     'harga' => 'required',
                     'berat' => 'required'
+                ],
+                [
+                    'nama.required' => 'Nama Produk harus diisi',
+                    'id_kategori.required' => 'Kategori harus dipilih',
+                    'harga.required' => 'Harga harus diisi',
+                    'berat.required' => 'Berat harus diisi'
                 ]
             );
         }

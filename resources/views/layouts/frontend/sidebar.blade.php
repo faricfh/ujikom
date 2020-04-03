@@ -12,6 +12,9 @@
     <nav class="amado-nav">
         <ul>
             <li class="active"><a href="{{ url('/') }}">Home</a></li>
+            @if (Auth::guard('customer')->check())
+            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+            @endif
             <li><a href="{{ url('/shop') }}">Shop</a></li>
             <li><a href="{{ url('/cart') }}">Cart</a></li>
             @if (Auth::guard('customer')->check())
@@ -47,7 +50,7 @@
         </div>
     @else
         <div class="cart-btn mt-100">
-            <a class="btn amado-btn w-100">
+            <a class="btn amado-btn w-100" id="login">
                 Login
             </a>
         </div>

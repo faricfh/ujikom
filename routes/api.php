@@ -21,3 +21,4 @@ Route::get('/', 'Api\FrontendController@index');
 Route::get('/shop', 'Api\FrontendController@shop');
 Route::get('/shop/{kategori}', 'Api\FrontendController@kategorishop');
 Route::get('/produk/{produk}', 'Api\FrontendController@produkdetail');
+Route::get('/cari', 'Api\FrontendController@cariproduk');

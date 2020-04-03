@@ -7,6 +7,7 @@
     var grabedurl = window.location.pathname;
     var url = "/api" + grabedurl;
     var tambahan = window.location.search;
+    // console.log(window.location);
 
     $.ajax({
         url: url,

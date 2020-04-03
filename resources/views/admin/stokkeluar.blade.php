@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Stok Masuk</h1>
+            <h1>Stok Keluar</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-              <li class="breadcrumb-item active">Stok Masuk</li>
+              <li class="breadcrumb-item active">Stok Keluar</li>
             </ol>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <a class="btn btn-primary" href="javascript:void(0)" id="tambahdata">
             Tambah Data
           </a>
-          <a href="{{ url('/admin/stokmasuk-to-pdf') }}" data-toggle="tooltip" target="_blank" class="btn btn-danger">PDF</a>
+          <a href="{{ url('/admin/stokkeluar-to-pdf') }}" data-toggle="tooltip" target="_blank" class="btn btn-danger">PDF</a>
           <br/>
           <br/>
           <table class="table table-bordered data-table" width="100%">
@@ -38,7 +38,7 @@
                   <th>Tanggal</th>
                   <th>Produk</th>
                   <th>Quantity</th>
-                  <th width="79">Opsi</th>
+                  <th width="71px">Opsi</th>
               </tr>
           </thead>
           <tbody>
@@ -69,7 +69,7 @@
             <div class="modal-body">
                 <!-- Form-->
                 <form id="form" name="form" class="form-horizontal" enctype="multipart/form-data">
-                    <input type="hidden" name="stokmasuk_id" id="stokmasuk_id">
+                    <input type="hidden" name="stokkeluar_id" id="stokkeluar_id">
                     <div class="row">
                         <div class="col-sm-4">
                             <label for="name" class="control-label">Tanggal</label>
@@ -140,7 +140,7 @@ $('#modal').on('hidden.bs.modal',function(){
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('admin/stokmasuk') }}",
+        ajax: "{{ url('admin/stokkeluar') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'tgl', name: 'tgl'},
@@ -154,7 +154,7 @@ $('#modal').on('hidden.bs.modal',function(){
         $('.modal-title').html('Tambah Data');
         $('#form').trigger("reset");
         $('#id_produk').trigger("reset");
-        $('#stokmasuk_id').val('');
+        $('#stokkeluar_id').val('');
         $('#modal').modal({backdrop: 'static', keyboard: false});
         $('#modal').modal('show');
         $('#tgl').on('change',function(){
@@ -177,16 +177,16 @@ $('#modal').on('hidden.bs.modal',function(){
 
     $('body').on('click','.edit',function(){
         var idStok = $(this).data('id');
-        $.get("{{ url('admin/stokmasuk') }}"+"/"+idStok+"/edit", function(data){
+        $.get("{{ url('admin/stokkeluar') }}"+"/"+idStok+"/edit", function(data){
             // console.log(data);
             $('.modal-title').html('Edit Data');
             $('#modal').modal({backdrop: 'static', keyboard: false});
             $('#modal').modal('show');
-            $('#stokmasuk_id').val(data.stokmasuk.id);
-            $('#tgl').val(data.stokmasuk.tgl);
+            $('#stokkeluar_id').val(data.stokkeluar.id);
+            $('#tgl').val(data.stokkeluar.tgl);
             $('#id_produk').html('');
             $('#id_produk').html(data.produk);
-            $('#qty').val(data.stokmasuk.qty);
+            $('#qty').val(data.stokkeluar.qty);
             $('#tgl').on('change',function(){
                 $('#error_tgl').css('display','none');
                 $('#tgl').removeClass('is-invalid');
@@ -220,7 +220,7 @@ $('#modal').on('hidden.bs.modal',function(){
             if (result.value) {
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ url('admin/stokmasuk-destroy') }}"+"/"+idStok,
+                    url: "{{ url('admin/stokkeluar-destroy') }}"+"/"+idStok,
                     success: function(data){
                         table.draw();
                     },
@@ -246,7 +246,7 @@ $('#modal').on('hidden.bs.modal',function(){
         var formdata = new FormData($('#form')[0]);
         $.ajax({
             data: formdata,
-            url: "{{ url('admin/stokmasuk-store') }}",
+            url: "{{ url('admin/stokkeluar-store') }}",
             type: "POST",
             cache:false,
             contentType: false,

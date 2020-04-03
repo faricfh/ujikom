@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
+Route::get('/search', 'FrontendController@search')->name('search');
+Route::get('/cari', 'FrontendController@cariproduk')->name('cariproduk');
+
 Route::get('/shop', 'FrontendController@shop');
 Route::get('/shop/{kategori}', 'FrontendController@kategorishop');
 
@@ -36,7 +39,11 @@ Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
 Route::post('/customerlogin', 'Ecommerce\LoginController@login');
 Route::post('/customerregister', 'Ecommerce\LoginController@register');
 
+Route::post('/kirim_pesan', 'ChatController@chat');
+Route::post('/kirim_akun', 'ChatController@akun');
+
 Route::group(['middleware' => 'customer'], function () {
+    Route::get('/dashboard', 'FrontendController@dashboard');
     Route::get('/checkout', 'Ecommerce\LoginController@checkout');
     Route::get('/logout', 'Ecommerce\LoginController@logout');
     Route::get('/provinsi/{id}/kota', 'Ecommerce\LoginController@getKota');
@@ -56,6 +63,10 @@ Route::group(['middleware' => 'customer'], function () {
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
+
+    Route::get('/chat', function () {
+        return view('admin.chat');
+    });
 
     Route::get('/user', 'UserController@index');
     Route::post('/user-store', 'UserController@store');
@@ -80,6 +91,13 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::post('/stokmasuk-store', 'StokmasukController@store');
     Route::get('/stokmasuk/{id}/edit', 'StokmasukController@edit');
     Route::delete('/stokmasuk-destroy/{id}', 'StokmasukController@destroy');
+    Route::get('/stokmasuk-to-pdf', ['as' => 'HtmlToPDF', 'uses' => 'StokmasukController@HtmlToPDF']);
+
+    Route::get('/stokkeluar', 'StokkeluarController@index');
+    Route::post('/stokkeluar-store', 'StokkeluarController@store');
+    Route::get('/stokkeluar/{id}/edit', 'StokkeluarController@edit');
+    Route::delete('/stokkeluar-destroy/{id}', 'StokkeluarController@destroy');
+    Route::get('/stokkeluar-to-pdf', ['as' => 'HtmlToPDF', 'uses' => 'StokkeluarController@HtmlToPDF']);
 
     Route::get('/order', 'OrderController@index');
     Route::get('/order/{id}/show', 'OrderController@show');

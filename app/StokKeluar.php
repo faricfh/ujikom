@@ -4,15 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends Model
+class StokKeluar extends Model
 {
-    protected $fillable = ['id_order', 'id_produk', 'harga', 'qty'];
+    protected $fillable = ['id_produk', 'qty', 'tgl'];
     public $timestamps = true;
-
-    public function order()
-    {
-        return $this->belongsTo('App\Order', 'id_order');
-    }
 
     public function produk()
     {

@@ -17,7 +17,8 @@
         "mckenziearts/laravel-notify": "^1.1",
         "santigarcor/laratrust": "^5.2",
         "veritrans/veritrans-php": "^1.2",
-        "yajra/laravel-datatables-oracle": "^9.8"
+        "yajra/laravel-datatables-oracle": "^9.8",
+        "elibyy/tcpdf-laravel": "6.0.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

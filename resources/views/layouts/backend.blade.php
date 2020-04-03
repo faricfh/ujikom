@@ -105,12 +105,13 @@
 <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 <!-- ckeditor -->
-<!-- <script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script> -->
+<script src="{{ asset('assets/backend/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/backend/ckeditor/js/sample.js') }}"></script>
 <!-- sweetalert2 -->
 <script src="{{ asset('assets/backend/sweetalert2/package/dist/sweetalert2.min.js') }}"></script>
 <script>
   $('.select2').select2();
+//   CKEDITOR.replace( 'deskripsi' );
 </script>
 <!-- <script>
     CKEDITOR.replace( 'editor1' );

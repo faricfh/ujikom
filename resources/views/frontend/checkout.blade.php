@@ -12,6 +12,7 @@
                     </div>
                     <div id="alertgagal"></div>
                     <form id="order">
+                        <input type="hidden" id="id_orderdetail" name="id_orderdetail">
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <input type="text" name="nama_customer" class="form-control" id="nama_customer" value="" placeholder="Nama Lengkap" autocomplete="off" required>
@@ -23,20 +24,24 @@
                                 <input type="email" name="email_customer" class="form-control" id="email_customer" placeholder="Email" value="" autocomplete="off" required>
                             </div>
                             {{-- --------------- --}}
-                            <div class="col-md-6 mb-3">
-                                <label for="">Provinsi Asal</label>
-                                <select class="w-100" name="provinsi_asal" id="provinsi_asal">
-                                    <option selected disabled>--Provinsi Asal--</option>
-                                    @foreach($provinsi as $provinsis => $value)
-                                        <option value="{{ $provinsis }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="">Kota Asal</label>
-                                <select class="w-100" name="kota_asal" id="kota_asal">
-                                   <option value="kota_asal" selected disabled>--Kota Asal--</option>
-                                </select>
+                            <div hidden>
+                                <div class="col-md-6 mb-3">
+                                    <label for="">Provinsi Asal</label>
+                                    <select class="w-100" name="provinsi_asal" id="provinsi_asal">
+                                        <option selected disabled>--Provinsi Asal--</option>
+                                        @foreach($provinsi as $provinsis => $value)
+                                            <option value="{{ $provinsis }}" {{ ($provinsis == 9 ? "selected" : "") }} readonly>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="">Kota Asal</label>
+                                    <select class="w-100" name="kota_asal" id="kota_asal">
+                                        @foreach($kota as $kotas => $value)
+                                            <option value="{{ $kotas }}" {{ ($kotas == 23 ? "selected" : "")  }} readonly>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="">Provinsi Tujuan</label>
@@ -200,17 +205,20 @@
             phone_customer: $('#phone_customer').val(),
             email_customer: $('#email_customer').val(),
             alamat_customer: $('#alamat_customer').val(),
+            id_orderdetail: $('#id_orderdetail').val(),
             ongkir: $('#ongkir').val(),
         },
         function (data, status) {
             snap.pay(data.snap_token, {
                 // Optional
                 onSuccess: function (result) {
-                    location.reload();
+                    window.location.href = "/dashboard";
+                    // location.reload();
                 },
                 // Optional
                 onPending: function (result) {
-                    location.reload();
+                    window.location.href = "/dashboard";
+                    // location.reload();
                 },
                 // Optional
                 onError: function (result) {

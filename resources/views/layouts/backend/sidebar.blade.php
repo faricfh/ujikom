@@ -51,8 +51,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/stokmasuk') }}" class="nav-link">
-                    <i class="nav-icon fas fa-cube"></i>
+                    <i class="nav-icon fas fa-cube" style="color:yellow"></i>
                     <p>Stok Masuk</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/stokkeluar') }}" class="nav-link">
+                    <i class="nav-icon fas fa-cube" style="color:red"></i>
+                    <p>Stok Keluar</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -61,6 +67,12 @@
                     <p>Order</p>
                     </a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a href="{{ url('admin/chat') }}" class="nav-link">
+                    <i class="nav-icon fas fa-phone" style="color:green"></i>
+                    <p>Chat</p>
+                    </a>
+                </li> --}}
             </ul>
           </li>
         </ul>

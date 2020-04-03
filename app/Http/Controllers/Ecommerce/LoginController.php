@@ -89,13 +89,14 @@ class LoginController extends Controller
 
         $kurir = Kurir::pluck('nama', 'kode');
         $provinsi = Provinsi::pluck('nama', 'id_provinsi');
+        $kota = Kota::pluck('nama', 'id_kota');
 
         $berat = collect($carts)->sum(function ($q) {
-            return $q['qty'] * $q['berat_produk']; //SUBTOTAL TERDIRI DARI QTY * PRICE
+            return $q['qty'] * $q['berat_produk'];
         });
 
         //LOAD VIEW CART.BLADE.PHP DAN PASSING DATA CARTS DAN SUBTOTAL
-        return view('frontend.checkout', compact('subtotal', 'kurir', 'provinsi', 'berat'));
+        return view('frontend.checkout', compact('subtotal', 'kurir', 'provinsi', 'berat', 'kota'));
     }
 
     public function getKota($id)

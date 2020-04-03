@@ -72,4 +72,19 @@ class FrontendController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function cariproduk(Request $request)
+    {
+        $produk = Produk::where('nama', "LIKE", "%{$request->input('produk')}%")->paginate(6);
+        $kategoris = Kategori::all();
+        $response = [
+            'success' => true,
+            'data' => [
+                'kategori' => $kategoris,
+                'produk' => $produk
+            ],
+            'message' => 'Berhasil'
+        ];
+        return response()->json($response, 200);
+    }
 }

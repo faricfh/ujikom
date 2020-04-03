@@ -146,7 +146,7 @@
             $('#show-subtotal').html(data.order.subtotal);
             $.each(data.order_detail,function(key,value){
                 console.log(value);
-                $('#show-produk').append(value.nama_produk+' <b>x'+value.qty+'</b><br>');
+                $('#show-produk').append(value.produk.nama+' <b>x'+value.qty+'</b><br>');
             });
         });
     });

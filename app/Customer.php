@@ -16,4 +16,9 @@ class Customer extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function order()
+    {
+        return $this->hasMany('App\Order', 'id_customer');
+    }
 }

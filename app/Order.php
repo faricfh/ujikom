@@ -9,6 +9,16 @@ class Order extends Model
     protected $fillable = ['invoice', 'id_customer', 'nama_customer', 'phone_customer', 'alamat_customer', 'subtotal'];
     public $timestamps = true;
 
+    public function customer()
+    {
+        return $this->belongsTo('App\Order', 'id_customer');
+    }
+
+    public function orderdetail()
+    {
+        return $this->hasMany('App\OrderDetail', 'id_order');
+    }
+
     /**
      * Set status to Pending
      *

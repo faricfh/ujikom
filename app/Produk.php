@@ -19,6 +19,11 @@ class Produk extends Model
         return $this->hasMany('App\StokMasuk', 'id_produk');
     }
 
+    public function orderdetail()
+    {
+        return $this->hasMany('App\OrderDetail', 'id_produk');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

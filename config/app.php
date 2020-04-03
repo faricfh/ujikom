@@ -164,6 +164,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+        Elibyy\TCPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
 
     ],
