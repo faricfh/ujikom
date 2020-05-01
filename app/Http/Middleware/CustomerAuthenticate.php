@@ -19,7 +19,7 @@ class CustomerAuthenticate
         if (!auth()->guard('customer')->check()) {
             //MAKA REDIRECT KE HALAMAN LOGIN
             // return redirect(route('customer.login'));
-            return redirect()->back()->with(['error' => 'Email / Password Salah', 500]);
+            return redirect()->back()->with(['error' => 'Email / Password Salah']);
         }
         //JIKA SUDAH MAKA REQUEST YANG DIMINTA AKAN DISEDIAKAN
         return $next($request);

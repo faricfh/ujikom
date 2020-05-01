@@ -81,7 +81,7 @@ $.ajax({
                                 </div>
                             </div>
                             <!-- Avaiable -->
-                            <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                            <p class="avaibility"><i class="fa fa-circle"></i> Stok : ${get.data.stok}</p>
                         </div>
 
                         <div class="short_overview my-5">

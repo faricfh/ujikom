@@ -14,7 +14,7 @@
     <title>FShop</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{ asset('assets/frontend/img/core-img/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/frontend/img/logo-fshop-ico.ico') }}">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/core-style.css') }}">
@@ -51,7 +51,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="{{ asset('assets/frontend/img/core-img/logo.png') }}" alt=""></a>
+                <a href="/"><img src="{{ asset('assets/frontend/img/logo-fshop3.png') }}" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -77,10 +77,12 @@
                 <div class="col-12 col-lg-4">
                     <div class="single_widget_area">
                         <!-- Logo -->
-                        <div class="footer-logo mr-50">
-                            <!-- <a href="index.html"><img src="{{ asset('assets/frontend/img/core-img/logo2.png') }}" alt=""></a> -->
-                            <h1 style="color:white">FShop</h1>
-                        </div>
+                        {{-- <div class="footer-logo mr-50"> --}}
+                            <a href="index.html"><img src="{{ asset('assets/frontend/img/logo-fshop.jpg') }}" style="height: 100px"></a>
+                            {{-- <h1 style="color:white">FShop</h1> --}}
+                        {{-- </div> --}}
+                        <p class="copywrite">+ Alamat: Jl Cibaduyut</p>
+                        <p class="copywrite">+ Kontak: faricfathianhidayah@gmail.com</p>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -114,62 +116,6 @@
             </div>
         </div>
     </footer>
-
-    {{-- <div class="fabs">
-        <div class="chat">
-            <div class="chat_header">
-                <div class="chat_option">
-                    <div class="header_img">
-                        <img src="{{ asset('assets/frontend/img/chat/user_awesome.png') }}"/>
-                    </div>
-                    <span id="chat_head">FShop</span> <br> <span class="agent">Admin</span> <span class="online">(Online)</span>
-                    <span id="chat_fullscreen_loader" class="chat_fullscreen_loader"><i class="fullscreen zmdi zmdi-window-maximize"></i></span>
-                </div>
-            </div>
-            <div class="chat_body chat_login">
-                <br>
-                <form id="form_akun">
-                    <input type="hidden" name="id_chat">
-                    <input type="text" name="nama" id="nama" class="form-controll" placeholder="Masukan Nama" autocomplete="off">
-                    <br><br>
-                    <input type="text" name="email" id="email" class="form-controll" placeholder="Masukan Emai" autocomplete="off">
-                    <br><br>
-                </form>
-                <a href="javascript:void(0)" id="chat_first_screen">Buat</i></a>
-            </div>
-            <div id="chat_converse" class="chat_conversion chat_converse">
-
-                <span class="chat_msg_item chat_msg_item_admin">
-                    <div class="chat_avatar">
-                        <img src="asset('assets/frontend/img/chat/user_awesome.png')"/>
-                    </div>Hai! Ada yang bisa kami bantu?
-                </span>
-
-
-
-                <span class="chat_msg_item chat_msg_item_user" id="pesan1">Hello!</span>
-
-
-                <span class="status">20m ago</span>
-                <span class="chat_msg_item chat_msg_item_admin">
-                    <div class="chat_avatar">
-                        <img src=" asset('assets/frontend/img/chat/user_awesome.png')"/>
-                    </div>Hey! Would you like to talk sales, support, or anyone?
-                </span>
-                <span class="chat_msg_item chat_msg_item_user" id="pesan1">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-            </div>
-            <div class="fab_field">
-                <i id="fab_camera" class="fab"><i class="zmdi zmdi-camera"></i></i>
-                <a id="fab_send" class="fab" style="display:none;"><i class="zmdi zmdi-mail-send"></i></a>
-                <form id="form_pesan">
-                    <input type="hidden" name="id_pesan" id="id_pesan" value="">
-                    <input type="hidden" name="id_customer" id="id_customer" value="">
-                    <textarea id="chatSend" name="pesan" placeholder="Send a message" class="chat_field chat_message"></textarea>
-                </form>
-            </div>
-        </div>
-        <a id="prime" class="fab"><i class="prime zmdi zmdi-comment-outline"></i></a>
-    </div> --}}
     @php
         $data =  Auth::guard('customer')->check();
         if($data == false){
@@ -216,6 +162,11 @@
             }
         });
 
+        $('#login').on('click',function(e){
+            e.preventDefault();
+
+            $('#modal2').show();
+        });
 
         // register
         $('#btn-post2').click(function (e) {

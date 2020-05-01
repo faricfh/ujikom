@@ -23,7 +23,6 @@ class OrderController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Show" class="btn btn-success btn-sm show"><i class="nav-icon fas fa-eye" style="color:white"></i></a>';
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-warning btn-sm edit"><i class="nav-icon fas fa-pen" style="color:white"></i></a>';
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm hapus"><i class="nav-icon fas fa-trash" style="width:15px"></i></a>';
 
                     return $btn;
@@ -44,5 +43,12 @@ class OrderController extends Controller
             'order_detail' => $order_detail
         ];
         return response()->json($response);
+    }
+
+    public function destroy($id)
+    {
+        Order::find($id)->delete();
+        OrderDetail::where('id_order', $id)->delete();
+        return response()->json(['success' => 'Berhasil Dihapus']);
     }
 }

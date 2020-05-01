@@ -6,12 +6,12 @@
     </div>
     <!-- Logo -->
     <div class="logo">
-        <h1>FShop</h1>
+        <img src="{{ asset('assets/frontend/img/logo-fshop3.png') }}" alt="">
     </div>
     <!-- Amado Nav -->
     <nav class="amado-nav">
         <ul>
-            <li class="active"><a href="{{ url('/') }}">Home</a></li>
+            <li><a href="{{ url('/') }}">Home</a></li>
             @if (Auth::guard('customer')->check())
             <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
             @endif
@@ -47,12 +47,6 @@
             <form id="logout-form-customer" action="{{ url('/logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-        </div>
-    @else
-        <div class="cart-btn mt-100">
-            <a class="btn amado-btn w-100" id="login">
-                Login
-            </a>
         </div>
     @endif
 </header>

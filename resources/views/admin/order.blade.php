@@ -35,10 +35,12 @@
                 <tr>
                     <th width="10px">No</th>
                     <th>Nama Customer</th>
+                    <th>Provinsi</th>
+                    <th>Kota</th>
                     <th>Alamat</th>
                     <th>Subtotal</th>
                     <th>Status</th>
-                    <th width="120px">Opsi</th>
+                    <th width="90px">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,7 +70,7 @@
             <div class="modal-body">
                 <!-- Form-->
                 <form id="form" name="form" class="form-horizontal">
-                    <input type="hidden" name="kategori_id" id="kategori_id">
+                    <input type="hidden" name="order_id" id="order_id">
                      <div id="form-edit">
                         <div class="form-group">
                             <div class="col-lg-12">
@@ -83,10 +85,13 @@
                         <div class="form-group">
                             <div class="row">Customer      :&nbsp; <p id="show-nama"></p></div>
                             <div class="row">No Hp         :&nbsp; <p id="show-noTlp"></p></div>
+                            <div class="row">Provinsi      :&nbsp; <p id="show-provinsi"></p></div>
+                            <div class="row">Kota          :&nbsp; <p id="show-kota"></p></div>
                             <div class="row">Alamat        :&nbsp; <p id="show-alamat"></p></div>
                             <div class="row">Subtotal      :&nbsp; <p id="show-subtotal"></p></div>
-                            -----------------------------------------------------------------------
-                            Produk
+                            <div class="row">Status        :&nbsp; <p id="show-status"></p></div>
+                            -----------------------------------------------------------------------<br>
+                            Daftar Produk :
                             <p id="show-produk"></p>
                         </p>
                     </div>
@@ -125,6 +130,8 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nama_customer', name: 'nama_customer'},
+            {data: 'provinsi', name: 'provinsi'},
+            {data: 'kota', name: 'kota'},
             {data: 'alamat_customer', name: 'alamat_customer'},
             {data: 'subtotal', name: 'subtotal'},
             {data: 'status', name: 'status'},
@@ -144,11 +151,48 @@
             $('#show-noTlp').html(data.order.phone_customer);
             $('#show-alamat').html(data.order.alamat_customer);
             $('#show-subtotal').html(data.order.subtotal);
+            $('#show-provinsi').html(data.order.provinsi);
+            $('#show-kota').html(data.order.kota);
+            $('#show-status').html(data.order.status);
             $.each(data.order_detail,function(key,value){
                 console.log(value);
-                $('#show-produk').append(value.produk.nama+' <b>x'+value.qty+'</b><br>');
+                $('#show-produk').append('+'+value.produk.nama+' <b>x'+value.qty+'</b><br>');
             });
         });
+    });
+
+    $('body').on('click','.hapus', function(){
+        var idOrder = $(this).data('id');
+        Swal.fire({
+            title: 'Apakah kamu yakin ingin menghapus ini?',
+            // text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ url('admin/order-destroy') }}"+"/"+idOrder,
+                    success: function(data){
+                        table.draw();
+                    },
+                    error: function(request, status, error) {
+                        console.log(error);
+                    }
+                });
+                Swal.fire({
+                    title: 'Terhapus!',
+                    text: 'Berhasil dihapus',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
+        })
     });
 });
 

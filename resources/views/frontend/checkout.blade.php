@@ -100,9 +100,9 @@
                             <div class="col-md-6 mb-3">
                                 <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" value="">
                             </div> -->
-                            <div class="col-12 mb-3">
+                            {{-- <div class="col-12 mb-3">
                                 <textarea name="pesan" class="form-control w-100" id="pesan" cols="30" rows="10" placeholder="Pesan (Opsi)"></textarea>
-                            </div>
+                            </div> --}}
 
                             <!-- <div class="col-12">
                                 <div class="custom-control custom-checkbox d-block mb-2">
@@ -204,6 +204,8 @@
             nama_customer: $('#nama_customer').val(),
             phone_customer: $('#phone_customer').val(),
             email_customer: $('#email_customer').val(),
+            provinsi_tujuan: $('#provinsi_tujuan').val(),
+            kota_tujuan: $('#kota_tujuan').val(),
             alamat_customer: $('#alamat_customer').val(),
             id_orderdetail: $('#id_orderdetail').val(),
             ongkir: $('#ongkir').val(),

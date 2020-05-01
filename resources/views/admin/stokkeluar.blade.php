@@ -209,13 +209,14 @@ $('#modal').on('hidden.bs.modal',function(){
     $('body').on('click','.hapus', function(){
         var idStok = $(this).data('id');
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Apakah kamu yakin ingin menghapus ini?',
+            // text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
             }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -229,8 +230,8 @@ $('#modal').on('hidden.bs.modal',function(){
                     }
                 });
                 Swal.fire({
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
+                    title: 'Terhapus!',
+                    text: 'Berhasil dihapus',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1000

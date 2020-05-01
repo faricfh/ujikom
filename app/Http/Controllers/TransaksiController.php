@@ -15,6 +15,8 @@ use Cookie;
 use App\StokKeluar;
 use DB;
 use Auth;
+use App\Kota;
+use App\Provinsi;
 
 class TransaksiController extends Controller
 {
@@ -43,12 +45,17 @@ class TransaksiController extends Controller
         \DB::transaction(function () {
             //get data cart
             $carts = $this->getCarts();
+
+            $kota = Kota::where('id_kota', $this->request->kota_tujuan)->pluck('nama');
+            $provinsi = Provinsi::where('id_provinsi', $this->request->provinsi_tujuan)->pluck('nama');
             // Save order ke database
             $order = Order::create([
                 'id_customer' => Auth::guard('customer')->id(),
                 'nama_customer' => $this->request->nama_customer,
                 'phone_customer' => $this->request->phone_customer,
                 'alamat_customer' => $this->request->alamat_customer,
+                'provinsi' => $provinsi[0],
+                'kota' => $kota[0],
                 'subtotal' => floatval($this->request->subtotal),
             ]);
 

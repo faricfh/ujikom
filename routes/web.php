@@ -39,9 +39,6 @@ Route::post('/formcart-update', 'Ecommerce\CartController@updateCart');
 Route::post('/customerlogin', 'Ecommerce\LoginController@login');
 Route::post('/customerregister', 'Ecommerce\LoginController@register');
 
-Route::post('/kirim_pesan', 'ChatController@chat');
-Route::post('/kirim_akun', 'ChatController@akun');
-
 Route::group(['middleware' => 'customer'], function () {
     Route::get('/dashboard', 'FrontendController@dashboard');
     Route::get('/checkout', 'Ecommerce\LoginController@checkout');
@@ -63,10 +60,6 @@ Route::group(['middleware' => 'customer'], function () {
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
-
-    Route::get('/chat', function () {
-        return view('admin.chat');
-    });
 
     Route::get('/user', 'UserController@index');
     Route::post('/user-store', 'UserController@store');
@@ -101,6 +94,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth']], function () {
 
     Route::get('/order', 'OrderController@index');
     Route::get('/order/{id}/show', 'OrderController@show');
+    Route::get('/order/{id}/edit', 'OrderController@show');
+    Route::delete('/order-destroy/{id}', 'OrderController@destroy');
 });
 
 Auth::routes();

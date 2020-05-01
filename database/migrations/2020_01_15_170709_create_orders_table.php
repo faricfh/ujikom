@@ -20,6 +20,8 @@ class CreateOrdersTable extends Migration
             $table->string('nama_customer');
             $table->string('phone_customer');
             $table->string('alamat_customer');
+            $table->string('provinsi');
+            $table->string('kota');
             $table->integer('subtotal');
             $table->string('status')->default('pending');
             $table->string('snap_token')->nullable();
